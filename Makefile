@@ -3,17 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+         #
+#    By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/19 14:16:52 by mamesser          #+#    #+#              #
-#    Updated: 2023/09/19 14:17:51 by mamesser         ###   ########.fr        #
+#    Updated: 2023/09/21 16:10:39 by valmpani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub
 
-CFLAGS = -Wall -Wextra -Werror
-
+CFLAGS = -Wall -Wextra
 MLXFLAGS = -L/usr/X11/lib -lX11 -lXext -lm
 
 SRCS_DIR = ./srcs/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/20 16:08:13 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:10:10 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,29 +142,46 @@ int	ft_draw_map(t_vars *vars)
 			x++;	
 		}
 	}
-
-	
 	return (0);
 }
 
-
-int	main(void)
+void	set_floor_ceil(t_vars **vars)
 {
-	t_vars	vars;
-	// create a 2D int array (this will later be created from the parsed .cub map)
-	
-	// init mlx and creating the display/window
-	vars.mlx = mlx_init();
-	if (!vars.mlx)
-		return (1);
-	vars.win = mlx_new_window(vars.mlx, 640, 480, "Title");
-	if (!vars.win)
-		return (free(vars.mlx), 1);
-	mlx_hook(vars.win, 12, 1L << 15, ft_draw_map, &vars);
-	mlx_hook(vars.win, 17, 0L, ft_close, &vars);
-	mlx_loop(vars.mlx);
-	
-	
+	int	i;
+	int	j;
 
-	
+	i = -1;
+	while (++i < 2)
+	{
+		j = -1;
+		while (++j < 3)
+			(*vars)->floor_ceiling[i][j] = -1;
+	}
+}
+
+t_vars	*init_vars(void)
+{
+	t_vars	*vars;
+
+	vars = ft_calloc(sizeof(t_vars), 1);
+	if (!vars)
+		return (NULL);
+	set_floor_ceil(&vars);
+	return (vars);
+}
+
+int	main(int argc, char **argv)
+{
+	t_vars	*vars;
+
+	if (argc > 2)
+		return (printf("Incorrect number of arguments\n"), 1);
+	vars = init_vars();
+	if (!vars)
+		return (1);
+	// create a 2D int array (this will later be created from the parsed .cub map)
+	// init mlx and creating the display/window
+	if (parse(&vars, argv[1]))
+		return (free(vars), 1);
+	return (0);
 }
