@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/19 17:22:02 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/20 16:08:13 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	ft_draw_map(t_vars *vars)
 	(void)viewY;
 	
 	// camera plane position
-	double	planeY = 0.66; // --> this determines how wide the FOV is (toegther with viewX or rather viewY)
+	double	planeY = 0.66; // --> this determines how wide the FOV is (together with viewX or viewY respectively)
 	double planeX = 0; // b/c viewX != 0 and viewY == 0; otherwise would not be perpendicular
 	
 	// game loop
@@ -71,7 +71,7 @@ int	ft_draw_map(t_vars *vars)
 		while (x < 24)
 		{
 			// calc ray position and direction
-			double cameraX = 2 * x / 24 - 1; // "normalizing" the FOV; for traversing the camera plane with increasing x
+			double cameraX = 2 * x / 24 - 1; // for traversing the camera plane with increasing x / basically casting a new ray for every new x
 			double rayX = viewX + planeX * cameraX;
 			double rayY = viewY + planeY * cameraX;
 
@@ -79,11 +79,11 @@ int	ft_draw_map(t_vars *vars)
 			int mapX = (int)playerX;
 			int mapY = (int)playerY;
 
-			// length of ray from the current ray position to the next side/line of the raster; required for DDA
+			// length of ray from the initial position to the next side/line of the raster; required for DDA
 			double sideDistX;
 			double sideDistY;
 			
-			// how do these calcs exactly work?
+			// size of increments from one x-side/y-side to the next x-side/y-side; simplified pythagoras and making the assumption that only the *ratio* between deltaDistX and deltaDistY matters for the DDA
 			double lenRayX = 1 / rayX; // make sure to not divide by zero?
 			if (lenRayX < 0)
 				lenRayX *= -1;
@@ -102,7 +102,7 @@ int	ft_draw_map(t_vars *vars)
 			// calc next step
 			if (rayX < 0)
 			{
-				step = -1;
+				stepX = -1;
 				sideDistX = (playerX - mapX) * lenRayX;
 			}
 			else
@@ -128,13 +128,13 @@ int	ft_draw_map(t_vars *vars)
 				{
 					sideDistX += lenRayX;
 					mapX += stepX;
-					side = 0;
+					side = 0; // to check which side has been hit (NS or EW?)
 				}
 				else
 				{
 					sideDistY += lenRayY;
 					mapY += stepY;
-					side = 1;
+					side = 1; // to check which side has been hit (NS or EW?)
 				}
 				if (map[mapY][mapX] > 0) // check for hit
 					hit = 1;
