@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/21 15:52:41 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:13:31 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	find_ceiling_floor(t_vars **vars, char **buf, int *ceil_floor_flag);
 int	find_textures(t_vars **vars, char *buf, int *text_flag, int *c_f_flag);
 
 // UTILS
-void	set_char(char **buf, char c);
+char	*set_char(char *buf, char c);
 
 
 #endif

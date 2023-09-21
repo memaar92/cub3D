@@ -6,20 +6,25 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:11:34 by valmpani          #+#    #+#             */
-/*   Updated: 2023/09/21 15:49:43 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:18:30 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
 
-void	set_char(char **buf, char c)
+char	*set_char(char *buf, char c)
 {
-	int	i;
+	int		i;
+	char	*final;
 
 	i = -1;
-	while ((*buf)[++i])
+	final = ft_calloc(sizeof(char), ft_strlen(buf));
+	while (buf[++i])
 	{
-		if (ft_isspace((*buf)[i]) || (*buf)[i] == c)
-			(*buf)[i] = ' ';
+		if (ft_isspace(buf[i]) || buf[i] == c)
+			final[i] = ' ';
+		else
+			final[i] = buf[i];
 	}
+	return (final);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+         #
+#    By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/15 11:52:07 by mamesser          #+#    #+#              #
-#    Updated: 2023/07/22 15:39:28 by mamesser         ###   ########.fr        #
+#    Updated: 2023/09/21 16:50:01 by valmpani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS = \
 		ft_strrchr.c ft_strncmp.c ft_memchr.c ft_memcmp.c ft_strnstr.c \
 		ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c \
 		ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c \
-		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c
+		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_isspace.c \
 
 BONUS_SRCS = \
 		ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \

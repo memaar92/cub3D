@@ -6,18 +6,18 @@
 #    By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/19 14:16:52 by mamesser          #+#    #+#              #
-#    Updated: 2023/09/21 16:10:39 by valmpani         ###   ########.fr        #
+#    Updated: 2023/09/21 17:09:41 by valmpani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub
 
-CFLAGS = -Wall -Wextra
-MLXFLAGS = -L/usr/X11/lib -lX11 -lXext -lm
+CFLAGS = -Wall -Wextra 
+# MLXFLAGS = -L/Users/valmpani/homebrew/opt/libxext/lib -lX11 -lXext -lm
 
 SRCS_DIR = ./srcs/
 
-SRCS := $(addprefix $(SRCS_DIR),raycaster.c)
+SRCS := $(addprefix $(SRCS_DIR),raycaster.c parser.c utils.c)
 
 LIBFT_DIR = ./libft
 
@@ -35,8 +35,8 @@ HEADERS = cub.h
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(MLXLIB) $(LIBFT)
-	cc $(MLXFLAGS) $(MLXLIB) $(LIBFT) $(OBJS) -o $@
+$(NAME): $(OBJS) $(LIBFT)
+	cc $(MLXFLAGS) $(LIBFT) $(OBJS) $(CFLAGS) -o $@
 
 $(LIBFT):
 	$(MAKE) bonus -C $(LIBFT_DIR)
