@@ -6,13 +6,13 @@
 #    By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/19 14:16:52 by mamesser          #+#    #+#              #
-#    Updated: 2023/09/21 17:09:41 by valmpani         ###   ########.fr        #
+#    Updated: 2023/09/22 09:44:20 by valmpani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub
 
-CFLAGS = -Wall -Wextra 
+CFLAGS = -Wall -Wextra -g
 # MLXFLAGS = -L/Users/valmpani/homebrew/opt/libxext/lib -lX11 -lXext -lm
 
 SRCS_DIR = ./srcs/

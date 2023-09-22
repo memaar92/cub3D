@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:12:01 by valmpani          #+#    #+#             */
-/*   Updated: 2023/09/21 17:19:26 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/22 09:38:36 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	parse(t_vars **vars, char *filename)
 {
 	int		fd;
 	char	*buf;
+	char	*temp;
 	int		text_flag;
 	int		ceil_floor_flag;
 
@@ -85,10 +86,11 @@ int	parse(t_vars **vars, char *filename)
 	while (!ceil_floor_flag)
 	{
 		buf = get_next_line(fd);
-		buf = set_char(buf, ' ');
-		if (find_textures(vars, buf, &text_flag, &ceil_floor_flag))
-			return (free(buf), close(fd), 1);
-		free(buf);
+		// printf("%s\n", buf);
+		temp = set_char(buf, ' ');
+		// if (find_textures(vars, buf, &text_flag, &ceil_floor_flag))
+		// 	return (free(buf), close(fd), 1);
+		// free(buf);
 	}
 	return (0);
 }

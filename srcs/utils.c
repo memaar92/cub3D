@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:11:34 by valmpani          #+#    #+#             */
-/*   Updated: 2023/09/21 17:18:30 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/22 09:45:49 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 
 char	*set_char(char *buf, char c)
 {
-	int		i;
-	char	*final;
+	int	i;
 
-	i = -1;
-	final = ft_calloc(sizeof(char), ft_strlen(buf));
-	while (buf[++i])
+	i = 0;
+	if (!buf)
+		return (NULL);
+	while (buf[i] != '\n' && buf[i] != '\0')
 	{
-		if (ft_isspace(buf[i]) || buf[i] == c)
-			final[i] = ' ';
-		else
-			final[i] = buf[i];
+		printf("%c", buf[i]);
+		i++;
 	}
-	return (final);
+	printf("\n");
+	return (NULL);
 }

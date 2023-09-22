@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/cub",
-            "args": ["hello.cub"],
+            "args": ["hello"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
