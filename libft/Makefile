@@ -45,21 +45,21 @@ HEADERS = libft.h ./gnl/get_next_line_bonus.h
 all: $(NAME)
 
 $(NAME): $(OBJS) $(GNL_OBJS)
-	ar rcs $@ $^
+	@ar rcs $@ $^
 
 bonus: $(BONUS_OBJS) $(OBJS) $(GNL_OBJS)
-	ar rcs $(NAME) $^
+	@ar rcs $(NAME) $^
 
 %.o: %.c $(HEADERS)
-	cc $(CFLAGS) -I . -c $< -o $@
+	@cc $(CFLAGS) -I . -c $< -o $@
 
 $(GNL_DIR)%.o: $(GNL_DIR)%.c $(HEADERS)
-	cc $(CFLAGS) -I . -c $< -o $@
+	@cc $(CFLAGS) -I . -c $< -o $@
 
 clean:
-	rm -f $(OBJS) $(BONUS_OBJS) $(GNL_OBJS)
+	@rm -f $(OBJS) $(BONUS_OBJS) $(GNL_OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all

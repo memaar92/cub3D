@@ -1,23 +1,12 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/09/19 14:16:52 by mamesser          #+#    #+#              #
-#    Updated: 2023/09/22 09:44:20 by valmpani         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = cub
 
-CFLAGS = -Wall -Wextra -fsanitize=address
-MLXFLAGS = -L/Users/valmpani/homebrew/opt/libxext/lib -lXext -lm
+CFLAGS = -Wall -Wextra -Wextra -g
+
+MLXFLAGS = -L/usr/X11/lib -lX11 -lXext -lm
 
 SRCS_DIR = ./srcs/
 
-SRCS := $(addprefix $(SRCS_DIR),raycaster.c parser.c utils.c)
+SRCS := $(addprefix $(SRCS_DIR),raycaster.c utils.c parser.c parser2.c init.c)
 
 LIBFT_DIR = ./libft
 
@@ -35,26 +24,26 @@ HEADERS = cub.h
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT)
-	cc $(MLXFLAGS) $(LIBFT) $(OBJS) $(CFLAGS) -o $@
+$(NAME): $(OBJS) $(MLXLIB) $(LIBFT)
+	@cc $(MLXFLAGS) $(MLXLIB) $(CFLAGS) $(LIBFT) $(OBJS) -o $@
 
 $(LIBFT):
-	$(MAKE) bonus -C $(LIBFT_DIR)
+	@$(MAKE) bonus -C $(LIBFT_DIR)
 
 $(MLXLIB):
-	$(MAKE) -C $(MLXLIB_DIR)
+	@$(MAKE) -C $(MLXLIB_DIR)
 
 $(SRCS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS)
-	cc $(CFLAGS) -I. -c $< -o $@
+	@cc $(CFLAGS) -I. -c $< -o $@
 
 bonus: all
 
 clean:
-	$(MAKE) clean -C $(LIBFT_DIR)
-	rm -f $(OBJS) 
+	@$(MAKE) clean -C $(LIBFT_DIR)
+	@rm -f $(OBJS)
 
 fclean: clean
-	$(MAKE) fclean -C $(LIBFT_DIR)
-	rm -f $(NAME)
+	@$(MAKE) fclean -C $(LIBFT_DIR)
+	@rm -f $(NAME)
 
 re: fclean all

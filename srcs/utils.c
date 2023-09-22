@@ -66,4 +66,8 @@ void	print_parser(t_vars *vars)
 			printf("%d\n", vars->floor_ceiling[i][j]);
 		}
 	}
+	printf("SO %s\n", vars->textures[SO]);
+	printf("NO %s\n", vars->textures[NO]);
+	printf("WE %s\n", vars->textures[WE]);
+	printf("EA %s\n", vars->textures[EA]);
 }

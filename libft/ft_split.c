@@ -35,7 +35,7 @@ static int	count_words(char const *s, char c)
 	return (words);
 }
 
-static void	*free_mem(char **ret)
+void	*free_mem(char **ret)
 {
 	int	i;
 
