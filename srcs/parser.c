@@ -27,8 +27,11 @@ int	find_paths(t_vars **vars, char **elements)
 		texture = WE;
 	else
 		texture = EA;
-//	if (access(elements[1], O_RDONLY) == -1)
-//		return (printf("Error: Please provide valid texture paths.\n"), 1);
+//	if (open(elements[1], O_RDONLY) == -1)
+//		printf("not opening\n");
+	printf("%s\n", elements[1]);
+	if (access(elements[1], F_OK) == -1)
+		return (printf("Error: Please provide valid texture paths.\n"), 1);
 	if ((*vars)->textures[texture][0])
 		return (printf("Error: Please provide the correct texture info.\n"), 1);
 	free((*vars)->textures[texture]);
@@ -61,6 +64,7 @@ int is_first_line(char *buf)
 	int	i;
 
 	i = -1;
+	if (buf[0])
 	while (buf[++i])
 	{
 		if (buf[i] != '1' && !ft_isspace(buf[i]))
@@ -82,9 +86,9 @@ char	*parse(t_vars **vars, char *filename)
 	buf = get_next_line(fd);
 	while (buf && !is_first_line(buf))
 	{
-		if (buf && buf[0] != '\n')
+		if (buf[0] != '\n')
 		{
-			set_char(&buf, ',');
+			set_char(&buf, ' ');
 			if (find_textures(vars, &buf))
 				return (free(buf), close(fd), NULL);
 		}

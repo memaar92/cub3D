@@ -1,9 +1,10 @@
+
 F 255,0 , 0
 C 255 255 255
 
-SO hello
-WE hello
-NO hello
-EA out
+SO out
+WE out
+NO out
+EA hello
 
 111111111
