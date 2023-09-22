@@ -12,7 +12,7 @@
 
 #include "../includes/cub.h"
 
-int	find_textures(t_vars **vars, char **buf, int *text_flag, int *c_f_flag)
+int	find_textures(t_vars **vars, char **buf)
 {
 	char	**elements;
 
@@ -23,26 +23,26 @@ int	find_textures(t_vars **vars, char **buf, int *text_flag, int *c_f_flag)
 	elements = ft_split(*buf, ' ');
 	if (!elements)
 		return (printf("split\n"), 1);
-	if (check_floor_ceil(vars, elements, c_f_flag))
+	if (check_floor_ceil(vars, elements))
 		return (free_mem(elements), 1);
-	else if (check_textures(vars, elements, text_flag))
+	else if (check_textures(vars, elements))
 		return (free_mem(elements), 1);
 	return (free_mem(elements), 0);
 }
 
-int	check_floor_ceil(t_vars **vars, char **elements, int *c_f_flag)
+int	check_floor_ceil(t_vars **vars, char **elements)
 {
 	if ((ft_strncmp(elements[0], "F", ft_strlen(elements[0])) == 0
 			&& ft_strlen(elements[0]) == 1) || (ft_strncmp(elements[0], "C",
 				ft_strlen(elements[0])) == 0 && ft_strlen(elements[0]) == 1))
 	{
-		if (find_ceiling_floor(vars, elements, c_f_flag))
+		if (find_ceiling_floor(vars, elements))
 			return (1);
 	}
 	return (0);
 }
 
-int	check_textures(t_vars **vars, char **elements, int *text_flag)
+int	check_textures(t_vars **vars, char **elements)
 {
 	if ((ft_strncmp(elements[0], "SO", ft_strlen(elements[0])) == 0
 			&& ft_strlen(elements[0]) == 2) || (ft_strncmp(elements[0],
@@ -52,7 +52,7 @@ int	check_textures(t_vars **vars, char **elements, int *text_flag)
 			&& ft_strlen(elements[0]) == 2) || (ft_strncmp(elements[0],
 				"EA", ft_strlen(elements[0])) == 0
 			&& ft_strlen(elements[0]) == 2))
-		if (find_paths(vars, elements, text_flag))
+		if (find_paths(vars, elements))
 			return (1);
 	return (0);
 }

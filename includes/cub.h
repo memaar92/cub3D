@@ -42,14 +42,14 @@ typedef struct s_vars
 }				t_vars;
 
 // PARSER
-int		parse(t_vars **vars, char *filename, int text_flag, int c_f_flag);
-int		find_ceiling_floor(t_vars **vars, char **buf, int *ceil_floor_flag);
-int		find_textures(t_vars **vars, char **buf, int *text_flag, int *c_f_flag);
-int		find_paths(t_vars **vars, char **elements, int *text_flag);
+char	*parse(t_vars **vars, char *filename);
+int		find_ceiling_floor(t_vars **vars, char **buf);
+int		find_textures(t_vars **vars, char **buf);
+int		find_paths(t_vars **vars, char **elements);
 
 // PARSER2
-int		check_floor_ceil(t_vars **vars, char **elements, int *c_f_flag);
-int		check_textures(t_vars **vars, char **elements, int *text_flag);
+int		check_floor_ceil(t_vars **vars, char **elements);
+int		check_textures(t_vars **vars, char **elements);
 
 // UTILS
 void	set_char(char **buf, char c);

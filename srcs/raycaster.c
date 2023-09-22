@@ -156,7 +156,7 @@ int	main(int argc, char **argv)
 		return (1);
 	// create a 2D int array (this will later be created from the parsed .cub map)
 	// init mlx and creating the display/window
-	if (parse(&vars, argv[1], 0, 0))
+	if (!parse(&vars, argv[1]))
 		return (free(vars), 1);
 	print_parser(vars);
 //	vars->mlx = mlx_init();

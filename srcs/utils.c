@@ -46,6 +46,8 @@ int	check_rgb_values(t_vars **vars, char **buf)
 	{
 		if (i < 4)
 		{
+			if ((*vars)->floor_ceiling[flag][i - 1] != -1)
+				return (printf("Please provide the correct parameters.\n"), 1);
 			(*vars)->floor_ceiling[flag][i - 1] = ft_atoi(buf[i]);
 			if ((*vars)->floor_ceiling[flag][i - 1] < 0
 				|| (*vars)->floor_ceiling[flag][i - 1] > 255)
