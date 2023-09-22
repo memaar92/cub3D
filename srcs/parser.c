@@ -12,19 +12,6 @@
 
 #include "../includes/cub.h"
 
-//void	check_paths_ready(t_vars **vars, int *text_flag)
-//{
-//	int	i;
-//
-//	i = -1;
-//	while ((*vars)->textures[++i])
-//	{
-//		if ((*vars)->textures[i][0] == '\0')
-//			return ;
-//	}
-//	*text_flag = 1;
-//}
-
 int	find_paths(t_vars **vars, char **elements)
 {
 	int	texture;
@@ -48,7 +35,6 @@ int	find_paths(t_vars **vars, char **elements)
 	(*vars)->textures[texture] = ft_strdup(elements[1]);
 	if (!(*vars)->textures[texture])
 		return (printf("Error: Problem with malloc\n"), 1);
-//	check_paths_ready(vars);
 	return (0);
 }
 
