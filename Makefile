@@ -12,8 +12,8 @@
 
 NAME = cub
 
-CFLAGS = -Wall -Wextra -g
-# MLXFLAGS = -L/Users/valmpani/homebrew/opt/libxext/lib -lX11 -lXext -lm
+CFLAGS = -Wall -Wextra -fsanitize=address
+MLXFLAGS = -L/Users/valmpani/homebrew/opt/libxext/lib -lXext -lm
 
 SRCS_DIR = ./srcs/
 
