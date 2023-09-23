@@ -24,7 +24,7 @@
 # define NO 0
 # define SO 1
 # define WE 2
-# define EA 4
+# define EA 3
 # define F 0
 # define C 1
 
@@ -37,7 +37,7 @@ typedef struct s_vars
 	int		pov_dir;
 	int		array_cols;
 	int		array_rows;
-	char	*textures[5];
+	char	**textures;
 	int		floor_ceiling[2][3];
 }				t_vars;
 
@@ -52,12 +52,15 @@ int		find_paths(t_vars **vars, char **elements);
 int		check_floor_ceil(t_vars **vars, char **elements);
 int		check_textures(t_vars **vars, char **elements);
 
-// UTILS
+// PARSER_UTILS1
 void	set_char(char **buf, char c);
 int		check_rgb_values(t_vars **vars, char **buf);
 void	print_parser(t_vars *vars);
 int		is_not_empty_line(char *buf);
 int		is_first_line(char *buf);
+
+// PARSER_UTILS2
+int		textures_not_filled(t_vars **vars);
 
 // INIT
 void	set_floor_ceil(t_vars **vars);

@@ -19,10 +19,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e831b46-eaab-4ff6-be89-1daff36964db" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/hello" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libft/libft.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/srcs/parser_utils2.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello.cub" beforeDir="false" afterPath="$PROJECT_DIR$/hello.cub" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/includes/cub.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/cub.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/init.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/init.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/parser.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/parser.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/utils.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/raycaster.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/raycaster.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/utils.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/parser_utils1.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,6 +106,11 @@
   }
 }</component>
   <component name="RunManager" selected="Makefile Application.all">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="all" type="CLionNativeAppRunConfigurationType" PROGRAM_PARAMS="hello.cub" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cub3D" TARGET_NAME="cub" CONFIG_NAME="cub" version="1" RUN_PATH="$PROJECT_DIR$/cub">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
@@ -143,6 +156,7 @@
       <workItem from="1695368792086" duration="4552000" />
       <workItem from="1695378036730" duration="9408000" />
       <workItem from="1695452732269" duration="3000" />
+      <workItem from="1695454011688" duration="3056000" />
     </task>
     <servers />
   </component>

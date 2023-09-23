@@ -29,9 +29,8 @@ int	find_paths(t_vars **vars, char **elements)
 		texture = EA;
 	if (access(elements[1], F_OK) == -1)
 		return (printf("Error: Please provide valid texture paths.\n"), 1);
-	if ((*vars)->textures[texture][0])
+	if ((*vars)->textures[texture])
 		return (printf("Error: Please provide the correct texture info.\n"), 1);
-	free((*vars)->textures[texture]);
 	(*vars)->textures[texture] = ft_strdup(elements[1]);
 	if (!(*vars)->textures[texture])
 		return (printf("Error: Problem with malloc\n"), 1);
@@ -91,13 +90,13 @@ int	parse(t_vars **vars, char *filename)
 
 	pos = 0;
 	first_line = parse_textures(vars, filename, &pos);
-	printf("%s\n", first_line);
 	if (!first_line)
-		return (printf("Error: Please provide a valid map.\n"), 1);
+		return (printf("Error: Please provide a valid map. 1\n"), 1);
+	if (textures_not_filled(vars))
+		return (printf("Error: Please provide a valid map. 2\n"), 1);
 	i = -1;
 	fd = open(filename, O_RDONLY);
 	while (++i <= pos)
 		first_line = get_next_line(fd);
-	printf("%s\n", first_line);
 	return (0);
 }
