@@ -19,18 +19,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e831b46-eaab-4ff6-be89-1daff36964db" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/hello" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/libft/libft.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/srcs/parser_utils2.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hello.cub" beforeDir="false" afterPath="$PROJECT_DIR$/hello.cub" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/cub.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/cub.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/init.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/init.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/parser.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/parser.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libft/libft.a" beforeDir="false" afterPath="$PROJECT_DIR$/libft/libft.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minilibx/Makefile.mk" beforeDir="false" afterPath="$PROJECT_DIR$/minilibx/Makefile.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minilibx/configure" beforeDir="false" afterPath="$PROJECT_DIR$/minilibx/configure" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minilibx/libmlx.a" beforeDir="false" afterPath="$PROJECT_DIR$/minilibx/libmlx.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minilibx/libmlx_Darwin.a" beforeDir="false" afterPath="$PROJECT_DIR$/minilibx/libmlx_Darwin.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minilibx/test/mlx-test" beforeDir="false" afterPath="$PROJECT_DIR$/minilibx/test/mlx-test" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/raycaster.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/raycaster.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/utils.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/parser_utils1.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
