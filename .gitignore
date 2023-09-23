@@ -3,6 +3,7 @@
 .DS_STORE
 *.dSYM
 .idea
+.vscode
 
 # Object files
 *.o
