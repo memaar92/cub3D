@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/23 14:38:09 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/23 16:42:06 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,13 @@ int	cast_rays(int map[500][500], t_vars *vars)
 	double	deltaDistY;
 	double	planeX;
 	double	planeY;
-	// double	perpWallDist;
+	double	perpWallDist;
 	int		hit;
 	int		stepX;
 	int		stepY;
 	int		mapX;
 	int		mapY;
+	// int		line_height;
 	int		num_cols = 500; // for testing
 	// int		num_rows = 500; // for testing
 
@@ -118,7 +119,7 @@ int	cast_rays(int map[500][500], t_vars *vars)
 				sideDistY = (mapY + 1.0 - playerY) * deltaDistY;
 			}
 			
-			// apply DDA
+			// apply DDA (Digital Differential Analyzer; alternatively: Bresenham)
 			// for "moving" along the ray and checking for intersections/hits
 			while (hit == 0)
 			{
@@ -134,10 +135,25 @@ int	cast_rays(int map[500][500], t_vars *vars)
 					mapY += stepY;
 					side = 1; // to check which side has been hit (NS or EW?)
 				}
-				mlx_pixel_put(vars->mlx, vars->win, mapX, mapY, 16777215);
+				// mlx_pixel_put(vars->mlx, vars->win, mapX, mapY, 16777215);
 				if (map[mapY][mapX] > 0)
 					hit = 1;
 			}
+
+			// calculate the perpendicular distance of the ray (from the camera plane not the player) to the wall
+			// why exactly does this calculation work?
+			if(side == 0)
+				perpWallDist = (sideDistX - deltaDistX);
+			else
+				perpWallDist = (sideDistY - deltaDistY);
+
+			(void)vars;
+			// printf("distance to wall: %d: %.17f\n", x, perpWallDist);
+			// line_height = (int)perpWallDist;
+			// mlx_put_image_to_window(vars->mlx, vars->win, vars->red_line, x, 150 + line_height / 2);
+			// int i = 0;
+			// while (i < line_height)
+			// 	mlx_pixel_put(vars->mlx, vars->win, x, 150 + i++, 16711680);
 			x++;
 		}
 	}
@@ -158,12 +174,12 @@ int	ft_draw_map(t_vars *vars)
 			if (y == 0 || y == 499)
 			{
 				map[y][x] = 1;
-				mlx_pixel_put(vars->mlx, vars->win, x, y, 65280);
+				// mlx_pixel_put(vars->mlx, vars->win, x, y, 65280);
 			}
 			else if (x == 0 || x == 499)
 			{
 				map[y][x] = 1;
-				mlx_pixel_put(vars->mlx, vars->win, x, y, 65280);
+				// mlx_pixel_put(vars->mlx, vars->win, x, y, 65280);
 			}
 			else
 				map[y][x] = 0;
@@ -176,10 +192,16 @@ int	ft_draw_map(t_vars *vars)
 	while (y < 300)
 	{
 		map[y][50] = 1;
-		mlx_pixel_put(vars->mlx, vars->win, x, y, 65280);
+		// mlx_pixel_put(vars->mlx, vars->win, x, y, 65280);
 		y++;
 	}
 	map[250][200] = 9; // position of the player
+	int w;
+	int h;
+	vars->red_line = NULL;
+	vars->red_line = mlx_xpm_file_to_image(vars->mlx, "./textures/red_line.xpm", &w, &h);
+	if (!vars->red_line)
+		return (printf("Error\n"), 1);
 	cast_rays(map, vars);
 	return (0);
 }
@@ -203,8 +225,5 @@ int	main(void)
 	mlx_hook(vars.win, 12, 1L << 15, ft_draw_map, &vars);
 	mlx_hook(vars.win, 17, 0L, ft_close, &vars);
 	mlx_loop(vars.mlx);
-	
-	
-
 	
 }
