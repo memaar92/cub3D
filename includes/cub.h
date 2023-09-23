@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/21 17:13:31 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/23 09:13:18 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ typedef struct s_vars
 }				t_vars;
 
 // PARSER
-char	*parse(t_vars **vars, char *filename);
+int		parse(t_vars **vars, char *filename);
+char	*parse_textures(t_vars **vars, char *filename, int *pos);
 int		find_ceiling_floor(t_vars **vars, char **buf);
 int		find_textures(t_vars **vars, char **buf);
 int		find_paths(t_vars **vars, char **elements);
@@ -55,6 +56,8 @@ int		check_textures(t_vars **vars, char **elements);
 void	set_char(char **buf, char c);
 int		check_rgb_values(t_vars **vars, char **buf);
 void	print_parser(t_vars *vars);
+int		is_not_empty_line(char *buf);
+int		is_first_line(char *buf);
 
 // INIT
 void	set_floor_ceil(t_vars **vars);

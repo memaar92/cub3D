@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/22 09:27:56 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/23 09:14:52 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ int	main(int argc, char **argv)
 		return (1);
 	// create a 2D int array (this will later be created from the parsed .cub map)
 	// init mlx and creating the display/window
-	if (!parse(&vars, argv[1]))
+	if (parse(&vars, argv[1]))
 		return (free(vars), 1);
 	print_parser(vars);
 //	vars->mlx = mlx_init();

@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:11:34 by valmpani          #+#    #+#             */
-/*   Updated: 2023/09/22 09:45:49 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/23 09:13:52 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,33 @@ void	set_char(char **buf, char c)
 		if ((*buf)[i] == c || ft_isspace((*buf)[i]))
 			(*buf)[i] = ' ';
 	}
+}
+
+int	is_not_empty_line(char *buf)
+{
+	int	i;
+
+	i = -1;
+	while (buf[++i])
+	{
+		if (!ft_isspace(buf[i]))
+			return (1);
+	}
+	return (0);
+}
+
+int	is_first_line(char *buf)
+{
+	int	i;
+
+	i = -1;
+	if (buf[0])
+	{
+		while (buf[++i])
+			if (buf[i] != '1' && !ft_isspace(buf[i]))
+				return (0);
+	}
+	return (1);
 }
 
 int	check_rgb_values(t_vars **vars, char **buf)

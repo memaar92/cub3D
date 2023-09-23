@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:12:01 by valmpani          #+#    #+#             */
-/*   Updated: 2023/09/22 09:38:36 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/23 09:15:05 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ int	find_paths(t_vars **vars, char **elements)
 		texture = WE;
 	else
 		texture = EA;
-//	if (open(elements[1], O_RDONLY) == -1)
-//		printf("not opening\n");
-	printf("%s\n", elements[1]);
 	if (access(elements[1], F_OK) == -1)
 		return (printf("Error: Please provide valid texture paths.\n"), 1);
 	if ((*vars)->textures[texture][0])
@@ -59,21 +56,7 @@ int	find_ceiling_floor(t_vars **vars, char **buf)
 	return (0);
 }
 
-int is_first_line(char *buf)
-{
-	int	i;
-
-	i = -1;
-	if (buf[0])
-	while (buf[++i])
-	{
-		if (buf[i] != '1' && !ft_isspace(buf[i]))
-			return (0);
-	}
-	return (1);
-}
-
-char	*parse(t_vars **vars, char *filename)
+char	*parse_textures(t_vars **vars, char *filename, int *pos)
 {
 	int		fd;
 	char	*buf;
@@ -84,8 +67,9 @@ char	*parse(t_vars **vars, char *filename)
 		return (printf("error\n"), NULL);
 	i = 0;
 	buf = get_next_line(fd);
-	while (buf && !is_first_line(buf))
+	while (buf && (!is_first_line(buf) || !is_not_empty_line(buf)))
 	{
+		(*pos)++;
 		if (buf[0] != '\n')
 		{
 			set_char(&buf, ' ');
@@ -96,4 +80,24 @@ char	*parse(t_vars **vars, char *filename)
 		buf = get_next_line(fd);
 	}
 	return (buf);
+}
+
+int	parse(t_vars **vars, char *filename)
+{
+	int		i;
+	int		fd;
+	int		pos;
+	char	*first_line;
+
+	pos = 0;
+	first_line = parse_textures(vars, filename, &pos);
+	printf("%s\n", first_line);
+	if (!first_line)
+		return (printf("Error: Please provide a valid map.\n"), 1);
+	i = -1;
+	fd = open(filename, O_RDONLY);
+	while (++i <= pos)
+		first_line = get_next_line(fd);
+	printf("%s\n", first_line);
+	return (0);
 }
