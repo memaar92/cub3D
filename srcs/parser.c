@@ -117,6 +117,7 @@ int	parse_map(t_vars **vars, int fd, int pos)
 		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
 	return (0);
 }
 
@@ -133,9 +134,10 @@ int	parse(t_vars **vars, char *filename)
 	if (!first_line)
 		return (printf("Error: Please provide a valid map.\n"), 1);
 	if (textures_not_filled(vars))
-		return (printf("Error: Please provide a valid map.\n"), 1);
+		return (printf("Error: Please provide a valid map.\n"), free(first_line), 1);
 	i = -1;
 	fd = open(filename, O_RDONLY);
+	free(first_line);
 	while (++i < pos)
 	{
 		first_line = get_next_line(fd);

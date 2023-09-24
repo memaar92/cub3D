@@ -98,15 +98,16 @@ char	*ft_output(char *collector, size_t line_len, int end_flag)
 
 char	*get_next_line(int fd)
 {
-	static char	*collector[10240];
-	char		*output;
-	int			end_flag;
-	size_t		line_len;
+	char	*collector[10240];
+	char	*output;
+	int		end_flag;
+	size_t	line_len;
 
 	line_len = 0;
 	end_flag = 1;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
+	collector[fd] = NULL;
 	collector[fd] = ft_fill_coll(fd, collector[fd], &end_flag, &line_len);
 	if (!collector[fd])
 		return (NULL);
@@ -117,6 +118,7 @@ char	*get_next_line(int fd)
 		collector[fd] = NULL;
 		return (NULL);
 	}
-	collector[fd] = ft_adj_collector(collector[fd], line_len, end_flag);
+	free(collector[fd]);
 	return (output);
 }
+

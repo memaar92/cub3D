@@ -157,7 +157,7 @@ int	main(int argc, char **argv)
 	// create a 2D int array (this will later be created from the parsed .cub map)
 	// init mlx and creating the display/window
 	if (parse(&vars, argv[1]))
-		return (free(vars), 1);
+		return (free(vars), 1); // free other stuff too
 	print_parser(vars);
 //	vars.mlx = mlx_init();
 //	if (!vars.mlx)
@@ -169,5 +169,7 @@ int	main(int argc, char **argv)
 //	mlx_hook(vars.win, 17, 0L, ft_close, &vars);
 //	mlx_loop(vars.mlx);
 //	free vars //
+	free_mem(vars->textures);
+	free(vars);
 	return (0);
 }
