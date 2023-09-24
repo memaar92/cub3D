@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/23 16:42:06 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/24 16:14:08 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	cast_rays(int map[500][500], t_vars *vars)
 	int		stepY;
 	int		mapX;
 	int		mapY;
-	// int		line_height;
+	int		line_height;
 	int		num_cols = 500; // for testing
 	// int		num_rows = 500; // for testing
 
@@ -147,13 +147,22 @@ int	cast_rays(int map[500][500], t_vars *vars)
 			else
 				perpWallDist = (sideDistY - deltaDistY);
 
-			(void)vars;
 			// printf("distance to wall: %d: %.17f\n", x, perpWallDist);
-			// line_height = (int)perpWallDist;
-			// mlx_put_image_to_window(vars->mlx, vars->win, vars->red_line, x, 150 + line_height / 2);
-			// int i = 0;
-			// while (i < line_height)
-			// 	mlx_pixel_put(vars->mlx, vars->win, x, 150 + i++, 16711680);
+			line_height = (int)(7000 / perpWallDist);
+			
+			int drawStart = -line_height / 2 + 500 / 2;
+			if (drawStart < 0)
+				drawStart = 0;
+			int drawEnd = line_height / 2 + 500 / 2;
+			if (drawEnd >= 500)
+				drawEnd = 500 - 1;
+			while (drawStart <= drawEnd)
+				mlx_pixel_put(vars->mlx, vars->win, x, drawStart++, 16711680);
+			// draw texture 
+			// load texutures from texture files
+			// define texture width and height? or is that information inherit in the texture files?
+			// populate a drawbuffer/image with texels (that image should be of size screen_width * screen_height)
+			// put the completed image to the window in one go
 			x++;
 		}
 	}
@@ -195,6 +204,18 @@ int	ft_draw_map(t_vars *vars)
 		// mlx_pixel_put(vars->mlx, vars->win, x, y, 65280);
 		y++;
 	}
+	map[250][150] = 1;
+	map[251][151] = 1;
+	map[252][152] = 1;
+	map[253][153] = 1;
+	map[254][154] = 1;
+	map[255][155] = 1;
+	map[256][154] = 1;
+	map[257][153] = 1;
+	map[258][152] = 1;
+	map[259][151] = 1;
+	map[260][150] = 1;
+	
 	map[250][200] = 9; // position of the player
 	int w;
 	int h;
