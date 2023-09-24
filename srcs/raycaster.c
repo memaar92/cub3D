@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/24 16:14:08 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/24 16:44:34 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int	cast_rays(int map[500][500], t_vars *vars)
 					mapY += stepY;
 					side = 1; // to check which side has been hit (NS or EW?)
 				}
-				// mlx_pixel_put(vars->mlx, vars->win, mapX, mapY, 16777215);
+				mlx_pixel_put(vars->mlx, vars->win, mapX, mapY, 16777215);
 				if (map[mapY][mapX] > 0)
 					hit = 1;
 			}
@@ -156,8 +156,11 @@ int	cast_rays(int map[500][500], t_vars *vars)
 			int drawEnd = line_height / 2 + 500 / 2;
 			if (drawEnd >= 500)
 				drawEnd = 500 - 1;
-			while (drawStart <= drawEnd)
-				mlx_pixel_put(vars->mlx, vars->win, x, drawStart++, 16711680);
+			
+			// drawing the related vertical line
+			// while (drawStart <= drawEnd)
+			// 	mlx_pixel_put(vars->mlx, vars->win, x, drawStart++, 16711680);
+
 			// draw texture 
 			// load texutures from texture files
 			// define texture width and height? or is that information inherit in the texture files?
@@ -172,57 +175,78 @@ int	cast_rays(int map[500][500], t_vars *vars)
 int	ft_draw_map(t_vars *vars)
 {
 	int	map[500][500];
-	int	y = 0;
-	int	x = 0;
-	
-	while (y < 500)
+	// int	y = 0;
+	// int	x = 0;
+	int fd;
+	int i = -1;
+	int j = -1;
+	char	*line;
+
+	fd = open("./testmap500x500.txt", O_RDONLY);
+	while (++i < 500)
 	{
-		x = 0;
-		while (x < 500)
+		j = -1;
+		line = get_next_line(fd);
+		if (!line)
+			return (1);
+		while (line[++j])
 		{
-			if (y == 0 || y == 499)
+			if (line[j] == '1')
 			{
-				map[y][x] = 1;
-				// mlx_pixel_put(vars->mlx, vars->win, x, y, 65280);
+				map[i][j] = 1;
+				mlx_pixel_put(vars->mlx, vars->win, j, i, 65280);
 			}
-			else if (x == 0 || x == 499)
-			{
-				map[y][x] = 1;
-				// mlx_pixel_put(vars->mlx, vars->win, x, y, 65280);
-			}
-			else
-				map[y][x] = 0;
-			x++;
+			else if (line[j] == '0')
+				map[i][j] = 0;
+			else if (line[j] == 'P')
+				map[i][j] = 9;
 		}
-		y++;
+		free(line);
 	}
-	x = 50;
-	y = 60;
-	while (y < 300)
-	{
-		map[y][50] = 1;
-		// mlx_pixel_put(vars->mlx, vars->win, x, y, 65280);
-		y++;
-	}
-	map[250][150] = 1;
-	map[251][151] = 1;
-	map[252][152] = 1;
-	map[253][153] = 1;
-	map[254][154] = 1;
-	map[255][155] = 1;
-	map[256][154] = 1;
-	map[257][153] = 1;
-	map[258][152] = 1;
-	map[259][151] = 1;
-	map[260][150] = 1;
 	
-	map[250][200] = 9; // position of the player
-	int w;
-	int h;
-	vars->red_line = NULL;
-	vars->red_line = mlx_xpm_file_to_image(vars->mlx, "./textures/red_line.xpm", &w, &h);
-	if (!vars->red_line)
-		return (printf("Error\n"), 1);
+	
+	// while (y < 500)
+	// {
+	// 	x = 0;
+	// 	while (x < 500)
+	// 	{
+	// 		if (y == 0 || y == 499)
+	// 		{
+	// 			map[y][x] = 1;
+	// 			// mlx_pixel_put(vars->mlx, vars->win, x, y, 65280);
+	// 		}
+	// 		else if (x == 0 || x == 499)
+	// 		{
+	// 			map[y][x] = 1;
+	// 			// mlx_pixel_put(vars->mlx, vars->win, x, y, 65280);
+	// 		}
+	// 		else
+	// 			map[y][x] = 0;
+	// 		x++;
+	// 	}
+	// 	y++;
+	// }
+	// x = 50;
+	// y = 60;
+	// while (y < 300)
+	// {
+	// 	map[y][50] = 1;
+	// 	// mlx_pixel_put(vars->mlx, vars->win, x, y, 65280);
+	// 	y++;
+	// }
+	// map[250][150] = 1;
+	// map[251][151] = 1;
+	// map[252][152] = 1;
+	// map[253][153] = 1;
+	// map[254][154] = 1;
+	// map[255][155] = 1;
+	// map[256][154] = 1;
+	// map[257][153] = 1;
+	// map[258][152] = 1;
+	// map[259][151] = 1;
+	// map[260][150] = 1;
+	
+	// map[250][200] = 9; // position of the player
 	cast_rays(map, vars);
 	return (0);
 }

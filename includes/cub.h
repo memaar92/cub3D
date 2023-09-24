@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/23 15:46:50 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/24 16:33:00 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include "../libft/gnl/get_next_line_bonus.h"
 # include <stdio.h>
 # include <math.h>
+# include <unistd.h>
+# include <fcntl.h>
 
 typedef struct s_vars
 {
