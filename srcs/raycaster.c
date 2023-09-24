@@ -147,28 +147,27 @@
 
 int	main(int argc, char **argv)
 {
-	t_vars	vars;
+	t_vars	*vars;
 
-//	if (argc > 2)
-//		return (printf("Incorrect number of arguments\n"), 1);
-//	vars = init_vars();
-//	if (!vars)
-//		return (printf("vars\n"), 1);
-//	// create a 2D int array (this will later be created from the parsed .cub map)
-//	// init mlx and creating the display/window
-//	if (parse(&vars, argv[1]))
-//		return (free(vars), 1);
-//	print_parser(vars);
-	vars.mlx = mlx_init();
-	if (!vars.mlx)
-		return (printf("mlx\n"), 1);
-	vars.win = mlx_new_window(vars.mlx, 640, 480, "Title");
-	if (!vars.win)
-		return (free(vars.mlx), printf("window\n"), 1);
-//	mlx_hook(vars->win, 12, 1L << 15, ft_draw_map, &vars);
-	mlx_hook(vars.win, 17, 0L, ft_close, &vars);
-	mlx_loop(vars.mlx);
-
+	if (argc > 2)
+		return (printf("Incorrect number of arguments\n"), 1);
+	vars = init_vars();
+	if (!vars)
+		return (printf("vars\n"), 1);
+	// create a 2D int array (this will later be created from the parsed .cub map)
+	// init mlx and creating the display/window
+	if (parse(&vars, argv[1]))
+		return (free(vars), 1);
+	print_parser(vars);
+//	vars.mlx = mlx_init();
+//	if (!vars.mlx)
+//		return (printf("mlx\n"), 1);
+//	vars.win = mlx_new_window(vars.mlx, 640, 480, "Title");
+//	if (!vars.win)
+//		return (free(vars.mlx), printf("window\n"), 1);
+////	mlx_hook(vars->win, 12, 1L << 15, ft_draw_map, &vars);
+//	mlx_hook(vars.win, 17, 0L, ft_close, &vars);
+//	mlx_loop(vars.mlx);
 //	free vars //
 	return (0);
 }

@@ -37,6 +37,7 @@ typedef struct s_vars
 	int		pov_dir;
 	int		array_cols;
 	int		array_rows;
+	int		orientation;
 	char	**textures;
 	int		floor_ceiling[2][3];
 }				t_vars;

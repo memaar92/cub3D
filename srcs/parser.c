@@ -81,6 +81,46 @@ char	*parse_textures(t_vars **vars, char *filename, int *pos)
 	return (buf);
 }
 
+int	not_valid_character(t_vars **vars, char *line)
+{
+	int	i;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (!ft_isspace(line[i]) && line[i] != 'N' && line[i] != 'S' && line[i] != 'E' && line[i] != 'W' && line[i] != '0' && line[i] != '1')
+			return (1);
+		if ((line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W') && (*vars)->orientation != -1)
+			return (1);
+		if (line[i] == 'N')
+			(*vars)->orientation = NO;
+		else if (line[i] == 'S')
+			(*vars)->orientation = SO;
+		else if (line[i] == 'W')
+			(*vars)->orientation = WE;
+		else if (line[i] == 'E')
+			(*vars)->orientation = EA;
+	}
+	return (0);
+}
+
+
+int	parse_map(t_vars **vars, int fd, int pos)
+{
+	char	*line;
+
+	line = get_next_line(fd);
+	while (line)
+	{
+		if (not_valid_character(vars, line))
+			return (free(line), 1);
+		free(line);
+		line = get_next_line(fd);
+	}
+	return (0);
+}
+
+
 int	parse(t_vars **vars, char *filename)
 {
 	int		i;
@@ -91,12 +131,18 @@ int	parse(t_vars **vars, char *filename)
 	pos = 0;
 	first_line = parse_textures(vars, filename, &pos);
 	if (!first_line)
-		return (printf("Error: Please provide a valid map. 1\n"), 1);
+		return (printf("Error: Please provide a valid map.\n"), 1);
 	if (textures_not_filled(vars))
-		return (printf("Error: Please provide a valid map. 2\n"), 1);
+		return (printf("Error: Please provide a valid map.\n"), 1);
 	i = -1;
 	fd = open(filename, O_RDONLY);
-	while (++i <= pos)
+	while (++i < pos)
+	{
 		first_line = get_next_line(fd);
+//		if (i != pos -1)
+		free(first_line);
+	}
+	if (parse_map(vars, fd, pos))
+		return (printf("Error: Please provide a valid map.\n"), 1);
 	return (0);
 }

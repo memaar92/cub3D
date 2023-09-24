@@ -36,6 +36,7 @@ t_vars	*init_vars(void)
 	(*vars).textures = ft_calloc(5, sizeof(char *));
 	if (!(*vars).textures)
 		return (free(vars), NULL);
+	(*vars).orientation = -1;
 	(*vars).textures[SO] = NULL;
 	(*vars).textures[NO] = NULL;
 	(*vars).textures[WE] = NULL;
