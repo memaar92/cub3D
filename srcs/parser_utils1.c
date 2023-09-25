@@ -53,7 +53,9 @@ int	is_first_line(char *buf)
 	if (buf[0])
 	{
 		while (buf[++i])
-			if (buf[i] != '1' && !ft_isspace(buf[i]))
+			if (buf[i] != '1' && !ft_isspace(buf[i]) && buf[i] != '0'
+				&& buf[i] != 'N' && buf[i] != 'S'
+				&& buf[i] != 'W' && buf[i] != 'E')
 				return (0);
 	}
 	return (1);
@@ -88,15 +90,21 @@ int	check_rgb_values(t_vars **vars, char **buf)
 
 void	print_parser(t_vars *vars)
 {
+	printf(GREEN"\n----FL00R CEILING RGB-----\n");
 	for (int i = 0; i < 2; i++)
 	{
+
 		for (int j = 0; j < 3; j++)
 		{
-			printf("%d\n", vars->floor_ceiling[i][j]);
+			printf("%d ", vars->floor_ceiling[i][j]);
 		}
+		printf("\n");
 	}
+	printf("--------------------------\n"ESCAPE);
+	printf(MAGENTA"\n----TEXTURES FILENAMES----\n");
 	printf("SO %s\n", vars->textures[SO]);
 	printf("NO %s\n", vars->textures[NO]);
 	printf("WE %s\n", vars->textures[WE]);
 	printf("EA %s\n", vars->textures[EA]);
+	printf("--------------------------\n"ESCAPE);
 }

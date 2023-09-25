@@ -34,9 +34,10 @@ t_vars	*init_vars(void)
 	if (!vars)
 		return (NULL);
 	(*vars).textures = ft_calloc(5, sizeof(char *));
+	(*vars).map_pos = 0;
 	if (!(*vars).textures)
 		return (free(vars), NULL);
-	(*vars).orientation = -1;
+	(*vars).pov_dir = -1;
 	(*vars).textures[SO] = NULL;
 	(*vars).textures[NO] = NULL;
 	(*vars).textures[WE] = NULL;
