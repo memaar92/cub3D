@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:12:01 by valmpani          #+#    #+#             */
-/*   Updated: 2023/09/25 17:00:35 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:10:10 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,8 @@ int flood_the_map(t_vars **vars, int fd)
 		{
 			if (line[j] == '0' || line[j] == '1')
 				map[i][j] = line[j] - '0';
+			else if (ft_isspace(line[j]))
+				map[i][j] = 0;
 			else
 			{
 				map[i][j] = 7;
