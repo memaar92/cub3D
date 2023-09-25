@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/23 09:13:18 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:31:44 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "../minilibx/mlx.h"
 # include "../libft/libft.h"
 # include "../libft/gnl/get_next_line_bonus.h"
+# include "colors.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <string.h>
@@ -32,19 +33,20 @@ typedef struct s_vars
 {
 	void	*mlx;
 	void	*win;
+	int		map_pos;
+	int		**map;
 	int		pl_pos_x;
 	int		pl_pos_y;
 	int		pov_dir;
-	int		array_cols;
-	int		array_rows;
-	int		orientation;
+	size_t	array_cols;
+	size_t	array_rows;
 	char	**textures;
 	int		floor_ceiling[2][3];
 }				t_vars;
 
 // PARSER
 int		parse(t_vars **vars, char *filename);
-char	*parse_textures(t_vars **vars, char *filename, int *pos);
+char	*parse_textures(t_vars **vars, char *filename);
 int		find_ceiling_floor(t_vars **vars, char **buf);
 int		find_textures(t_vars **vars, char **buf);
 int		find_paths(t_vars **vars, char **elements);
@@ -57,6 +59,7 @@ int		check_textures(t_vars **vars, char **elements);
 void	set_char(char **buf, char c);
 int		check_rgb_values(t_vars **vars, char **buf);
 void	print_parser(t_vars *vars);
+void	print_map(t_vars **vars, int **map);
 int		is_not_empty_line(char *buf);
 int		is_first_line(char *buf);
 

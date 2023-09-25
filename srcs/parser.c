@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:12:01 by valmpani          #+#    #+#             */
-/*   Updated: 2023/09/23 09:15:05 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:00:35 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,16 +152,16 @@ int	**test_map(t_vars **vars)
 	while (++i < (*vars)->array_rows + 2)
 	{
 		j = -1;
-		map[i] = ft_calloc(sizeof(int), (*vars)->array_cols + 2);
+		map[i] = ft_calloc(sizeof(int), (*vars)->array_cols + 1);
 		if (!map[i])
 			return (NULL);
-		while (++j < (*vars)->array_cols + 2)
+		while (++j < (*vars)->array_cols + 1)
 		{
 			map[i][j] = 9;
-			printf("%d ", map[i][j]);
 		}
-		printf("\n");
 	}
+	print_map(vars, map);
+	printf("\n\n\n");
 	return (map);
 }
 
@@ -175,26 +175,24 @@ int flood_the_map(t_vars **vars, int fd)
 	map = test_map(vars);
 	i = 0;
 	line = get_next_line(fd);
-	while (++i < (*vars)->array_rows)
+	while (++i < (*vars)->array_rows + 1)
 	{
 		j = 0;
-		map[i] = ft_calloc(sizeof(int), (*vars)->array_cols);
-		if (!map[i])
-			return (1);
 		while (line[++j] != '\n' && line[j])
 		{
-			if (i == 0 || i == (*vars)->array_rows + 1)
-				map[i][j] = 9;
 			if (line[j] == '0' || line[j] == '1')
 				map[i][j] = line[j] - '0';
 			else
+			{
 				map[i][j] = 7;
-			printf("%d ", map[i][j]);
+				(*vars)->pl_pos_x = i;
+				(*vars)->pl_pos_y = j;
+			}
 		}
-		printf("\n");
 		free(line);
 		line = get_next_line(fd);
 	}
+	print_map(vars, map);
 	return (0);
 }
 
@@ -237,6 +235,8 @@ int	parse_map(t_vars **vars, int fd, char *filename)
 	close(fd);
 	if (get_map_size(vars, filename))
 		return (1);
+	printf("%zu\n", (*vars)->array_rows);
+	printf("%zu\n", (*vars)->array_cols);
 	if (!create_map(vars, filename))
 		return (1);
 	return (0);

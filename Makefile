@@ -25,7 +25,7 @@ HEADERS = cub.h
 all: $(NAME)
 
 $(NAME): $(OBJS) $(MLXLIB) $(LIBFT)
-	cc $(MLXFLAGS) $(MLXLIB) $(LIBFT) $(OBJS) -o $@
+	cc $(CFLAGS) $(MLXFLAGS) $(MLXLIB) $(LIBFT) $(OBJS) -o $@
 
 $(LIBFT):
 	$(MAKE) bonus -C $(LIBFT_DIR)
