@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/24 16:44:34 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:20:22 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,22 @@ int	ft_close(t_vars *vars)
 		free(vars->mlx);
 	}
 	exit(0);
+}
+
+int	get_pixel_color(int x, int y, t_vars *vars)
+{
+	int	color;
+	int pos;
+	
+
+	pos = x * 4 + 4 * vars->size_line * y;
+	color = (int)(vars->text_addr[pos]);
+
+	printf("color: %d\n", color);
+	// mlx_put_image_to_window(vars->mlx, vars->win, vars->test_texture, 0, 0);
+	
+	// printf("test: %c\n", (char)&(vars->text_addr)[0]);
+	return (color);
 }
 
 int	cast_rays(int map[500][500], t_vars *vars)
@@ -135,7 +151,7 @@ int	cast_rays(int map[500][500], t_vars *vars)
 					mapY += stepY;
 					side = 1; // to check which side has been hit (NS or EW?)
 				}
-				mlx_pixel_put(vars->mlx, vars->win, mapX, mapY, 16777215);
+				// mlx_pixel_put(vars->mlx, vars->win, mapX, mapY, 16777215);
 				if (map[mapY][mapX] > 0)
 					hit = 1;
 			}
@@ -148,20 +164,34 @@ int	cast_rays(int map[500][500], t_vars *vars)
 				perpWallDist = (sideDistY - deltaDistY);
 
 			// printf("distance to wall: %d: %.17f\n", x, perpWallDist);
-			line_height = (int)(7000 / perpWallDist);
+			line_height = (int)(10000 / perpWallDist); // there is probably a better formula taking into account distance from player to camera plane (cf permadi tutorial)
 			
-			int drawStart = -line_height / 2 + 500 / 2;
+			int drawStart = (500 / 2) - (line_height / 2);
 			if (drawStart < 0)
 				drawStart = 0;
-			int drawEnd = line_height / 2 + 500 / 2;
+			int drawEnd = (500 / 2) + (line_height / 2);
 			if (drawEnd >= 500)
 				drawEnd = 500 - 1;
 			
 			// drawing the related vertical line
-			// while (drawStart <= drawEnd)
-			// 	mlx_pixel_put(vars->mlx, vars->win, x, drawStart++, 16711680);
+			int color;
+			int y;
+			// double step;
+			// double texpos;
+			y = drawStart;
+			// step = 64.0 / line_height;
+			// texpos = (drawStart - 500 / 2 + line_height / 2) * step;
+			while (y <= drawEnd)
+			{
+				// int texY = (int)texpos & 63;
+				// texpos *= step;
+				color = get_pixel_color(x, 0, vars);
+				mlx_pixel_put(vars->mlx, vars->win, x, y, color);
+				y++;
+			}
+			printf("new vertical line\n");
 
-			// draw texture 
+			// draw texture / texture scaling
 			// load texutures from texture files
 			// define texture width and height? or is that information inherit in the texture files?
 			// populate a drawbuffer/image with texels (that image should be of size screen_width * screen_height)
@@ -182,6 +212,7 @@ int	ft_draw_map(t_vars *vars)
 	int j = -1;
 	char	*line;
 
+	// read test map
 	fd = open("./testmap500x500.txt", O_RDONLY);
 	while (++i < 500)
 	{
@@ -194,7 +225,7 @@ int	ft_draw_map(t_vars *vars)
 			if (line[j] == '1')
 			{
 				map[i][j] = 1;
-				mlx_pixel_put(vars->mlx, vars->win, j, i, 65280);
+				// mlx_pixel_put(vars->mlx, vars->win, j, i, 65280);
 			}
 			else if (line[j] == '0')
 				map[i][j] = 0;
@@ -203,50 +234,15 @@ int	ft_draw_map(t_vars *vars)
 		}
 		free(line);
 	}
+
+	int	w;
+	int	h;
+	int	bpp;
+	int	endian;
 	
+	vars->test_texture = mlx_xpm_file_to_image(vars->mlx, "./textures/test_texture2.xpm", &w, &h);
+	vars->text_addr = (int *)mlx_get_data_addr(vars->test_texture, &bpp, &vars->size_line, &endian);
 	
-	// while (y < 500)
-	// {
-	// 	x = 0;
-	// 	while (x < 500)
-	// 	{
-	// 		if (y == 0 || y == 499)
-	// 		{
-	// 			map[y][x] = 1;
-	// 			// mlx_pixel_put(vars->mlx, vars->win, x, y, 65280);
-	// 		}
-	// 		else if (x == 0 || x == 499)
-	// 		{
-	// 			map[y][x] = 1;
-	// 			// mlx_pixel_put(vars->mlx, vars->win, x, y, 65280);
-	// 		}
-	// 		else
-	// 			map[y][x] = 0;
-	// 		x++;
-	// 	}
-	// 	y++;
-	// }
-	// x = 50;
-	// y = 60;
-	// while (y < 300)
-	// {
-	// 	map[y][50] = 1;
-	// 	// mlx_pixel_put(vars->mlx, vars->win, x, y, 65280);
-	// 	y++;
-	// }
-	// map[250][150] = 1;
-	// map[251][151] = 1;
-	// map[252][152] = 1;
-	// map[253][153] = 1;
-	// map[254][154] = 1;
-	// map[255][155] = 1;
-	// map[256][154] = 1;
-	// map[257][153] = 1;
-	// map[258][152] = 1;
-	// map[259][151] = 1;
-	// map[260][150] = 1;
-	
-	// map[250][200] = 9; // position of the player
 	cast_rays(map, vars);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/24 16:33:00 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:35:53 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ typedef struct s_vars
 	int		floor[3];
 	void	*red_line;
 	void	*img_wall;
+	void	*test_texture;
+	int		*text_addr;
+	int		size_line;
 }				t_vars;
 
 
