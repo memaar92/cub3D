@@ -1,6 +1,18 @@
 NAME = cub
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/09/19 14:16:52 by mamesser          #+#    #+#              #
+#    Updated: 2023/09/25 14:46:18 by mamesser         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-CFLAGS = -Wall -Wextra -Wextra -g
+
+CFLAGS = -Wall -Wextra -Werror
 
 MLXFLAGS = -L/usr/X11/lib -lX11 -lXext -lm
 

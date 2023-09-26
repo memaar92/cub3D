@@ -21,6 +21,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
 
 # define MAP_ERR "Error: Please provide a valid map."
 # define NO 0
@@ -29,6 +30,36 @@
 # define EA 3
 # define F 0
 # define C 1
+
+
+
+typedef struct s_ray
+{
+	int		x;
+	int		side;
+	double	playerX;
+	double	playerY;
+	double	viewX;
+	double	viewY;
+	double	cameraX;
+	double	rayDirX;
+	double	rayDirY;
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	planeX;
+	double	planeY;
+	double	perpWallDist;
+	int		hit;
+	int		stepX;
+	int		stepY;
+	int		mapX;
+	int		mapY;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+}				t_ray;
 
 typedef struct s_vars
 {
@@ -43,6 +74,12 @@ typedef struct s_vars
 	int		array_rows;
 	char	**textures;
 	int		floor_ceiling[2][3];
+	void	*red_line;
+	void	*img_wall;
+	void	*test_texture;
+	int		*text_addr;
+	int		size_line;
+	t_ray	*ray;
 }				t_vars;
 
 // PARSER
