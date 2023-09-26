@@ -17,10 +17,11 @@
 # include "../libft/gnl/get_next_line_bonus.h"
 # include "colors.h"
 # include <stdio.h>
+# include <math.h>
 # include <unistd.h>
+# include <fcntl.h>
 # include <string.h>
 # include <stdlib.h>
-# include <fcntl.h>
 
 # define MAP_ERR "Error: Please provide a valid map."
 # define NO 0
@@ -29,6 +30,34 @@
 # define EA 3
 # define F 0
 # define C 1
+
+typedef struct s_ray
+{
+	int		x;
+	int		side;
+	double	playerX;
+	double	playerY;
+	double	viewX;
+	double	viewY;
+	double	cameraX;
+	double	rayDirX;
+	double	rayDirY;
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	planeX;
+	double	planeY;
+	double	perpWallDist;
+	int		hit;
+	int		stepX;
+	int		stepY;
+	int		mapX;
+	int		mapY;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+}				t_ray;
 
 typedef struct s_vars
 {
@@ -41,6 +70,12 @@ typedef struct s_vars
 	int		pov_dir;
 	int		array_cols;
 	int		array_rows;
+	void	*red_line;
+	void	*img_wall;
+	void	*test_texture;
+	int		*text_addr;
+	int		size_line;
+	t_ray	*ray;
 	char	**textures;
 	int		floor_ceiling[2][3];
 }				t_vars;
