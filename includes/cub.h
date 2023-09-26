@@ -6,22 +6,21 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/25 16:31:44 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:41:14 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
+
 # include "../minilibx/mlx.h"
 # include "../libft/libft.h"
 # include "../libft/gnl/get_next_line_bonus.h"
 # include "colors.h"
 # include <stdio.h>
-# include <math.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <string.h>
-# include <stdlib.h>
+# include <math.h>
 
 # define MAP_ERR "Error: Please provide a valid map."
 # define NO 0
@@ -30,6 +29,8 @@
 # define EA 3
 # define F 0
 # define C 1
+
+
 
 typedef struct s_ray
 {
@@ -70,14 +71,14 @@ typedef struct s_vars
 	int		pov_dir;
 	int		array_cols;
 	int		array_rows;
+	char	**textures;
+	int		floor_ceiling[2][3];
 	void	*red_line;
 	void	*img_wall;
 	void	*test_texture;
 	int		*text_addr;
 	int		size_line;
 	t_ray	*ray;
-	char	**textures;
-	int		floor_ceiling[2][3];
 }				t_vars;
 
 // PARSER
