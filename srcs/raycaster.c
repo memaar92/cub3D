@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/26 11:11:05 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:20:51 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ int	get_pixel_color(int x, int y, t_vars *vars)
 {
 	int	color;
 	int pos;
-
+	
 
 	pos = x * 4 + 4 * vars->size_line * y;
 	color = (int)(vars->text_addr[pos]);
 
 	// mlx_put_image_to_window(vars->mlx, vars->win, vars->test_texture, 0, 0);
-
+	
 	// printf("test: %c\n", (char)&(vars->text_addr)[0]);
 	return (color);
 }
@@ -91,21 +91,21 @@ void	run_dda(t_vars *vars, int map[500][500])
 }
 
 
-void	init_raycast(t_vars *vars)
+void	init_raycast(t_ray *ray)
 {
-	vars->ray->x = 0;
-
-	vars->ray->playerX = 200;
-	vars->ray->playerY = 250;
-	vars->ray->side = 0; 	//init var side to track which side of the wall has been hit (e.g. 0 --> N or S; 1 --> E or W ??)
-
+	ray->x = 0;
+	
+	ray->playerX = 200;
+	ray->playerY = 250;
+	ray->side = 0; 	//init var side to track which side of the wall has been hit (e.g. 0 --> N or S; 1 --> E or W ??)
+	
 	// set viewing direction (--> west)
-	vars->ray->viewX = -1;
-	vars->ray->viewY = 0;
+	ray->viewX = -1;
+	ray->viewY = 0;
 
 	// set camera plane position
-	vars->ray->planeX = 0; // --> this determines how wide the FOV is (together with viewX or viewY respectively)
-	vars->ray->planeY = 0.66;  // because viewX != 0 and viewY == 0; otherwise would not be perpendicular
+	ray->planeX = 0; // --> this determines how wide the FOV is (together with viewX or viewY respectively)
+	ray->planeY = 0.66;  // because viewX != 0 and viewY == 0; otherwise would not be perpendicular
 }
 
 
@@ -209,10 +209,10 @@ int	create_test_map(t_vars *vars)
 	int	h;
 	int	bpp;
 	int	endian;
-
+	
 	vars->test_texture = mlx_xpm_file_to_image(vars->mlx, "./textures/test_texture2.xpm", &w, &h);
 	vars->text_addr = (int *)mlx_get_data_addr(vars->test_texture, &bpp, &vars->size_line, &endian);
-
+	
 	cast_rays(map, vars);
 	return (0);
 }
@@ -221,7 +221,7 @@ int	create_test_map(t_vars *vars)
 int	ft_render(t_vars *vars)
 {
 	vars->ray = malloc(sizeof(t_ray));
-	init_raycast(vars); // maybe not needed and values are partly set before
+	init_raycast(vars->ray); // maybe not needed and values are partly set before
 	create_test_map(vars); // includes the ray_cast
 	return (0);
 }
@@ -229,22 +229,21 @@ int	ft_render(t_vars *vars)
 
 int	main(void)
 {
-	t_vars	*vars;
+	t_vars	vars;
 	// create a 2D int array (this will later be created from the parsed .cub map)
 	
 	// init mlx and creating the display/window
-	vars = init_vars();
-	vars->mlx = mlx_init();
-	if (!vars->mlx)
+	vars.mlx = mlx_init();
+	if (!vars.mlx)
 		return (1);
-	vars->win = mlx_new_window(vars->mlx, 500, 500, "Title");
-	if (!vars->win)
-		return (free(vars->mlx), 1);
+	vars.win = mlx_new_window(vars.mlx, 500, 500, "Title");
+	if (!vars.win)
+		return (free(vars.mlx), 1);
 	// mlx_pixel_put(vars.mlx, vars.win, 100, 100, 16777215);
 	// mlx_pixel_put(vars.mlx, vars.win, 101, 100, 16777215);
 	// mlx_pixel_put(vars.mlx, vars.win, 99, 100, 16777215);
-	mlx_hook(vars->win, 12, 1L << 15, ft_render, &vars);
-	mlx_hook(vars->win, 17, 0L, ft_close, &vars);
-	mlx_loop(vars->mlx);
+	mlx_hook(vars.win, 12, 1L << 15, ft_render, &vars);
+	mlx_hook(vars.win, 17, 0L, ft_close, &vars);
+	mlx_loop(vars.mlx);
 	
 }
