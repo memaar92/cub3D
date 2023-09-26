@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/25 17:20:22 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:11:05 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,176 +33,146 @@ int	get_pixel_color(int x, int y, t_vars *vars)
 	pos = x * 4 + 4 * vars->size_line * y;
 	color = (int)(vars->text_addr[pos]);
 
-	printf("color: %d\n", color);
 	// mlx_put_image_to_window(vars->mlx, vars->win, vars->test_texture, 0, 0);
 	
 	// printf("test: %c\n", (char)&(vars->text_addr)[0]);
 	return (color);
 }
 
-int	cast_rays(int map[500][500], t_vars *vars)
+void	draw_wall(t_vars *vars)
 {
-	int		x;
-	int		side;
-	double	playerX;
-	double	playerY;
-	double	viewX;
-	double	viewY;
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	double	sideDistX;
-	double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	planeX;
-	double	planeY;
-	double	perpWallDist;
-	int		hit;
-	int		stepX;
-	int		stepY;
-	int		mapX;
-	int		mapY;
-	int		line_height;
-	int		num_cols = 500; // for testing
-	// int		num_rows = 500; // for testing
+	int	color;
+	int	y;
 
-	//set initial player position
-	playerY = 250;
-	playerX = 200;
+	vars->ray->draw_start = (500 / 2) - (vars->ray->line_height / 2);
+	if (vars->ray->draw_start < 0)
+		vars->ray->draw_start = 0;
+	vars->ray->draw_end = (500 / 2) + (vars->ray->line_height / 2);
+	if (vars->ray->draw_end >= 500)
+		vars->ray->draw_end = 500 - 1;
+	y = vars->ray->draw_start;
+	while (y <= vars->ray->draw_end)
+	{
+		color = get_pixel_color(vars->ray->x, 0, vars);
+		mlx_pixel_put(vars->mlx, vars->win, vars->ray->x, y, color);
+		y++;
+	}
+}
 
-	//init var side to track which side of the wall has been hit (e.g. 0 --> N or S; 1 --> E or W ??)
-	side = 0;
+void	calc_line_height(t_ray *ray)
+{
+	if(ray->side == 0)
+		ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
+	else
+		ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
+	ray->line_height = (int)(10000 / ray->perpWallDist); // there is probably a better formula taking into account distance from player to camera plane (cf permadi tutorial)
+}
+
+void	run_dda(t_vars *vars, int map[500][500])
+{
+	while (vars->ray->hit == 0)
+	{
+		if (vars->ray->sideDistX < vars->ray->sideDistY)
+		{
+			vars->ray->sideDistX += vars->ray->deltaDistX;
+			vars->ray->mapX += vars->ray->stepX;
+			vars->ray->side = 0; // to check which side has been hit (NS or EW?)
+		}
+		else
+		{
+			vars->ray->sideDistY += vars->ray->deltaDistY;
+			vars->ray->mapY += vars->ray->stepY;
+			vars->ray->side = 1; // to check which side has been hit (NS or EW?)
+		}
+		// mlx_pixel_put(vars->mlx, vars->win, mapX, mapY, 16777215);
+		if (map[vars->ray->mapY][vars->ray->mapX] > 0)
+			vars->ray->hit = 1;
+	}
+}
+
+
+void	init_raycast(t_ray *ray)
+{
+	ray->x = 0;
+	
+	ray->playerX = 200;
+	ray->playerY = 250;
+	ray->side = 0; 	//init var side to track which side of the wall has been hit (e.g. 0 --> N or S; 1 --> E or W ??)
 	
 	// set viewing direction (--> west)
-	viewX = -1;
-	viewY = 0;
-	
+	ray->viewX = -1;
+	ray->viewY = 0;
+
 	// set camera plane position
-	planeY = 0.66; // --> this determines how wide the FOV is (together with viewX or viewY respectively)
-	planeX = 0; // because viewX != 0 and viewY == 0; otherwise would not be perpendicular
-	
-	// run the game loop
-	x = 0;
-	while (x < num_cols) // probably terminating condition to be redefined
+	ray->planeX = 0; // --> this determines how wide the FOV is (together with viewX or viewY respectively)
+	ray->planeY = 0.66;  // because viewX != 0 and viewY == 0; otherwise would not be perpendicular
+}
+
+
+void	init_casting(t_vars *vars)
+{
+	vars->array_cols = 500; // for testing
+	vars->ray->hit = 0; // init hit flag
+	vars->ray->mapX = (int)vars->ray->playerX; // set the position within the array we are currently at; for every ray initialized with the starting position
+	vars->ray->mapY = (int)vars->ray->playerY; // set the position within the array we are currently at; for every ray initialized with the starting position
+	// calc ray position and direction
+	vars->ray->cameraX = ((double)2 * (double)vars->ray->x / (double)vars->array_cols) - (double)1; // for traversing the camera plane with increasing x / basically casting a new ray for every new x
+	vars->ray->rayDirX = vars->ray->viewX + vars->ray->planeX * vars->ray->cameraX;
+	vars->ray->rayDirY = vars->ray->viewY + vars->ray->planeY * vars->ray->cameraX;
+	// size of increments from one x-side/y-side to the next x-side/y-side; simplified pythagoras and making the assumption that only the *ratio* between deltaDistX and deltaDistY matters for the DDA
+	vars->ray->deltaDistX = 1 / vars->ray->rayDirX; // make sure to not divide by zero?
+	if (vars->ray->deltaDistX < 0)
+		vars->ray->deltaDistX *= -1;
+	vars->ray->deltaDistY = 1 / vars->ray->rayDirY; // make sure to not divide by zero?
+	if (vars->ray->deltaDistY < 0)
+		vars->ray->deltaDistY *= -1;
+	// calc matrix step (int) and length of ray from the initial position to the next side/line of the raster; required for DDA
+	if (vars->ray->rayDirX < 0)
+	{
+		vars->ray->stepX = -1;
+		vars->ray->sideDistX = (vars->ray->playerX - vars->ray->mapX) * vars->ray->deltaDistX;
+	}
+	else
+	{
+		vars->ray->stepX = 1;
+		vars->ray->sideDistX = (vars->ray->mapX + 1.0 - vars->ray->playerX) * vars->ray->deltaDistX;
+	}
+	if (vars->ray->rayDirY < 0)
+	{
+		vars->ray->stepY = -1;
+		vars->ray->sideDistY = (vars->ray->playerY - vars->ray->mapY) * vars->ray->deltaDistY;
+	}
+	else
+	{
+		vars->ray->stepY = 1;
+		vars->ray->sideDistY = (vars->ray->mapY + 1.0 - vars->ray->playerY) * vars->ray->deltaDistY;
+	}
+}
+
+
+int	cast_rays(int map[500][500], t_vars *vars)
+{
+	while (vars->ray->x < vars->array_cols) // probably terminating condition to be redefined
 	{
 		// go through each column x
-		while (x < num_cols)
+		while (vars->ray->x < vars->array_cols)
 		{
-			// init hit flag
-			hit = 0;
-
-			// set the position within the array we are currently at; for every ray initialized with the starting position
-			mapX = (int)playerX;
-			mapY = (int)playerY;
-			
-			// calc ray position and direction
-			cameraX = ((double)2 * (double)x / (double)num_cols) - (double)1; // for traversing the camera plane with increasing x / basically casting a new ray for every new x
-			rayDirX = viewX + planeX * cameraX;
-			rayDirY = viewY + planeY * cameraX;
-
-			// size of increments from one x-side/y-side to the next x-side/y-side using pythagoras
-			// deltaDistX = sqrt(1 + (rayDirY * rayDirY) / rayDirX * rayDirX);
-			// deltaDistY = sqrt(1 + (rayDirX * rayDirX) / rayDirY * rayDirY);
-
-			// size of increments from one x-side/y-side to the next x-side/y-side; simplified pythagoras and making the assumption that only the *ratio* between deltaDistX and deltaDistY matters for the DDA
-			deltaDistX = 1 / rayDirX; // make sure to not divide by zero?
-			if (deltaDistX < 0)
-				deltaDistX *= -1;
-			deltaDistY = 1 / rayDirY; // make sure to not divide by zero?
-			if (deltaDistY < 0)
-				deltaDistY *= -1;
-
-			// calc matrix step (int) and length of ray from the initial position to the next side/line of the raster; required for DDA
-			if (rayDirX < 0)
-			{
-				stepX = -1;
-				sideDistX = (playerX - mapX) * deltaDistX;
-			}
-			else
-			{
-				stepX = 1;
-				sideDistX = (mapX + 1.0 - playerX) * deltaDistX;
-			}
-			if (rayDirY < 0)
-			{
-				stepY = -1;
-				sideDistY = (playerY - mapY) * deltaDistY;
-			}
-			else
-			{
-				stepY = 1;
-				sideDistY = (mapY + 1.0 - playerY) * deltaDistY;
-			}
-			
+			init_casting(vars);
 			// apply DDA (Digital Differential Analyzer; alternatively: Bresenham)
 			// for "moving" along the ray and checking for intersections/hits
-			while (hit == 0)
-			{
-				if (sideDistX < sideDistY)
-				{
-					sideDistX += deltaDistX;
-					mapX += stepX;
-					side = 0; // to check which side has been hit (NS or EW?)
-				}
-				else
-				{
-					sideDistY += deltaDistY;
-					mapY += stepY;
-					side = 1; // to check which side has been hit (NS or EW?)
-				}
-				// mlx_pixel_put(vars->mlx, vars->win, mapX, mapY, 16777215);
-				if (map[mapY][mapX] > 0)
-					hit = 1;
-			}
-
+			run_dda(vars, map);
 			// calculate the perpendicular distance of the ray (from the camera plane not the player) to the wall
 			// why exactly does this calculation work?
-			if(side == 0)
-				perpWallDist = (sideDistX - deltaDistX);
-			else
-				perpWallDist = (sideDistY - deltaDistY);
-
-			// printf("distance to wall: %d: %.17f\n", x, perpWallDist);
-			line_height = (int)(10000 / perpWallDist); // there is probably a better formula taking into account distance from player to camera plane (cf permadi tutorial)
-			
-			int drawStart = (500 / 2) - (line_height / 2);
-			if (drawStart < 0)
-				drawStart = 0;
-			int drawEnd = (500 / 2) + (line_height / 2);
-			if (drawEnd >= 500)
-				drawEnd = 500 - 1;
-			
+			calc_line_height(vars->ray);
 			// drawing the related vertical line
-			int color;
-			int y;
-			// double step;
-			// double texpos;
-			y = drawStart;
-			// step = 64.0 / line_height;
-			// texpos = (drawStart - 500 / 2 + line_height / 2) * step;
-			while (y <= drawEnd)
-			{
-				// int texY = (int)texpos & 63;
-				// texpos *= step;
-				color = get_pixel_color(x, 0, vars);
-				mlx_pixel_put(vars->mlx, vars->win, x, y, color);
-				y++;
-			}
-			printf("new vertical line\n");
-
-			// draw texture / texture scaling
-			// load texutures from texture files
-			// define texture width and height? or is that information inherit in the texture files?
-			// populate a drawbuffer/image with texels (that image should be of size screen_width * screen_height)
-			// put the completed image to the window in one go
-			x++;
+			draw_wall(vars);
+			vars->ray->x++;
 		}
 	}
 	return (0);
 }
 
-int	ft_draw_map(t_vars *vars)
+int	create_test_map(t_vars *vars)
 {
 	int	map[500][500];
 	// int	y = 0;
@@ -248,6 +218,14 @@ int	ft_draw_map(t_vars *vars)
 }
 
 
+int	ft_render(t_vars *vars)
+{
+	init_raycast(vars->ray); // maybe not needed and values are partly set before
+	create_test_map(vars); // includes the ray_cast
+	return (0);
+}
+
+
 int	main(void)
 {
 	t_vars	vars;
@@ -263,7 +241,7 @@ int	main(void)
 	// mlx_pixel_put(vars.mlx, vars.win, 100, 100, 16777215);
 	// mlx_pixel_put(vars.mlx, vars.win, 101, 100, 16777215);
 	// mlx_pixel_put(vars.mlx, vars.win, 99, 100, 16777215);
-	mlx_hook(vars.win, 12, 1L << 15, ft_draw_map, &vars);
+	mlx_hook(vars.win, 12, 1L << 15, ft_render, &vars);
 	mlx_hook(vars.win, 17, 0L, ft_close, &vars);
 	mlx_loop(vars.mlx);
 	

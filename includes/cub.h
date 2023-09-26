@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/25 16:35:53 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:07:43 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,35 @@
 # include <math.h>
 # include <unistd.h>
 # include <fcntl.h>
+
+
+typedef struct s_ray
+{
+	int		x;
+	int		side;
+	double	playerX;
+	double	playerY;
+	double	viewX;
+	double	viewY;
+	double	cameraX;
+	double	rayDirX;
+	double	rayDirY;
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	planeX;
+	double	planeY;
+	double	perpWallDist;
+	int		hit;
+	int		stepX;
+	int		stepY;
+	int		mapX;
+	int		mapY;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+}				t_ray;
 
 typedef struct s_vars
 {
@@ -38,9 +67,8 @@ typedef struct s_vars
 	void	*test_texture;
 	int		*text_addr;
 	int		size_line;
+	t_ray	*ray;
 }				t_vars;
-
-
 
 
 #endif
