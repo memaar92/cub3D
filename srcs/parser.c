@@ -88,9 +88,12 @@ int	not_valid_character(t_vars **vars, char *line)
 	i = -1;
 	while (line[++i])
 	{
-		if (!ft_isspace(line[i]) && line[i] != 'N' && line[i] != 'S' && line[i] != 'E' && line[i] != 'W' && line[i] != '0' && line[i] != '1')
+		if (!ft_isspace(line[i]) && line[i] != 'N'
+			&& line[i] != 'S' && line[i] != 'E' && line[i] != 'W'
+			&& line[i] != '0' && line[i] != '1')
 			return (1);
-		if ((line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W') && (*vars)->pov_dir != -1)
+		if ((line[i] == 'N' || line[i] == 'S' || line[i] == 'E'
+				|| line[i] == 'W') && (*vars)->pov_dir != -1)
 			return (1);
 		if (line[i] == 'N')
 			(*vars)->pov_dir = NO;
@@ -125,25 +128,46 @@ int get_map_size(t_vars **vars, char *filename)
 		if (!is_not_empty_line(line))
 			break ;
 		i++;
-		if (ft_strlen(line) > (*vars)->array_cols)
-			(*vars)->array_cols = ft_strlen(line);
+		if ((int)ft_strlen(line) > (*vars)->array_cols)
+		{
+			(*vars)->array_cols = (int)ft_strlen(line);
+			if (!ft_strchr(line, '\n'))
+				(*vars)->array_cols += 1;
+		}
 		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
 	(*vars)->array_rows = i - (*vars)->map_pos;
-//	printf("----------MAP----------\n");
-//	printf("HEIGHT: %zu\n", (*vars)->array_rows);
-//	printf("WIDTH:  %zu\n", (*vars)->array_cols);
-//	printf("-----------------------\n");
 	return (0);
+}
+
+int	floodfill(t_vars **vars, int **map, double x, double y)
+{
+	int	result;
+
+	if ((int)x < 0 || (int)x >= (*vars)->array_rows + 2
+		|| (int)y < 0 || (int)y >= (*vars)->array_cols
+		|| map[(int)x][(int)y] == 1 || map[(int)x][(int)y] == 0)
+		return (0);
+	else if (map[(int)x][(int)y] == 9)
+		return (1);
+	map[(int)x][(int)y] = 0;
+	result = floodfill(vars, map, x + 1, y);
+	if (!result)
+		result = floodfill(vars, map, x -1, y);
+	if (!result)
+		result = floodfill(vars, map, x, y + 1);
+	if (!result)
+		result = floodfill(vars, map, x, y - 1);
+	return (result);
 }
 
 int	**test_map(t_vars **vars)
 {
 	int		**map;
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 
 	map = ft_calloc(sizeof(int *), (*vars)->array_rows + 2);
 	if (!map)
@@ -160,8 +184,6 @@ int	**test_map(t_vars **vars)
 			map[i][j] = 9;
 		}
 	}
-	print_map(vars, map);
-	printf("\n\n\n");
 	return (map);
 }
 
@@ -169,32 +191,35 @@ int flood_the_map(t_vars **vars, int fd)
 {
 	int		**map;
 	char	*line;
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 
 	map = test_map(vars);
 	i = 0;
 	line = get_next_line(fd);
 	while (++i < (*vars)->array_rows + 1)
 	{
-		j = 0;
+		j = -1;
 		while (line[++j] != '\n' && line[j])
 		{
 			if (line[j] == '0' || line[j] == '1')
-				map[i][j] = line[j] - '0';
+				map[i][j + 1] = '2' - line[j];
 			else if (ft_isspace(line[j]))
-				map[i][j] = 0;
+				map[i][j + 1] = 2;
 			else
 			{
-				map[i][j] = 7;
-				(*vars)->pl_pos_x = i;
-				(*vars)->pl_pos_y = j;
+				map[i][j + 1] = 7;
+				(*vars)->pl_pos_x = (double)i;
+				(*vars)->pl_pos_y = (double)j;
 			}
 		}
 		free(line);
 		line = get_next_line(fd);
 	}
-	print_map(vars, map);
+	if (floodfill(vars, map, (*vars)->pl_pos_x, (*vars)->pl_pos_y))
+		return (free(map), 1); // free it correctly
+	else
+		(*vars)->map = map;
 	return (0);
 }
 
@@ -216,8 +241,8 @@ int create_map(t_vars **vars, char *filename)
 	}
 	free(line);
 	if (flood_the_map(vars, fd))
-		return (1);
-	return (0);
+		return (0);
+	return (1);
 }
 
 
@@ -237,8 +262,6 @@ int	parse_map(t_vars **vars, int fd, char *filename)
 	close(fd);
 	if (get_map_size(vars, filename))
 		return (1);
-	printf("%zu\n", (*vars)->array_rows);
-	printf("%zu\n", (*vars)->array_cols);
 	if (!create_map(vars, filename))
 		return (1);
 	return (0);
@@ -253,19 +276,18 @@ int	parse(t_vars **vars, char *filename)
 
 	first_line = parse_textures(vars, filename);
 	if (!first_line)
-		return (printf("Error: Please provide a valid map.\n"), 1);
+		return (printf(MAP_ERR"\n"), 1);
 	if (textures_not_filled(vars))
-		return (printf("Error: Please provide a valid map.\n"), free(first_line), 1);
+		return (printf(MAP_ERR"\n"), free(first_line), 1);
 	i = -1;
 	fd = open(filename, O_RDONLY);
 	free(first_line);
 	while (++i < (*vars)->map_pos)
 	{
 		first_line = get_next_line(fd);
-//		if (i != pos -1)
 		free(first_line);
 	}
 	if (parse_map(vars, fd, filename))
-		return (printf("Error: Please provide a valid map.\n"), 1);
+		return (printf(MAP_ERR"\n"), 1);
 	return (0);
 }

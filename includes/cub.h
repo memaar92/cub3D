@@ -22,6 +22,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
+# define MAP_ERR "Error: Please provide a valid map."
 # define NO 0
 # define SO 1
 # define WE 2
@@ -35,11 +36,11 @@ typedef struct s_vars
 	void	*win;
 	int		map_pos;
 	int		**map;
-	int		pl_pos_x;
-	int		pl_pos_y;
+	double	pl_pos_x;
+	double	pl_pos_y;
 	int		pov_dir;
-	size_t	array_cols;
-	size_t	array_rows;
+	int		array_cols;
+	int		array_rows;
 	char	**textures;
 	int		floor_ceiling[2][3];
 }				t_vars;

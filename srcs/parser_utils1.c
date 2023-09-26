@@ -107,12 +107,13 @@ void	print_parser(t_vars *vars)
 	printf("WE %s\n", vars->textures[WE]);
 	printf("EA %s\n", vars->textures[EA]);
 	printf("--------------------------\n"ESCAPE);
+	print_map(&vars, vars->map);
 }
 
 void	print_map(t_vars **vars, int **map)
 {
-	size_t	i;
-	size_t	j;
+	int	i;
+	int	j;
 
 	i = -1;
 	while (++i < (*vars)->array_rows + 2)
@@ -121,13 +122,15 @@ void	print_map(t_vars **vars, int **map)
 		while (++j < (*vars)->array_cols + 1)
 		{
 			if (map[i][j] == 9)
-				printf(GREEN"%d"ESCAPE, map[i][j]);
+				printf(GREEN"•"ESCAPE);
 			else if (map[i][j] == 0)
-				printf(WHITE"%d"ESCAPE, map[i][j]);
+				printf(WHITE"■"ESCAPE);
 			else if (map[i][j] == 1)
 				printf(BLACK"%d"ESCAPE, map[i][j]);
 			else if (map[i][j] == 7)
 				printf(RED"%d"ESCAPE, map[i][j]);
+			else if (map[i][j] == 2)
+				printf(MAGENTA"%d"ESCAPE, map[i][j]);
 		}
 		printf("\n");
 	}
