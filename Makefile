@@ -12,13 +12,13 @@ NAME = cub
 # **************************************************************************** #
 
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 MLXFLAGS = -L/usr/X11/lib -lX11 -lXext -lm
 
 SRCS_DIR = ./srcs/
 
-SRCS := $(addprefix $(SRCS_DIR),raycaster.c parser_utils1.c parser_utils2.c parser.c parser2.c init.c)
+SRCS := $(addprefix $(SRCS_DIR),raycaster.c init.c) #parser_utils1.c parser_utils2.c parser.c parser2.c init.c
 
 LIBFT_DIR = ./libft
 

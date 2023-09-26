@@ -72,7 +72,7 @@ typedef struct s_vars
 	int		pov_dir;
 	int		array_cols;
 	int		array_rows;
-	char	**textures;
+	char	*textures;
 	int		floor_ceiling[2][3];
 	void	*red_line;
 	void	*img_wall;
@@ -81,6 +81,26 @@ typedef struct s_vars
 	int		size_line;
 	t_ray	*ray;
 }				t_vars;
+
+//typedef struct s_vars
+//{
+//	void	*mlx;
+//	void	*win;
+//	int		pl_pos_x;
+//	int		pl_pos_y;
+//	int		pov_dir;
+//	int		array_cols;
+//	int		array_rows;
+//	t_ray	*ray;
+//	char	**textures;
+//	int		ceiling[3];
+//	int		floor[3];
+//	void	*red_line;
+//	void	*img_wall;
+//	void	*test_texture;
+//	int		*text_addr;
+//	int		size_line;
+//}				t_vars;
 
 // PARSER
 int		parse(t_vars **vars, char *filename);
