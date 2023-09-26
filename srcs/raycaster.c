@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/26 12:20:51 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:39:08 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,3 +247,16 @@ int	main(void)
 	mlx_loop(vars.mlx);
 	
 }
+
+// int main(int argc, char **argv)
+// {
+// 	t_vars *vars;
+
+// 	if (argc != 2)
+// 		return(printf("ERROR\n"), 1);
+// 	vars = init_vars();
+// 	if (parse(&vars, argv[1]))
+// 		return(printf("ERROR\n"), 1);
+// 	print_parser(vars);
+// 	return (0);
+// }
