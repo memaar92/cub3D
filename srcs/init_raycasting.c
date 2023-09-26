@@ -48,7 +48,7 @@ void	calc_ray_step_len(t_vars *vars)
 
 void	calc_ray_dir(t_vars *vars)
 {
-	vars->ray->cameraX = ((double)2 * (double)vars->ray->x / (double)vars->screen_height - (double)1); // for traversing the camera plane with increasing x / basically casting a new ray for every new x
+	vars->ray->cameraX = ((double)2 * (double)vars->ray->x / (double)vars->screen_width - (double)1); // for traversing the camera plane with increasing x / basically casting a new ray for every new x
 	vars->ray->rayDirX = vars->ray->viewX + vars->ray->planeX * vars->ray->cameraX;
 	vars->ray->rayDirY = vars->ray->viewY + vars->ray->planeY * vars->ray->cameraX;
 }

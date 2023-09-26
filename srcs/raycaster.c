@@ -43,14 +43,14 @@ void	draw_wall(t_vars *vars)
 	}
 }
 
-void	calc_line_height(t_ray *ray)
+void	calc_line_height(t_vars *vars)
 {
 	// why exactly does this calculation work?
-	if(ray->side == 0)
-		ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
+	if(vars->ray->side == 0)
+		vars->ray->perpWallDist = (vars->ray->sideDistX - vars->ray->deltaDistX);
 	else
-		ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
-	ray->line_height = (int)(2000 / ray->perpWallDist); // there is probably a better formula taking into account distance from player to camera plane (cf permadi tutorial)
+		vars->ray->perpWallDist = (vars->ray->sideDistY - vars->ray->deltaDistY);
+	vars->ray->line_height = (int)(2 * vars->screen_height / vars->ray->perpWallDist); // there is probably a better formula taking into account distance from player to camera plane (cf permadi tutorial)
 }
 
 void	run_dda(t_vars *vars)
@@ -89,7 +89,7 @@ int	cast_rays(t_vars *vars)
 			run_dda(vars);
 			
 			// calculate the perpendicular distance of the ray (from the camera plane not the player) to the wall
-			calc_line_height(vars->ray);
+			calc_line_height(vars);
 			
 			// drawing the related vertical line
 			draw_wall(vars);
