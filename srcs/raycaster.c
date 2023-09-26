@@ -81,7 +81,7 @@ int	cast_rays(t_vars *vars)
 	// while (vars->ray->x < vars->array_cols) // probably terminating condition to be redefined
 	// {
 		// go through each column x
-		while (vars->ray->x < vars->screen_height)
+		while (vars->ray->x < vars->screen_width)
 		{
 			init_raycast(vars);
 			
