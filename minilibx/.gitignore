@@ -1,9 +1,20 @@
+## Mlx related
+Makefile.gen
+/test/mlx-test
+
+## Editor
+.vscode/*
+*~
+\#*\#
+
+## Other
+.DS_STORE
+
+
+
+## Template from https://github.com/github/gitignore
 # Prerequisites
 *.d
-.DS_STORE
-*.dSYM
-.idea
-.vscode
 
 # Object files
 *.o
@@ -22,6 +33,7 @@
 
 # Libraries
 *.lib
+*.a
 *.la
 *.lo
 
@@ -29,9 +41,9 @@
 *.dll
 *.so
 *.so.*
+*.dylib
 
 # Executables
-cub
 *.exe
 *.out
 *.app
