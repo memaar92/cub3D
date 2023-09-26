@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/26 11:11:05 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/23 09:14:52 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
 
-int	ft_close(t_vars *vars)
-{
-	if (vars->win)
-		mlx_destroy_window(vars->mlx, vars->win);
-	if (vars->mlx)
-	{
-		mlx_destroy_display(vars->mlx);
-		free(vars->mlx);
-	}
-	exit(0);
-}
+ int	ft_close(t_vars *vars)
+ {
+ 	if (vars->win)
+ 		mlx_destroy_window(vars->mlx, vars->win);
+ 	if (vars->mlx)
+ 	{
+ 		mlx_destroy_display(vars->mlx);
+ 		free(vars->mlx);
+ 	}
+ 	exit(0);
+ }
 
 int	get_pixel_color(int x, int y, t_vars *vars)
 {
@@ -230,7 +230,6 @@ int	main(void)
 {
 	t_vars	vars;
 	// create a 2D int array (this will later be created from the parsed .cub map)
-	
 	// init mlx and creating the display/window
 	vars.mlx = mlx_init();
 	if (!vars.mlx)
@@ -244,5 +243,4 @@ int	main(void)
 	mlx_hook(vars.win, 12, 1L << 15, ft_render, &vars);
 	mlx_hook(vars.win, 17, 0L, ft_close, &vars);
 	mlx_loop(vars.mlx);
-	
 }

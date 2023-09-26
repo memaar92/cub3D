@@ -12,13 +12,13 @@
 
 NAME = cub
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Wextra -g
 
 MLXFLAGS = -L/usr/X11/lib -lX11 -lXext -lm
 
 SRCS_DIR = ./srcs/
 
-SRCS := $(addprefix $(SRCS_DIR),raycaster.c)
+SRCS := $(addprefix $(SRCS_DIR),raycaster.c parser_utils1.c parser_utils2.c parser.c parser2.c init.c)
 
 LIBFT_DIR = ./libft
 
@@ -37,7 +37,7 @@ HEADERS = cub.h
 all: $(NAME)
 
 $(NAME): $(OBJS) $(MLXLIB) $(LIBFT)
-	cc $(MLXFLAGS) $(MLXLIB) $(LIBFT) $(OBJS) -o $@
+	cc $(CFLAGS) $(MLXFLAGS) $(MLXLIB) $(LIBFT) $(OBJS) -o $@
 
 $(LIBFT):
 	$(MAKE) bonus -C $(LIBFT_DIR)
@@ -52,7 +52,7 @@ bonus: all
 
 clean:
 	$(MAKE) clean -C $(LIBFT_DIR)
-	rm -f $(OBJS) 
+	rm -f $(OBJS)
 
 fclean: clean
 	$(MAKE) fclean -C $(LIBFT_DIR)
