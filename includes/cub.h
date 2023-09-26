@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/26 12:41:14 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:03:40 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,31 @@ typedef struct s_vars
 	void	*test_texture;
 	int		*text_addr;
 	int		size_line;
+	int		screen_width;
+	int		screen_height;
 	t_ray	*ray;
 }				t_vars;
+
+// RAYCASTER
+int		ft_render(t_vars *vars);
+void	init_textures(t_vars *vars); // for testing
+void 	print_2D_map_on_window(t_vars *vars); // for testing
+int		cast_rays(t_vars *vars);
+void	run_dda(t_vars *vars);
+void	calc_line_height(t_ray *ray);
+void	draw_wall(t_vars *vars);
+int		get_pixel_color(int x, int y, t_vars *vars);
+
+// SETUP RAYCAST (probably not needed in the end)
+void	setup_raycast(t_vars *vars);
+void	set_viewing_direction(t_vars *vars);
+void	set_camera_plane(t_vars *vars);
+
+// INIT RAYCASTING
+void	init_raycast(t_vars *vars);
+void	calc_ray_dir(t_vars *vars);
+void	calc_ray_step_len(t_vars *vars);
+void	init_map_steps_ray_len(t_vars *vars);
 
 // PARSER
 int		parse(t_vars **vars, char *filename);

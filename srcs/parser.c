@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:12:01 by valmpani          #+#    #+#             */
-/*   Updated: 2023/09/25 17:10:10 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:31:39 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,7 @@ int flood_the_map(t_vars **vars, int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
+	// print_map(vars, map);
 	if (floodfill(vars, map, (*vars)->pl_pos_x, (*vars)->pl_pos_y))
 		return (free(map), 1); // free it correctly
 	else
