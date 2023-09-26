@@ -6,13 +6,13 @@
 #    By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/19 14:16:52 by mamesser          #+#    #+#              #
-#    Updated: 2023/09/25 14:46:18 by mamesser         ###   ########.fr        #
+#    Updated: 2023/09/26 12:19:54 by mamesser         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 MLXFLAGS = -L/usr/X11/lib -lX11 -lXext -lm
 
@@ -37,7 +37,7 @@ HEADERS = cub.h
 all: $(NAME)
 
 $(NAME): $(OBJS) $(MLXLIB) $(LIBFT)
-	cc $(MLXFLAGS) $(MLXLIB) $(LIBFT) $(OBJS) -o $@
+	cc $(CFLAGS) $(MLXFLAGS) $(MLXLIB) $(LIBFT) $(OBJS) -o $@
 
 $(LIBFT):
 	$(MAKE) bonus -C $(LIBFT_DIR)

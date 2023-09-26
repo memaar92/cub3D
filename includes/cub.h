@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/26 11:07:43 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:26:56 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,15 @@ typedef struct s_vars
 {
 	void	*mlx;
 	void	*win;
-	int		pl_pos_x;
-	int		pl_pos_y;
+	int		map_pos;
+	int		**map;
+	double	pl_pos_x;
+	double	pl_pos_y;
 	int		pov_dir;
 	int		array_cols;
 	int		array_rows;
-	char	*textures[5];
-	int		ceiling[3];
-	int		floor[3];
+	char	**textures;
+	int		floor_ceiling[2][3];
 	void	*red_line;
 	void	*img_wall;
 	void	*test_texture;
@@ -69,6 +70,5 @@ typedef struct s_vars
 	int		size_line;
 	t_ray	*ray;
 }				t_vars;
-
 
 #endif

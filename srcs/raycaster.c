@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/26 11:11:05 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:20:51 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,7 @@ int	create_test_map(t_vars *vars)
 
 int	ft_render(t_vars *vars)
 {
+	vars->ray = malloc(sizeof(t_ray));
 	init_raycast(vars->ray); // maybe not needed and values are partly set before
 	create_test_map(vars); // includes the ray_cast
 	return (0);
