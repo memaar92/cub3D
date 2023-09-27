@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/27 12:28:58 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:09:27 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,15 @@ int	get_pixel_color(int x, int y, t_vars *vars)
 	int	color;
 	int pos;
 	
-
-	pos = x * 4 + 4 * vars->size_line * y;
+	// printf("size_line: %d\n", vars->size_line);
+	// pos = x * 4 + 4 * vars->size_line * y;
+	
+	x = x & (64 - 1);
+	// pos = x * 4 + vars->size_line * y;
+	pos = 64 * y + x;
+	// printf("x: %d\n", x);
+	// printf("y: %d\n", y);
+	// printf("pos: %d\n", pos);
 	color = (int)(vars->text_addr[pos]);
 	return (color);
 }
@@ -34,10 +41,38 @@ void	draw_wall(t_vars *vars)
 	vars->ray->draw_end = (vars->screen_height / 2) + (vars->ray->line_height / 2);
 	if (vars->ray->draw_end >= vars->screen_height)
 		vars->ray->draw_end = vars->screen_height - 1;
+	
+	// double wallX;
+	// if (vars->ray->side == 0)
+	// 	wallX = vars->pl_pos_y + vars->ray->perpWallDist * vars->ray->rayDirY;
+	// else
+	// 	wallX = vars->pl_pos_x + vars->ray->perpWallDist * vars->ray->rayDirX;
+	// wallX -= floor(wallX);
+
+	// int texX = (int)(wallX * (double)64);
+	// if (vars->ray->side == 0 && vars->ray->rayDirX > 0)
+	// 	texX = 64 - texX - 1;
+	// if (vars->ray->side == 1 && vars->ray->rayDirY < 0)
+	// 	texX = 64 - texX - 1;
+
+	// printf("wall: %f\n", wallX);
+	// printf("texX: %d\n", texX);
+	// printf("x: %d\n", vars->ray->x & (64 - 1));
+	
+	double step = 1.0 * 64 / vars->ray->line_height;
+
+	// double texPos = (vars->ray->draw_start - vars->screen_height / 2 + vars->ray->line_height / 2) * step;
+	
+	double texPos = 0.0;
+	
 	y = vars->ray->draw_start;
 	while (y <= vars->ray->draw_end)
 	{
-		color = get_pixel_color(vars->ray->x, 0, vars); // needs to be adjusted; currently not working correctly as y is held constant
+		int texY = (int)texPos & (64 - 1);
+		texPos += step;
+		color = get_pixel_color(vars->ray->x, texY, vars); // needs to be adjusted; currently not working correctly as y is held constant
+		if (vars->ray->side == 1) 
+			color = (color >> 1) & 8355711;
 		mlx_pixel_put(vars->mlx, vars->win, vars->ray->x, y, color); // should be printed to an image first; then entire image is put on window at the end
 		y++;
 	}
@@ -50,7 +85,7 @@ void	calc_line_height(t_vars *vars)
 		vars->ray->perpWallDist = (vars->ray->sideDistX - vars->ray->deltaDistX);
 	else
 		vars->ray->perpWallDist = (vars->ray->sideDistY - vars->ray->deltaDistY);
-	vars->ray->line_height = (int)((2 * vars->screen_height) / vars->ray->perpWallDist); // there is probably a better formula taking into account distance from player to camera plane (cf permadi tutorial)
+	vars->ray->line_height = (int)((4 * vars->screen_height) / vars->ray->perpWallDist); // there is probably a better formula taking into account distance from player to camera plane (cf permadi tutorial)
 }
 
 void	run_dda(t_vars *vars)
