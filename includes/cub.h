@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/27 13:29:08 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/27 13:57:21 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,41 +104,46 @@ void	calc_ray_dir(t_vars *vars);
 void	calc_ray_step_len(t_vars *vars);
 void	init_map_steps_ray_len(t_vars *vars);
 
-// PARSER
-int		parse(t_vars **vars, char *filename);
-char	*parse_textures(t_vars **vars, char *filename);
-int		find_ceiling_floor(t_vars **vars, char **buf);
-int		find_textures(t_vars **vars, char **buf);
-int		find_paths(t_vars **vars, char **elements);
+// INIT
+void	set_floor_ceil(t_vars **vars);
+t_vars	*init_vars(void);
+
+// MAIN
+void	free_vars(t_vars *vars);
+void	free_map(t_vars *vars, int **map);
+
+// PARSER_UTILS1
+void	set_char(char **buf, char c);
+int		is_not_empty_line(char *buf);
+int		is_first_line(char *buf);
+int		check_rgb_values(t_vars **vars, char **buf);
+void	print_parser(t_vars *vars);
+void	print_map(t_vars **vars, int **map);
+
+// PARSER_UTILS2
 int		floodfill(t_vars **vars, int **map, double x, double y);
+int		flood_the_map(t_vars **vars, int fd);
+int		textures_not_filled(t_vars **vars);
+int		find_paths(t_vars **vars, char **elements);
+int		find_ceiling_floor(t_vars **vars, char **buf);
+
+// PARSER
+char	*parse_textures(t_vars **vars, char *filename);
 int		**test_map(t_vars **vars);
+int		create_map(t_vars **vars, char *filename);
+int		parse_map(t_vars **vars, int fd, char *filename);
+int		parse(t_vars **vars, char *filename);
 
 // PARSER2
+int		find_textures(t_vars **vars, char **buf);
 int		check_floor_ceil(t_vars **vars, char **elements);
 int		check_textures(t_vars **vars, char **elements);
 int		not_valid_character(t_vars **vars, char *line);
 
 // PARSER3
-int		get_map_size(t_vars **vars, char *filename, int i);
-char	*reach_map(t_vars **vars, int fd, int *i);
-int		flood_the_map(t_vars **vars, int fd);
 void	set_map(t_vars **vars, int **map, int i, char *line);
-
-// PARSER_UTILS1
-void	set_char(char **buf, char c);
-int		check_rgb_values(t_vars **vars, char **buf);
-void	print_parser(t_vars *vars);
-void	print_map(t_vars **vars, int **map);
-int		is_not_empty_line(char *buf);
-int		is_first_line(char *buf);
-
-// PARSER_UTILS2
-int		textures_not_filled(t_vars **vars);
-
-// INIT
-void	set_floor_ceil(t_vars **vars);
-t_vars	*init_vars(void);
-
-void	free_map(t_vars *vars, int **map);
+char	*reach_map(t_vars **vars, int fd, int *i);
+void	set_map_cols(t_vars **vars, char *line, int *i);
+int		get_map_size(t_vars **vars, char *filename, int i);
 
 #endif
