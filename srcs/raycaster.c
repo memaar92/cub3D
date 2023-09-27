@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/27 12:28:16 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:28:58 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	draw_wall(t_vars *vars)
 	}
 }
 
-void	calc_line_height(t_vars *vars)
 void	calc_line_height(t_vars *vars)
 {
 	// why exactly does this calculation work?
