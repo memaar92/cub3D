@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   parser2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpani@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:43:08 by valmpani          #+#    #+#             */
-/*   Updated: 2023/09/22 13:43:11 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:46:05 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,31 @@ int	check_textures(t_vars **vars, char **elements)
 			&& ft_strlen(elements[0]) == 2))
 		if (find_paths(vars, elements))
 			return (1);
+	return (0);
+}
+
+int	not_valid_character(t_vars **vars, char *line)
+{
+	int	i;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (!ft_isspace(line[i]) && line[i] != 'N'
+			&& line[i] != 'S' && line[i] != 'E' && line[i] != 'W'
+			&& line[i] != '0' && line[i] != '1')
+			return (1);
+		if ((line[i] == 'N' || line[i] == 'S' || line[i] == 'E'
+				|| line[i] == 'W') && (*vars)->pov_dir != -1)
+			return (1);
+		if (line[i] == 'N')
+			(*vars)->pov_dir = NO;
+		else if (line[i] == 'S')
+			(*vars)->pov_dir = SO;
+		else if (line[i] == 'W')
+			(*vars)->pov_dir = WE;
+		else if (line[i] == 'E')
+			(*vars)->pov_dir = EA;
+	}
 	return (0);
 }

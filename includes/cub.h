@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/26 17:03:40 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/27 13:29:08 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,19 @@ char	*parse_textures(t_vars **vars, char *filename);
 int		find_ceiling_floor(t_vars **vars, char **buf);
 int		find_textures(t_vars **vars, char **buf);
 int		find_paths(t_vars **vars, char **elements);
+int		floodfill(t_vars **vars, int **map, double x, double y);
+int		**test_map(t_vars **vars);
 
 // PARSER2
 int		check_floor_ceil(t_vars **vars, char **elements);
 int		check_textures(t_vars **vars, char **elements);
+int		not_valid_character(t_vars **vars, char *line);
+
+// PARSER3
+int		get_map_size(t_vars **vars, char *filename, int i);
+char	*reach_map(t_vars **vars, int fd, int *i);
+int		flood_the_map(t_vars **vars, int fd);
+void	set_map(t_vars **vars, int **map, int i, char *line);
 
 // PARSER_UTILS1
 void	set_char(char **buf, char c);
@@ -129,5 +138,7 @@ int		textures_not_filled(t_vars **vars);
 // INIT
 void	set_floor_ceil(t_vars **vars);
 t_vars	*init_vars(void);
+
+void	free_map(t_vars *vars, int **map);
 
 #endif
