@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/27 12:24:32 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:28:16 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	draw_wall(t_vars *vars)
 	}
 }
 
+void	calc_line_height(t_vars *vars)
 void	calc_line_height(t_vars *vars)
 {
 	// why exactly does this calculation work?
@@ -81,7 +82,7 @@ int	cast_rays(t_vars *vars)
 	// while (vars->ray->x < vars->array_cols) // probably terminating condition to be redefined
 	// {
 		// go through each column x
-		while (vars->ray->x < vars->screen_height)
+		while (vars->ray->x < vars->screen_width)
 		{
 			init_raycast(vars);
 			
