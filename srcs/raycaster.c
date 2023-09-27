@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/27 12:05:07 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:24:32 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ void	draw_wall(t_vars *vars)
 	}
 }
 
-void	calc_line_height(t_ray *ray)
+void	calc_line_height(t_vars *vars)
 {
 	// why exactly does this calculation work?
-	if(ray->side == 0)
-		ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
+	if(vars->ray->side == 0)
+		vars->ray->perpWallDist = (vars->ray->sideDistX - vars->ray->deltaDistX);
 	else
-		ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
-	ray->line_height = (int)(2000 / ray->perpWallDist); // there is probably a better formula taking into account distance from player to camera plane (cf permadi tutorial)
+		vars->ray->perpWallDist = (vars->ray->sideDistY - vars->ray->deltaDistY);
+	vars->ray->line_height = (int)((2 * vars->screen_height) / vars->ray->perpWallDist); // there is probably a better formula taking into account distance from player to camera plane (cf permadi tutorial)
 }
 
 void	run_dda(t_vars *vars)
@@ -89,7 +89,7 @@ int	cast_rays(t_vars *vars)
 			run_dda(vars);
 			
 			// calculate the perpendicular distance of the ray (from the camera plane not the player) to the wall
-			calc_line_height(vars->ray);
+			calc_line_height(vars);
 			
 			// drawing the related vertical line
 			draw_wall(vars);
@@ -106,7 +106,7 @@ void print_2D_map_on_window(t_vars *vars) // just for testing; remove later
 	while (i < (*vars).array_cols)
 	{
 		int	j = 0;
-		while (j < (*vars).array_rows)
+		while (j < (*vars).array_rows + 1)
 		{
 			if (vars->map[i][j] == 1)
 				mlx_pixel_put(vars->mlx, vars->win, i, j, 65280);

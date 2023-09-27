@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/26 17:03:40 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:18:37 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	init_textures(t_vars *vars); // for testing
 void 	print_2D_map_on_window(t_vars *vars); // for testing
 int		cast_rays(t_vars *vars);
 void	run_dda(t_vars *vars);
-void	calc_line_height(t_ray *ray);
+void	calc_line_height(t_vars *vars);
 void	draw_wall(t_vars *vars);
 int		get_pixel_color(int x, int y, t_vars *vars);
 
