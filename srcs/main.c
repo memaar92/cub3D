@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:09:45 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/26 16:36:59 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:02:23 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	main(int argc, char **argv)
 	vars->screen_height = 500;
 	if (parse(&vars, argv[1]))
 		return(printf("ERROR\n"), 1);
-	// print_parser(vars);
+	print_parser(vars);
+	print_parser(vars);
 	vars->mlx = mlx_init();
 	if (!vars->mlx)
 		return (1);
@@ -48,7 +49,7 @@ int	main(int argc, char **argv)
 	mlx_hook(vars->win, 12, 1L << 15, ft_render, vars);
 	mlx_hook(vars->win, 17, 0L, ft_close, vars);
 	mlx_loop(vars->mlx);
-	
+
 }
 
 // int main(int argc, char **argv)

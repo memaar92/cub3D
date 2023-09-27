@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:12:01 by valmpani          #+#    #+#             */
-/*   Updated: 2023/09/26 14:31:39 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/27 11:59:18 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,8 +146,8 @@ int	floodfill(t_vars **vars, int **map, double x, double y)
 {
 	int	result;
 
-	if ((int)x < 0 || (int)x >= (*vars)->array_rows + 2
-		|| (int)y < 0 || (int)y >= (*vars)->array_cols
+	if ((int)x < 0 || (int)x >= (*vars)->array_cols + 1
+		|| (int)y < 0 || (int)y >= (*vars)->array_rows + 2
 		|| map[(int)x][(int)y] == 1 || map[(int)x][(int)y] == 0)
 		return (0);
 	else if (map[(int)x][(int)y] == 9)
@@ -169,17 +169,17 @@ int	**test_map(t_vars **vars)
 	int		i;
 	int		j;
 
-	map = ft_calloc(sizeof(int *), (*vars)->array_rows + 2);
+	map = ft_calloc(sizeof(int *), (*vars)->array_cols + 1);
 	if (!map)
 		return (NULL);
 	i = -1;
-	while (++i < (*vars)->array_rows + 2)
+	while (++i < (*vars)->array_cols + 1)
 	{
 		j = -1;
-		map[i] = ft_calloc(sizeof(int), (*vars)->array_cols + 1);
+		map[i] = ft_calloc(sizeof(int), (*vars)->array_rows + 2);
 		if (!map[i])
 			return (NULL);
-		while (++j < (*vars)->array_cols + 1)
+		while (++j < (*vars)->array_rows + 2)
 		{
 			map[i][j] = 9;
 		}
@@ -197,26 +197,27 @@ int flood_the_map(t_vars **vars, int fd)
 	map = test_map(vars);
 	i = 0;
 	line = get_next_line(fd);
-	while (++i < (*vars)->array_rows + 1)
+	while (++i < (*vars)->array_cols + 1)
 	{
 		j = -1;
-		while (line[++j] != '\n' && line[j])
+		while (line && line[++j] != '\n' && line[j])
 		{
+			printf("%c", line[j]);
 			if (line[j] == '0' || line[j] == '1')
-				map[i][j + 1] = '2' - line[j];
+				map[j + 1][i] = '2' - line[j];
 			else if (ft_isspace(line[j]))
-				map[i][j + 1] = 2;
+				map[j + 1][i] = 2;
 			else
 			{
-				map[i][j + 1] = 7;
-				(*vars)->pl_pos_x = (double)i;
-				(*vars)->pl_pos_y = (double)j;
+				map[j + 1][i] = 7;
+				(*vars)->pl_pos_x = (double)j + 1;
+				(*vars)->pl_pos_y = (double)i;
 			}
 		}
+		printf("\n");
 		free(line);
 		line = get_next_line(fd);
 	}
-	// print_map(vars, map);
 	if (floodfill(vars, map, (*vars)->pl_pos_x, (*vars)->pl_pos_y))
 		return (free(map), 1); // free it correctly
 	else

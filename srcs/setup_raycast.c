@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup_raycast.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:28:30 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/26 16:38:00 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:00:52 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	setup_raycast(t_vars *vars)
 {
 	vars->ray->x = 0; // set starting column; probably independent of array. This is where the screen starts
 		
-	vars->ray->playerX = vars->pl_pos_y; // this can be removed after aligning on coordinate system
-	vars->ray->playerY = vars->pl_pos_x; // this can be removed after aligning on coordinate system
+	vars->ray->playerX = vars->pl_pos_x; // this can be removed after aligning on coordinate system
+	vars->ray->playerY = vars->pl_pos_y; // this can be removed after aligning on coordinate system
 	
 	// set viewing direction
 	set_viewing_direction(vars);

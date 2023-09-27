@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/26 17:02:00 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:05:07 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,12 @@ int	cast_rays(t_vars *vars)
 void print_2D_map_on_window(t_vars *vars) // just for testing; remove later
 {
 	int i = 0;
-	while (i < 51)
+	while (i < (*vars).array_cols)
 	{
 		int	j = 0;
-		while (j < 51)
+		while (j < (*vars).array_rows)
 		{
-			if (vars->map[j][i] == 1)
+			if (vars->map[i][j] == 1)
 				mlx_pixel_put(vars->mlx, vars->win, i, j, 65280);
 			j++;
 		}

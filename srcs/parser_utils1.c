@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:11:34 by valmpani          #+#    #+#             */
-/*   Updated: 2023/09/25 17:00:44 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/27 11:57:21 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,23 +115,23 @@ void	print_map(t_vars **vars, int **map)
 	int	i;
 	int	j;
 
-	i = -1;
-	while (++i < (*vars)->array_rows + 2)
+	j = -1;
+	while (++j < (*vars)->array_rows + 2)
 	{
-		j = -1;
-		while (++j < (*vars)->array_cols + 1)
-		{
-			if (map[i][j] == 9)
-				printf(GREEN"•"ESCAPE);
-			else if (map[i][j] == 0)
-				printf(WHITE"■"ESCAPE);
-			else if (map[i][j] == 1)
-				printf(BLACK"%d"ESCAPE, map[i][j]);
-			else if (map[i][j] == 7)
-				printf(RED"%d"ESCAPE, map[i][j]);
-			else if (map[i][j] == 2)
-				printf(MAGENTA"%d"ESCAPE, map[i][j]);
-		}
-		printf("\n");
+	i = -1;
+	while (++i < (*vars)->array_cols + 1)
+	{
+		if (map[i][j] == 9)
+			printf(GREEN"•"ESCAPE);
+		else if (map[i][j] == 0)
+			printf(WHITE"■"ESCAPE);
+		else if (map[i][j] == 1)
+			printf(BLACK"%d"ESCAPE, map[i][j]);
+		else if (map[i][j] == 7)
+			printf(RED"%d"ESCAPE, map[i][j]);
+		else if (map[i][j] == 2)
+			printf(MAGENTA"%d"ESCAPE, map[i][j]);
+	}
+	printf("\n");
 	}
 }
