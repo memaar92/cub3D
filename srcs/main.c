@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:09:45 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/27 13:33:50 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/27 14:13:24 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,20 @@ void	free_vars(t_vars *vars)
 	free(vars);
 }
 
-int	main(int argc, char **argv)
-{
-	t_vars	*vars;
-	// create a 2D int array (this will later be created from the parsed .cub map)
+// int	main(int argc, char **argv)
+// {
+// 	t_vars	*vars;
+// 	// create a 2D int array (this will later be created from the parsed .cub map)
 	
-	if (argc != 2)
-		return(1);
-	// init mlx and creating the display/window
-	vars = init_vars();
-	// vars->ray = malloc(sizeof(t_ray));
-	vars->screen_width = 600;
-	vars->screen_height = 600;
-	if (parse(&vars, argv[1]))
-		return(free_vars(vars), 1);
-	free_vars(vars);
+// 	if (argc != 2)
+// 		return(1);
+// 	// init mlx and creating the display/window
+// 	vars = init_vars();
+// 	vars->ray = malloc(sizeof(t_ray));
+// 	vars->screen_width = 600;
+// 	vars->screen_height = 600;
+// 	if (parse(&vars, argv[1]))
+// 		return(free_vars(vars), 1);
 	// print_parser(vars);
 	// print_parser(vars);
 	// vars->mlx = mlx_init();
@@ -69,19 +68,37 @@ int	main(int argc, char **argv)
 	// mlx_hook(vars->win, 12, 1L << 15, ft_render, vars);
 	// mlx_hook(vars->win, 17, 0L, ft_close, vars);
 	// mlx_loop(vars->mlx);
+// }
 
+int	right_file_extension(char *name)
+{
+	char	**split;
+	int		i;
+
+	split = ft_split(name, '.');
+	i = 0;
+	while (split[i])
+		i++;
+	if (i != 2)
+		return (free_mem(split), 0);
+	if (ft_strncmp(split[1], "cub", ft_strlen(split[1])) != 0
+		|| ft_strlen(split[1]) != 3)
+		return (free_mem(split), 0);
+	return (free_mem(split), 1);
 }
 
-// int main(int argc, char **argv)
+int	main(int argc, char **argv)
 
-// {
-// 	t_vars *vars;
+{
+	t_vars	*vars;
 
-// 	if (argc != 2)
-// 		return(printf("ERROR\n"), 1);
-// 	vars = init_vars();
-// 	if (parse(&vars, argv[1]))
-// 		return(printf("ERROR\n"), 1);
-// 	print_parser(vars);
-// 	return (0);
-// }
+	if (argc != 2)
+		return (printf("Please provide a valid file name\n"), 1);
+	if (!right_file_extension(argv[1]))
+		return (printf("Please provide a valid file name\n"), 1);
+	vars = init_vars();
+	if (parse(&vars, argv[1]))
+		return (1);
+	free_vars(vars);
+	return (0);
+}
