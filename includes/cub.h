@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/28 10:50:11 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/28 19:46:37 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 
 typedef struct s_ray
 {
-	int		x;
 	int		side;
 	double	playerX;
 	double	playerY;
@@ -60,6 +59,17 @@ typedef struct s_ray
 	int		draw_end;
 }				t_ray;
 
+typedef struct s_img
+{
+	int		line_size;
+	int		bpp;
+	int		endian;
+	void	*img;
+	int		*addr;
+	int		tex_h;
+	int		tex_w;
+}				t_img;
+
 typedef struct s_vars
 {
 	void	*mlx;
@@ -75,29 +85,31 @@ typedef struct s_vars
 	int		floor_ceiling[2][3];
 	void	*red_line;
 	void	*img_wall;
-	void	*test_texture;
-	void	*img;
-	int		*img_addr;
-	int		*text_addr;
-	int		size_line;
-	int		size_test;
+	t_img	*scr_buf;
+	t_img	*test_tex;
+	int		screen_x;
+	int		screen_y;
 	int		screen_width;
 	int		screen_height;
 	t_ray	*ray;
 }				t_vars;
 
+
+// UTILS
+int	init_screen_buffer(t_vars *vars);
+int	init_textures(t_vars *vars);
+int	set_color(int t, int r, int g, int b);
+
 // RAYCASTER
 int		ft_render(t_vars *vars);
-void	init_textures(t_vars *vars); // for testing
 void 	print_2D_map_on_window(t_vars *vars); // for testing
 int		cast_rays(t_vars *vars);
 void	run_dda(t_vars *vars);
 void	calc_line_height(t_vars *vars);
-void	draw_wall(t_vars *vars);
-int		get_pixel_color(int x, int y, t_vars *vars);
+void	put_text_on_buf_scr(t_vars *vars);
+int	get_pixel_color(int tex_x_pos, int tex_y_pos, t_vars *vars);
 
-// SETUP RAYCAST (probably not needed in the end)
-void	setup_raycast(t_vars *vars);
+// SETUP VIEWING DIRECTION
 void	set_viewing_direction(t_vars *vars);
 void	set_camera_plane(t_vars *vars);
 

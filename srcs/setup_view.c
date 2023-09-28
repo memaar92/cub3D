@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:28:30 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/27 12:24:00 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/28 19:23:25 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,4 @@ void	set_viewing_direction(t_vars *vars)
 		vars->ray->viewX = 1;
 		vars->ray->viewY = 0;
 	}
-}
-
-void	setup_raycast(t_vars *vars)
-{
-	vars->ray->x = 0; // set starting column; probably independent of array. This is where the screen starts
-	
-	// set viewing direction
-	set_viewing_direction(vars);
-	
-	// set camera plane position
-	set_camera_plane(vars);
 }

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:43:22 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/27 12:23:38 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/28 19:19:58 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	calc_ray_step_len(t_vars *vars)
 
 void	calc_ray_dir(t_vars *vars)
 {
-	vars->ray->cameraX = ((double)2 * (double)vars->ray->x / (double)vars->screen_width - (double)1); // for traversing the camera plane with increasing x / basically casting a new ray for every new x
+	vars->ray->cameraX = ((double)2 * (double)vars->screen_x / (double)vars->screen_width - (double)1); // for traversing the camera plane with increasing x / basically casting a new ray for every new x
 	vars->ray->rayDirX = vars->ray->viewX + vars->ray->planeX * vars->ray->cameraX;
 	vars->ray->rayDirY = vars->ray->viewY + vars->ray->planeY * vars->ray->cameraX;
 }

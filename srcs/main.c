@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:09:45 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/27 13:44:44 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/28 19:14:38 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ int	main(int argc, char **argv)
 	vars->win = mlx_new_window(vars->mlx, vars->screen_width, vars->screen_height, "Title");
 	if (!vars->win)
 		return (free(vars->mlx), 1);
+	if (init_screen_buffer(vars))
+		return (1);
+	if (init_textures(vars))
+		return (1);
 	mlx_hook(vars->win, 12, 1L << 15, ft_render, vars);
 	mlx_hook(vars->win, 17, 0L, ft_close, vars);
 	mlx_loop(vars->mlx);
