@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/27 18:15:07 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/28 10:50:11 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,11 @@ typedef struct s_vars
 	void	*red_line;
 	void	*img_wall;
 	void	*test_texture;
+	void	*img;
+	int		*img_addr;
 	int		*text_addr;
 	int		size_line;
+	int		size_test;
 	int		screen_width;
 	int		screen_height;
 	t_ray	*ray;

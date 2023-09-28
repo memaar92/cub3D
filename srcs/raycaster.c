@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/28 10:22:07 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:03:08 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	draw_wall(t_vars *vars)
 	double test = 1.0 * vars->ray->x * 128 / vars->ray->line_height;
 
 	texX = (int)test;
+	texX = texX & (128 - 1);
 	// if (vars->ray->side == 1 && vars->ray->rayDirY < 0)
 	// 	texX = 128 - texX - 1;
 
@@ -78,7 +79,8 @@ void	draw_wall(t_vars *vars)
 		color = get_pixel_color(texX, texY, vars);
 		if (vars->ray->side == 1) 
 			color = (color >> 1) & 8355711;
-		mlx_pixel_put(vars->mlx, vars->win, vars->ray->x, y, color); // should be printed to an image first; then entire image is put on window at the end
+		// mlx_pixel_put(vars->mlx, vars->win, vars->ray->x, y, color); // should be printed to an image first; then entire image is put on window at the end
+		 [texY * (vars->size_test / 4) + texX] = color;
 		y++;
 	}
 }
@@ -169,9 +171,15 @@ void	init_textures(t_vars *vars)
 
 int	ft_render(t_vars *vars)
 {
+	int	bpp;
+	int	endian;
+	
+	vars->img = mlx_new_image(vars->mlx, vars->screen_width, vars->screen_height);
+	vars->img_addr = (int *)mlx_get_data_addr(vars->img, &bpp, &vars->size_test, &endian);
 	init_textures(vars); // for now just testing; needs to be replaced with textures provided + err checking; probably even want to do it earlier and not here
 	setup_raycast(vars); // maybe not needed and values are partly set before
 	// print_2D_map_on_window(vars); // for testing the raycasting
 	cast_rays(vars);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	return (0);
 }
