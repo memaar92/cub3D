@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/27 18:37:16 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/28 10:22:07 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	get_pixel_color(int x, int y, t_vars *vars)
 	// printf("size_line: %d\n", vars->size_line);
 	// pos = x * 4 + 4 * vars->size_line * y;
 	// x /= 2;
-	x = x & (64 - 1);
+	x = x & (128 - 1);
 	// pos = x * 4 + vars->size_line * y;
 	// return (*(int *)(img->addr + (y * img->line_len + x * (img->bpp / 8))));
 	pos = y * (vars->size_line / 4) + x;
@@ -50,34 +50,32 @@ void	draw_wall(t_vars *vars)
 		wallX = vars->pl_pos_x + vars->ray->perpWallDist * vars->ray->rayDirX;
 	wallX -= floor(wallX);
 
-	int texX = (int)(wallX * 64);
+	int texX = (int)(wallX * 128);
 	if ((vars->ray->side == 0 && vars->ray->rayDirX > 0) || (vars->ray->side == 1 && vars->ray->rayDirY < 0))
-		texX = 64 - texX - 1;
+		texX = 128 - texX - 1;
+
+	double test = 1.0 * vars->ray->x * 128 / vars->ray->line_height;
+
+	texX = (int)test;
 	// if (vars->ray->side == 1 && vars->ray->rayDirY < 0)
-	// 	texX = 64 - texX - 1;
+	// 	texX = 128 - texX - 1;
 
 	// printf("wall: %f\n", wallX);
 	// printf("texX: %d\n", texX);
-	// printf("x: %d\n", vars->ray->x & (64 - 1));
+	// printf("x: %d\n", vars->ray->x & (128 - 1));
 	
-	double step = 1.0 * 64 / vars->ray->line_height;
+	double step = 1.0 * 128 / vars->ray->line_height;
 
-	// if (step < 0.2)
-	// 	step = 0.2;
+	double texPos = (vars->ray->draw_start - vars->screen_height / 2 + vars->ray->line_height / 2) * step; // basically always 0.0?
 
-	// double step = 1.0;
-
-	double texPos = (vars->ray->draw_start - vars->screen_height / 2 + vars->ray->line_height / 2) * step;
-	
 	// double texPos = 0.0;
 	
 	y = vars->ray->draw_start;
 	while (y < vars->ray->draw_end)
 	{
-		int texY = (int)texPos & (64 - 1);
+		int texY = (int)texPos & (128 - 1);
 		texPos += step;
-		// color = get_pixel_color(texX, texY, vars);
-		color = get_pixel_color(vars->ray->x, texY, vars); // needs to be adjusted; currently not working correctly as y is held constant
+		color = get_pixel_color(texX, texY, vars);
 		if (vars->ray->side == 1) 
 			color = (color >> 1) & 8355711;
 		mlx_pixel_put(vars->mlx, vars->win, vars->ray->x, y, color); // should be printed to an image first; then entire image is put on window at the end
@@ -165,7 +163,7 @@ void	init_textures(t_vars *vars)
 	int	bpp;
 	int	endian;
 	
-	vars->test_texture = mlx_xpm_file_to_image(vars->mlx, "./textures/test_texture2.xpm", &w, &h);
+	vars->test_texture = mlx_xpm_file_to_image(vars->mlx, "./textures/test_texture3.xpm", &w, &h);
 	vars->text_addr = (int *)mlx_get_data_addr(vars->test_texture, &bpp, &vars->size_line, &endian);
 }
 
