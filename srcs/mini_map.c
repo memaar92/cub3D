@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:44:10 by valmpani          #+#    #+#             */
-/*   Updated: 2023/09/29 19:01:47 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/29 19:29:04 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,11 @@ void	draw_direction(t_vars *vars)
 	int	i;
 
 	i = -1;
-	while (++i < 10)
-		vars->scr_buf->addr[(425 + (int)vars->ray->viewY * i) * (vars->scr_buf->line_size / 4) + (425 + (int)vars->ray->viewX * i)] = 12312433;
+	while (++i < 15)
+		vars->scr_buf->addr[(int)(vars->ray->viewY * i + 425) * (vars->scr_buf->line_size / 4) + (int)(vars->ray->viewX * i) + 425] = 12312433;
+	printf("view x: %f\n", vars->ray->viewX);
+	printf("view x: %f\n", vars->ray->viewY);
+	printf("\n");
 }
 
 void	mini_map(t_vars *vars)
@@ -72,6 +75,6 @@ void	mini_map(t_vars *vars)
 				vars->scr_buf->addr[(vars->screen_height - j) * (vars->scr_buf->line_size / 4) + (vars->screen_width - i)] = 0;
 		}
 	}
-	draw_player(vars);
 	draw_direction(vars);
+	draw_player(vars);
 }

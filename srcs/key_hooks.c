@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:10:41 by valmpani          #+#    #+#             */
-/*   Updated: 2023/09/29 19:08:06 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/29 19:14:13 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	ft_pl_move(int keycode, t_vars *vars)
 	else if (keycode == KEY_S)
 		new_pos(vars, -vars->ray->viewX, -vars->ray->viewY);
 	if (keycode == KEY_A)
-		new_pos(vars, vars->ray->viewY, -vars->ray->viewX);
+		new_pos(vars, -vars->ray->planeX, -vars->ray->planeY);
 	else if (keycode == KEY_D)
-		new_pos(vars, -vars->ray->viewY, vars->ray->viewX);
+		new_pos(vars, vars->ray->planeX, vars->ray->planeY);
 	mlx_clear_window(vars->mlx, vars->win);
 	draw_floor_ceiling(vars);
 	vars->screen_x = 0;
