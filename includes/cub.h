@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/28 19:46:37 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/29 16:34:25 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_ray
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
+	int		wall_color;
 }				t_ray;
 
 typedef struct s_img
@@ -106,6 +107,12 @@ typedef struct s_vars
 	void	*img_wall;
 	t_img	*scr_buf;
 	t_img	*test_tex;
+	t_img	*tex_no;
+	t_img	*tex_so;
+	t_img	*tex_we;
+	t_img	*tex_ea;
+	int		tex_h;
+	int		tex_w;
 	int		screen_x;
 	int		screen_y;
 	int		screen_width;

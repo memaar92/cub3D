@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/28 19:46:12 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/29 16:36:56 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,14 @@ int	get_pixel_color(int tex_x_pos, int tex_y_pos, t_vars *vars)
 	int pos;
 	
 	pos = tex_y_pos * (vars->test_tex->line_size / 4) + tex_x_pos;
-	color = (int)(vars->test_tex->addr[pos]);
+	if (vars->ray->wall_color == 0)
+		color = (int)(vars->tex_we->addr[pos]);
+	else if (vars->ray->wall_color == 1)
+		color = (int)(vars->tex_no->addr[pos]);
+	else if (vars->ray->wall_color == 2)
+		color = (int)(vars->tex_ea->addr[pos]);
+	else
+		color = (int)(vars->tex_so->addr[pos]);
 	return (color);
 }
 
@@ -50,17 +57,17 @@ void	put_text_on_buf_scr(t_vars *vars)
 	// if ((vars->ray->side == 0 && vars->ray->rayDirX > 0) || (vars->ray->side == 1 && vars->ray->rayDirY < 0))
 	// 	texX = 128 - texX - 1;
 
-	tex_x_steps = 1.0 * vars->screen_x * vars->test_tex->tex_w / vars->ray->line_height;
-	tex_x_pos = (int)tex_x_steps & (vars->test_tex->tex_w - 1);
+	tex_x_steps = 1.0 * vars->screen_x * vars->tex_w / vars->ray->line_height;
+	tex_x_pos = (int)tex_x_steps & (vars->tex_w - 1);
 
 	
-	tex_y_steps = 1.0 * vars->test_tex->tex_h / vars->ray->line_height;
+	tex_y_steps = 1.0 * vars->tex_h / vars->ray->line_height;
 	tex_y_pos2 = (vars->ray->draw_start - vars->screen_height / 2 + vars->ray->line_height / 2) * tex_y_steps; // basically always 0.0?
 
 	vars->screen_y = vars->ray->draw_start;
 	while (vars->screen_y < vars->ray->draw_end)
 	{
-		tex_y_pos = (int)tex_y_pos2 & (vars->test_tex->tex_h - 1);
+		tex_y_pos = (int)tex_y_pos2 & (vars->tex_h - 1);
 		tex_y_pos2 += tex_y_steps;
 		color = get_pixel_color(tex_x_pos, tex_y_pos, vars);
 		if (vars->ray->side == 1) 
@@ -89,13 +96,22 @@ void	run_dda(t_vars *vars)
 		{
 			vars->ray->sideDistX += vars->ray->deltaDistX;
 			vars->ray->mapX += vars->ray->stepX;
-			vars->ray->side = 0; // to check which side has been hit (NS or EW?)
+			if (vars->ray->rayDirX > 0)
+				vars->ray->wall_color = 0;
+			else
+				vars->ray->wall_color = 2;
+			vars->ray->side = 0; // to check which side has been hit (EW)
 		}
 		else
 		{
 			vars->ray->sideDistY += vars->ray->deltaDistY;
 			vars->ray->mapY += vars->ray->stepY;
-			vars->ray->side = 1; // to check which side has been hit (NS or EW?)
+			if (vars->ray->rayDirY < 0)
+				vars->ray->wall_color = 1;
+			else
+				vars->ray->wall_color = 3;
+				
+			vars->ray->side = 1; // to check which side has been hit (NS)
 		}
 		// for testing raycaster; draws single raycast towards hit point
 		// mlx_pixel_put(vars->mlx, vars->win, vars->ray->mapX, vars->ray->mapY, 16777215);

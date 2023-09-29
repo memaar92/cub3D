@@ -2,10 +2,10 @@
 F 128, 128, 128
 C 0 0 0
 
-SO out
-WE out
-NO out
-EA out
+SO ./textures/so_tex.xpm
+WE ./textures/we_tex.xpm
+NO ./textures/no_tex.xpm
+EA ./textures/ea_tex.xpm
 
 
 

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:09:45 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/28 19:14:38 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/29 16:14:38 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	move_view(int keycode, t_vars *vars)
 	{
 		player_rotate(keycode, vars);
 	}
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -120,6 +121,10 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_textures(vars))
 		return (1);
+	printf("text: %s\n", vars->textures[0]);
+	printf("text: %s\n", vars->textures[1]);
+	printf("text: %s\n", vars->textures[2]);
+	printf("text: %s\n", vars->textures[3]);
 	mlx_hook(vars->win, 12, 1L << 15, ft_render, vars);
 	mlx_hook(vars->win, 17, 0L, ft_close, vars);
 	mlx_key_hook(vars->win, &move_view, vars);
