@@ -104,6 +104,8 @@ void	run_dda(t_vars *vars)
 	}
 }
 
+void	mini_map(t_vars *vars);
+
 int	cast_rays(t_vars *vars)
 {
 	// while (vars->screen_x < vars->array_cols) // probably terminating condition to be redefined
@@ -125,6 +127,7 @@ int	cast_rays(t_vars *vars)
 			vars->screen_x++;
 		}
 	// }
+	mini_map(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->scr_buf->img, 0, 0);
 	return (0);
 }
@@ -138,17 +141,52 @@ void print_2D_map_on_window(t_vars *vars) // just for testing; remove later
 		while (j < (*vars).array_rows + 1)
 		{
 			if (vars->map[i][j] == 1)
-				mlx_pixel_put(vars->mlx, vars->win, i, j, 65280);
+				vars->scr_buf->addr[(vars->screen_height - j) * (vars->scr_buf->line_size / 4) + (vars->screen_width - i)] = 16777215;
+			else
+				vars->scr_buf->addr[(vars->screen_height - j) * (vars->scr_buf->line_size / 4) + (vars->screen_width - i)] = 0;
+			//mlx_pixel_put(vars->mlx, vars->win, 500 - vars->array_cols, 500 -vars->array_rows, 65280);//
 			j++;
 		}
 		i++;
+		vars->scr_buf->addr[(vars->screen_height - (int)vars->pl_pos_y) * (vars->scr_buf->line_size / 4) + (vars->screen_width - (int)vars->pl_pos_x)] = 161616;
 	}
+}
+
+void	mini_map(t_vars *vars)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i <= 150)
+	{
+		j = -1;
+		while (++j <= 150)
+		{
+			if (i == 0 || i == 150) {
+				for (int k = 0; k < 5; ++k) {
+					vars->scr_buf->addr[(vars->screen_height - j - k) * (vars->scr_buf->line_size / 4) +
+										(vars->screen_width - i - k)] = 16777215;
+				}
+			}
+			else if (j == 0 || j == 150)
+			{
+				for (int k = 0; k < 5; ++k)
+				{
+					vars->scr_buf->addr[(vars->screen_height - j - k) * (vars->scr_buf->line_size / 4) + (vars->screen_width - i - k)] = 16777215;
+				}
+			}
+			else
+				vars->scr_buf->addr[(vars->screen_height - j) * (vars->scr_buf->line_size / 4) + (vars->screen_width - i)] = 0;
+		}
+	}
+	vars->scr_buf->addr[(vars->screen_height - 55) * (vars->scr_buf->line_size / 4) + (vars->screen_width - 55)] = 12312433;
 }
 
 void	draw_floor_ceiling(t_vars *vars)
 {
 	int	i;
-	int j;
+	int	j;
 	int	floor_color;
 	int	ceiling_color;
 
@@ -186,7 +224,6 @@ int	ft_render(t_vars *vars)
 	
 	// raycasting
 	cast_rays(vars);
-
 	// draw frame
 	return (0);
 }

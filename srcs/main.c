@@ -43,33 +43,6 @@ void	free_vars(t_vars *vars)
 	free(vars);
 }
 
-// int	main(int argc, char **argv)
-// {
-// 	t_vars	*vars;
-// 	// create a 2D int array (this will later be created from the parsed .cub map)
-
-// 	if (argc != 2)
-// 		return(1);
-// 	// init mlx and creating the display/window
-// 	vars = init_vars();
-// 	vars->ray = malloc(sizeof(t_ray));
-// 	vars->screen_width = 600;
-// 	vars->screen_height = 600;
-// 	if (parse(&vars, argv[1]))
-// 		return(free_vars(vars), 1);
-	// print_parser(vars);
-	// print_parser(vars);
-	// vars->mlx = mlx_init();
-	// if (!vars->mlx)
-	// 	return (1);
-	// vars->win = mlx_new_window(vars->mlx, vars->screen_width, vars->screen_height, "Title");
-	// if (!vars->win)
-	// 	return (free(vars->mlx), 1);
-	// mlx_hook(vars->win, 12, 1L << 15, ft_render, vars);
-	// mlx_hook(vars->win, 17, 0L, ft_close, vars);
-	// mlx_loop(vars->mlx);
-// }
-
 int	right_file_extension(char *name)
 {
 	char	**split;
