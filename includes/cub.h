@@ -22,6 +22,23 @@
 # include <fcntl.h>
 # include <math.h>
 
+# define KEY_ESCAPE 53
+# define KEY_UP 126
+# define KEY_DOWN 125
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
+# define KEY_1 18
+# define KEY_2 19
+# define KEY_3 20
+# define KEY_4 21
+# define KEY_5 23
+# define KEY_R 15
+# define KEY_W 119
+# define KEY_S 115
+# define KEY_A 97
+# define KEY_D 100
+# define KEY_SHIFT 1
+
 # define MAP_ERR "Error: Please provide a valid map."
 # define NO 0
 # define SO 1
@@ -29,6 +46,8 @@
 # define EA 3
 # define F 0
 # define C 1
+
+# define ROT 0.185398
 
 
 
@@ -108,6 +127,7 @@ void	run_dda(t_vars *vars);
 void	calc_line_height(t_vars *vars);
 void	put_text_on_buf_scr(t_vars *vars);
 int	get_pixel_color(int tex_x_pos, int tex_y_pos, t_vars *vars);
+void	draw_floor_ceiling(t_vars *vars);
 
 // SETUP VIEWING DIRECTION
 void	set_viewing_direction(t_vars *vars);

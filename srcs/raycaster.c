@@ -125,6 +125,7 @@ int	cast_rays(t_vars *vars)
 			vars->screen_x++;
 		}
 	// }
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->scr_buf->img, 0, 0);
 	return (0);
 }
 
@@ -187,6 +188,5 @@ int	ft_render(t_vars *vars)
 	cast_rays(vars);
 
 	// draw frame
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->scr_buf->img, 0, 0);
 	return (0);
 }
