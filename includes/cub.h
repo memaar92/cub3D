@@ -146,6 +146,9 @@ int		move_view(int keycode, t_vars *vars);
 void	free_vars(t_vars *vars);
 void	free_map(t_vars *vars, int **map);
 
+// MINI_MAP
+void	mini_map(t_vars *vars);
+
 // PARSER_UTILS1
 void	set_char(char **buf, char c);
 int		is_not_empty_line(char *buf);

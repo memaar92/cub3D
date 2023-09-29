@@ -152,37 +152,6 @@ void print_2D_map_on_window(t_vars *vars) // just for testing; remove later
 	}
 }
 
-void	mini_map(t_vars *vars)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (++i <= 150)
-	{
-		j = -1;
-		while (++j <= 150)
-		{
-			if (i == 0 || i == 150) {
-				for (int k = 0; k < 5; ++k) {
-					vars->scr_buf->addr[(vars->screen_height - j - k) * (vars->scr_buf->line_size / 4) +
-										(vars->screen_width - i - k)] = 16777215;
-				}
-			}
-			else if (j == 0 || j == 150)
-			{
-				for (int k = 0; k < 5; ++k)
-				{
-					vars->scr_buf->addr[(vars->screen_height - j - k) * (vars->scr_buf->line_size / 4) + (vars->screen_width - i - k)] = 16777215;
-				}
-			}
-			else
-				vars->scr_buf->addr[(vars->screen_height - j) * (vars->scr_buf->line_size / 4) + (vars->screen_width - i)] = 0;
-		}
-	}
-	vars->scr_buf->addr[(vars->screen_height - 55) * (vars->scr_buf->line_size / 4) + (vars->screen_width - 55)] = 12312433;
-}
-
 void	draw_floor_ceiling(t_vars *vars)
 {
 	int	i;
