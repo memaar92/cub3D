@@ -18,7 +18,17 @@ MLXFLAGS = -L/usr/X11/lib -lX11 -lXext -lm
 
 SRCS_DIR = ./srcs/
 
-SRCS := $(addprefix $(SRCS_DIR),raycaster.c parser_utils1.c parser_utils2.c parser.c parser2.c init.c main.c setup_view.c init_raycasting.c utils.c)
+SRCS := $(addprefix $(SRCS_DIR),raycaster.c \
+								parser_utils1.c \
+								parser_utils2.c \
+								parser.c parser2.c \
+								parser3.c \
+								init.c \
+								main.c \
+								setup_view.c \
+								init_raycasting.c \
+								utils.c \
+								key_hooks.c)
 
 LIBFT_DIR = ./libft
 

@@ -24,82 +24,74 @@ int	ft_close(t_vars *vars)
 	exit(0);
 }
 
-int	ft_pl_move(int keycode, t_vars *vars)
+void	free_map(t_vars *vars, int **map)
 {
-	if (keycode == KEY_W)
-	{
-		vars->pl_pos_x += vars->ray->viewX;
-		vars->pl_pos_y += vars->ray->viewY;
-	}
-	else if (keycode == KEY_S)
-	{
-		vars->pl_pos_x -= vars->ray->viewX;
-		vars->pl_pos_y -= vars->ray->viewY;
-	}
-	if (keycode == KEY_A)
-	{
-		vars->pl_pos_x += vars->ray->viewY;
-		vars->pl_pos_y -= vars->ray->viewX;
-	}
-	else if (keycode == KEY_D)
-	{
-		vars->pl_pos_x -= vars->ray->viewY;
-		vars->pl_pos_y += vars->ray->viewX;
-	}
-	mlx_clear_window(vars->mlx, vars->win);
-	draw_floor_ceiling(vars);
-	vars->screen_x = 0;
-	cast_rays(vars);
-	return (0);
+	int	i;
+
+	if (!map)
+		return ;
+	i = -1;
+	while (++i < vars->array_cols + 1)
+		free(map[i]);
+	free(map);
 }
 
-void	player_rotate(int keycode, t_vars *vars)
+void	free_vars(t_vars *vars)
 {
-	double	temp;
-
-	if (keycode == 65361)
-	{
-		temp = vars->ray->viewX;
-		vars->ray->viewX = cos(-ROT) * temp + (-sin(-ROT)) * vars->ray->viewY;
-		vars->ray->viewY = sin(-ROT) * temp + cos(-ROT) * vars->ray->viewY;
-		temp = vars->ray->planeX;
-		vars->ray->planeX = cos(-ROT) * temp + (-sin(-ROT)) * vars->ray->planeY;
-		vars->ray->planeY = sin(-ROT) * temp + cos(-ROT) * vars->ray->planeY;
-	}
-	if (keycode == 65363)
-	{
-		printf("%f\n", ROT);
-		temp = vars->ray->viewX;
-		vars->ray->viewX = cos(ROT) * temp + (-sin(ROT)) * vars->ray->viewY;
-		vars->ray->viewY = sin(ROT) * temp + cos(ROT) * vars->ray->viewY;
-		temp = vars->ray->planeX;
-		vars->ray->planeX = cos(ROT) * temp + (-sin(ROT)) * vars->ray->planeY;
-		vars->ray->planeY = sin(ROT) * temp + cos(ROT) * vars->ray->planeY;
-	}
-	mlx_clear_window(vars->mlx, vars->win);
-	draw_floor_ceiling(vars);
-	vars->screen_x = 0;
-	cast_rays(vars);
+	free_mem(vars->textures);
+	free_map(vars, vars->map);
+	free(vars);
 }
 
+// int	main(int argc, char **argv)
+// {
+// 	t_vars	*vars;
+// 	// create a 2D int array (this will later be created from the parsed .cub map)
 
-int	move_view(int keycode, t_vars *vars)
+// 	if (argc != 2)
+// 		return(1);
+// 	// init mlx and creating the display/window
+// 	vars = init_vars();
+// 	vars->ray = malloc(sizeof(t_ray));
+// 	vars->screen_width = 600;
+// 	vars->screen_height = 600;
+// 	if (parse(&vars, argv[1]))
+// 		return(free_vars(vars), 1);
+	// print_parser(vars);
+	// print_parser(vars);
+	// vars->mlx = mlx_init();
+	// if (!vars->mlx)
+	// 	return (1);
+	// vars->win = mlx_new_window(vars->mlx, vars->screen_width, vars->screen_height, "Title");
+	// if (!vars->win)
+	// 	return (free(vars->mlx), 1);
+	// mlx_hook(vars->win, 12, 1L << 15, ft_render, vars);
+	// mlx_hook(vars->win, 17, 0L, ft_close, vars);
+	// mlx_loop(vars->mlx);
+// }
+
+int	right_file_extension(char *name)
 {
-	printf("%d\n", keycode);
-	if (keycode == KEY_W || keycode == KEY_S
-		|| keycode == KEY_A || keycode == KEY_D)
-		ft_pl_move(keycode, vars);
-	if (keycode == 65361 || keycode == 65363)
-	{
-		player_rotate(keycode, vars);
-	}
+	char	**split;
+	int		i;
+
+	split = ft_split(name, '.');
+	i = 0;
+	while (split[i])
+		i++;
+	if (i != 2)
+		return (free_mem(split), 0);
+	if (ft_strncmp(split[1], "cub", ft_strlen(split[1])) != 0
+		|| ft_strlen(split[1]) != 3)
+		return (free_mem(split), 0);
+	return (free_mem(split), 1);
 }
 
 int	main(int argc, char **argv)
 {
 	t_vars	*vars;
 	// create a 2D int array (this will later be created from the parsed .cub map)
-	
+
 	if (argc != 2)
 		return(printf("ERROR\n"), 1);
 	// init mlx and creating the display/window
@@ -126,17 +118,19 @@ int	main(int argc, char **argv)
 	mlx_loop(vars->mlx);
 
 }
-
-// int main(int argc, char **argv)
-
-// {
-// 	t_vars *vars;
-
-// 	if (argc != 2)
-// 		return(printf("ERROR\n"), 1);
-// 	vars = init_vars();
-// 	if (parse(&vars, argv[1]))
-// 		return(printf("ERROR\n"), 1);
-// 	print_parser(vars);
-// 	return (0);
-// }
+//
+//int	main(int argc, char **argv)
+//
+//{
+//	t_vars	*vars;
+//
+//	if (argc != 2)
+//		return (printf("Please provide a valid file name\n"), 1);
+//	if (!right_file_extension(argv[1]))
+//		return (printf("Please provide a valid file name\n"), 1);
+//	vars = init_vars();
+//	if (parse(&vars, argv[1]))
+//		return (1);
+//	free_vars(vars);
+//	return (0);
+//}

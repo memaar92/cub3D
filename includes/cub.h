@@ -25,19 +25,12 @@
 # define KEY_ESCAPE 53
 # define KEY_UP 126
 # define KEY_DOWN 125
-# define KEY_LEFT 123
-# define KEY_RIGHT 124
-# define KEY_1 18
-# define KEY_2 19
-# define KEY_3 20
-# define KEY_4 21
-# define KEY_5 23
-# define KEY_R 15
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
 # define KEY_W 119
 # define KEY_S 115
 # define KEY_A 97
 # define KEY_D 100
-# define KEY_SHIFT 1
 
 # define MAP_ERR "Error: Please provide a valid map."
 # define NO 0
@@ -115,23 +108,27 @@ typedef struct s_vars
 
 
 // UTILS
-int	init_screen_buffer(t_vars *vars);
-int	init_textures(t_vars *vars);
-int	set_color(int t, int r, int g, int b);
+int		init_screen_buffer(t_vars *vars);
+int		init_textures(t_vars *vars);
+int		set_color(int t, int r, int g, int b);
 
 // RAYCASTER
 int		ft_render(t_vars *vars);
-void 	print_2D_map_on_window(t_vars *vars); // for testing
+void	print_2D_map_on_window(t_vars *vars); // for testing
 int		cast_rays(t_vars *vars);
 void	run_dda(t_vars *vars);
 void	calc_line_height(t_vars *vars);
 void	put_text_on_buf_scr(t_vars *vars);
-int	get_pixel_color(int tex_x_pos, int tex_y_pos, t_vars *vars);
+int		get_pixel_color(int tex_x_pos, int tex_y_pos, t_vars *vars);
 void	draw_floor_ceiling(t_vars *vars);
 
 // SETUP VIEWING DIRECTION
 void	set_viewing_direction(t_vars *vars);
 void	set_camera_plane(t_vars *vars);
+
+// INIT
+void	set_floor_ceil(t_vars **vars);
+t_vars	*init_vars(void);
 
 // INIT RAYCASTING
 void	init_raycast(t_vars *vars);
@@ -139,30 +136,48 @@ void	calc_ray_dir(t_vars *vars);
 void	calc_ray_step_len(t_vars *vars);
 void	init_map_steps_ray_len(t_vars *vars);
 
-// PARSER
-int		parse(t_vars **vars, char *filename);
-char	*parse_textures(t_vars **vars, char *filename);
-int		find_ceiling_floor(t_vars **vars, char **buf);
-int		find_textures(t_vars **vars, char **buf);
-int		find_paths(t_vars **vars, char **elements);
+// KEY_HOOKS
+void	new_pos(t_vars *vars, double x, double y);
+int		ft_pl_move(int keycode, t_vars *vars);
+void	player_rotate(int keycode, t_vars *vars);
+int		move_view(int keycode, t_vars *vars);
 
-// PARSER2
-int		check_floor_ceil(t_vars **vars, char **elements);
-int		check_textures(t_vars **vars, char **elements);
+// MAIN
+void	free_vars(t_vars *vars);
+void	free_map(t_vars *vars, int **map);
 
 // PARSER_UTILS1
 void	set_char(char **buf, char c);
+int		is_not_empty_line(char *buf);
+int		is_first_line(char *buf);
 int		check_rgb_values(t_vars **vars, char **buf);
 void	print_parser(t_vars *vars);
 void	print_map(t_vars **vars, int **map);
-int		is_not_empty_line(char *buf);
-int		is_first_line(char *buf);
 
 // PARSER_UTILS2
+int		floodfill(t_vars **vars, int **map, double x, double y);
+int		flood_the_map(t_vars **vars, int fd);
 int		textures_not_filled(t_vars **vars);
+int		find_paths(t_vars **vars, char **elements);
+int		find_ceiling_floor(t_vars **vars, char **buf);
 
-// INIT
-void	set_floor_ceil(t_vars **vars);
-t_vars	*init_vars(void);
+// PARSER
+char	*parse_textures(t_vars **vars, char *filename);
+int		**test_map(t_vars **vars);
+int		create_map(t_vars **vars, char *filename);
+int		parse_map(t_vars **vars, int fd, char *filename);
+int		parse(t_vars **vars, char *filename);
+
+// PARSER2
+int		find_textures(t_vars **vars, char **buf);
+int		check_floor_ceil(t_vars **vars, char **elements);
+int		check_textures(t_vars **vars, char **elements);
+int		not_valid_character(t_vars **vars, char *line);
+
+// PARSER3
+void	set_map(t_vars **vars, int **map, int i, char *line);
+char	*reach_map(t_vars **vars, int fd, int *i);
+void	set_map_cols(t_vars **vars, char *line, int *i);
+int		get_map_size(t_vars **vars, char *filename, int i);
 
 #endif
