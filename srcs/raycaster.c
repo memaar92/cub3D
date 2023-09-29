@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/29 16:47:45 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:05:58 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	run_dda(t_vars *vars)
 				vars->ray->wall_color = 0;
 			else
 				vars->ray->wall_color = 2;
-			vars->ray->side = 0; // to check which side has been hit (EW)
+			vars->ray->side = 0; // to check which side has been hit (EW)x
 		}
 		else
 		{

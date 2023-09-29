@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup_raycast.c                                    :+:      :+:    :+:   */
+/*   setup_view.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:28:30 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/28 19:23:25 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:07:20 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@ void	set_camera_plane(t_vars *vars)
 	{
 		vars->ray->planeX = 0.0; // --> this determines how wide the FOV is (together with viewX or viewY respectively)
 		vars->ray->planeY = 0.66;  // because viewX != 0 and viewY == 0; otherwise would not be perpendicular
+		if (vars->pov_dir == WE)
+			vars->ray->planeY = -0.66;
 	}
 	else
 	{
 		vars->ray->planeX = 0.66;
+		if (vars->pov_dir == SO)
+			vars->ray->planeX = -0.66;
 		vars->ray->planeY = 0.0;
 	}
 }

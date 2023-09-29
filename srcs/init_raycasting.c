@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:43:22 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/29 16:53:37 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:11:04 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,8 @@ void	init_map_steps_ray_len(t_vars *vars)
 
 void	calc_ray_step_len(t_vars *vars)
 {
-	if (vars->ray->rayDirX == 0)
-		vars->ray->deltaDistX = 0;
-	else
-		vars->ray->deltaDistX = fabs(1 / vars->ray->rayDirX); // make sure to not divide by zero?
-	if (vars->ray->rayDirY == 0) 
-		vars->ray->deltaDistY = 0;
-	else
-		vars->ray->deltaDistY = fabs(1 / vars->ray->rayDirY); // make sure to not divide by zero?
+	vars->ray->deltaDistX = fabs(1 / vars->ray->rayDirX); // make sure to not divide by zero?
+	vars->ray->deltaDistY = fabs(1 / vars->ray->rayDirY); // make sure to not divide by zero?
 }
 
 void	calc_ray_dir(t_vars *vars)
