@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/30 15:07:18 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/30 16:37:01 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	get_pixel_color(int tex_x_pos, int tex_y_pos, t_vars *vars)
 void	put_text_on_buf_scr(t_vars *vars)
 {
 	int		color;
-	double	tex_x_steps;
 	double	tex_y_steps;
+	double	wall_hit;
 	int		tex_x_pos;
 	int		tex_y_pos;
 	double	tex_y_pos2;
@@ -45,24 +45,19 @@ void	put_text_on_buf_scr(t_vars *vars)
 	if (vars->ray->draw_end >= vars->screen_height)
 		vars->ray->draw_end = vars->screen_height - 1;
 	
-	// currently not used; needed?
-	// double wallX; 
-	// if (vars->ray->side == 0)
-	// 	wallX = vars->pl_pos_y + vars->ray->perpWallDist * vars->ray->rayDirY;
-	// else
-	// 	wallX = vars->pl_pos_x + vars->ray->perpWallDist * vars->ray->rayDirX;
-	// wallX -= floor(wallX);
-
-	// int texX = (int)(wallX * 128);
-	// if ((vars->ray->side == 0 && vars->ray->rayDirX > 0) || (vars->ray->side == 1 && vars->ray->rayDirY < 0))
-	// 	texX = 128 - texX - 1;
-
-	tex_x_steps = 1.0 * vars->screen_x * vars->tex_w / vars->ray->line_height;
-	tex_x_pos = (int)tex_x_steps & (vars->tex_w - 1);
-
+	if (vars->ray->side == 0)
+		wall_hit = vars->pl_pos_y + vars->ray->perpWallDist * vars->ray->rayDirY;
+	else
+		wall_hit = vars->pl_pos_x + vars->ray->perpWallDist * vars->ray->rayDirX;
+	wall_hit -= floor(wall_hit);
 	
+	tex_x_pos = (int)(wall_hit * (double)vars->tex_w);
+	if ((vars->ray->side == 0 && vars->ray->rayDirX < 0) || (vars->ray->side == 1 && vars->ray->rayDirY > 0))
+		tex_x_pos = 128 - tex_x_pos - 1;
+
 	tex_y_steps = 1.0 * vars->tex_h / vars->ray->line_height;
 	tex_y_pos2 = (vars->ray->draw_start - vars->screen_height / 2 + vars->ray->line_height / 2) * tex_y_steps; // basically always 0.0?
+
 
 	vars->screen_y = vars->ray->draw_start;
 	while (vars->screen_y < vars->ray->draw_end)
@@ -71,8 +66,7 @@ void	put_text_on_buf_scr(t_vars *vars)
 		tex_y_pos2 += tex_y_steps;
 		color = get_pixel_color(tex_x_pos, tex_y_pos, vars);
 		if (vars->ray->side == 1) 
-			color = (color >> 1) & 8355711;
-		// mlx_pixel_put(vars->mlx, vars->win, vars->screen_x, vars->screen_y, color); // should be printed to an image first; then entire image is put on window at the end
+			color = (color >> 1) & 8355711; // adding kind of a shadow
 		vars->scr_buf->addr[vars->screen_y * (vars->scr_buf->line_size / 4) + vars->screen_x] = color;
 		vars->screen_y++;
 	}
@@ -84,7 +78,7 @@ void	calc_line_height(t_vars *vars)
 		vars->ray->perpWallDist = (vars->ray->sideDistX - vars->ray->deltaDistX);
 	else
 		vars->ray->perpWallDist = (vars->ray->sideDistY - vars->ray->deltaDistY);
-	vars->ray->line_height = (int)((2 * vars->screen_height) / vars->ray->perpWallDist); // there is probably a better formula taking into account distance from player to camera plane (cf permadi tutorial)
+	vars->ray->line_height = (int)((1 * vars->screen_height) / vars->ray->perpWallDist); // there is probably a better formula taking into account distance from player to camera plane (cf permadi tutorial)
 }
 
 void	run_dda(t_vars *vars)
