@@ -16,13 +16,17 @@ void	set_camera_plane(t_vars *vars)
 {
 	if (vars->pov_dir == EA || vars->pov_dir == WE)
 	{
-		vars->ray->planeX = 0.0; // --> this determines how wide the FOV is (together with viewX or viewY respectively)
-		vars->ray->planeY = 0.66;  // because viewX != 0 and viewY == 0; otherwise would not be perpendicular
+		vars->ray->planeX = 0.0;
+		vars->ray->planeY = 0.66;
+		if (vars->pov_dir == WE) // --> this determines how wide the FOV is (together with viewX or viewY respectively)
+			vars->ray->planeY = -0.66;  // because viewX != 0 and viewY == 0; otherwise would not be perpendicular
 	}
 	else
 	{
 		vars->ray->planeX = 0.66;
 		vars->ray->planeY = 0.0;
+		if (vars->pov_dir == SO)
+			vars->ray->planeX = -0.66;
 	}
 }
 
