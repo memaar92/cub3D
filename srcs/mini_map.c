@@ -6,20 +6,38 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:44:10 by valmpani          #+#    #+#             */
-/*   Updated: 2023/09/29 19:29:04 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/30 11:41:47 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
 
-void	draw_player(t_vars *vars, int center_x)
+void	draw_square(t_vars *vars, int x, int y, int size, int color)
 {
-	int	radius;
+	int	start_x = x;
+	int	start_y = y;
+	int	end_x = x + size;
+	int	end_y = y + size;
+
+	while (start_x < end_x)
+	{
+		int current_y = start_y;
+		while (current_y < end_y)
+		{
+			vars->scr_buf->addr[y * (vars->scr_buf->line_size / 4) + x] = color;
+			// mlx_pixel_put(vars->mlx, vars->win, start_x, current_y, color);
+			current_y++;
+		}
+		start_x++;
+	}
+}
+
+void	draw_player(t_vars *vars, int center_x, int radius)
+{
 	int	i;
 	int	j;
 	int	distance;
 
-	radius = 4;
 	i = center_x - radius;
 	while (i++ <= center_x + radius)
 	{
@@ -40,9 +58,59 @@ void	draw_direction(t_vars *vars, int center_x)
 	i = -1;
 	while (++i < 15)
 		vars->scr_buf->addr[(int)(vars->ray->viewY * i + center_x) * (vars->scr_buf->line_size / 4) + (int)(vars->ray->viewX * i) + center_x] = 12312433;
-	printf("view x: %f\n", vars->ray->viewX);
-	printf("view x: %f\n", vars->ray->viewY);
-	printf("\n");
+}
+
+int is_valid_pos(t_vars *vars, int i, int j)
+{
+	int	newx;
+	int	newy;
+
+	newx = (int)vars->pl_pos_x + i;
+	newy = (int)vars->pl_pos_y + j;
+	if (newx < 0 || newx > vars->array_cols)
+		return (0);
+	else if (newy < 0 || newy > vars->array_rows + 1)
+		return (0);
+	else
+		return (1);
+}
+
+void	draw_map(t_vars *vars, int center_x)
+{
+	int	i;
+	int	j;
+	int posx;
+	int posy;
+	int	square_size;
+	
+	posx = vars->screen_width - vars->screen_width / 2;
+	square_size = 10;
+	j = -4;
+	while (++j < 8)
+	{
+		i = -4;
+		posy = posx = vars->screen_width - vars->screen_width / 2;
+		while (++i < 8)
+		{
+			if (is_valid_pos(vars, i, j))
+			{
+				if (i == 0 && j == 0)
+				{
+					draw_player(vars, posx, 4);
+					draw_direction(vars, posx);
+				}
+				else if (vars->map[(int)vars->pl_pos_x + i][(int)vars->pl_pos_y + j])
+				{
+					printf("hello\n");
+					draw_square(vars, posy, posx, square_size, 16777215);
+				}
+				else
+					draw_square(vars, posy, posx, square_size, 0);
+			}
+			posy += square_size;
+		}
+		posx += square_size;
+	}
 }
 
 void	mini_map(t_vars *vars)
@@ -53,31 +121,8 @@ void	mini_map(t_vars *vars)
 	int	j;
 	int	distance;
 
-//	i = -1;
-//	while (++i <= 150)
-//	{
-//		j = -1;
-//		while (++j <= 150)
-//		{
-//			if (i == 0 || i == 150) {
-//				for (int k = 0; k < 5; ++k) {
-//					vars->scr_buf->addr[(vars->screen_height - j - k) * (vars->scr_buf->line_size / 4) +
-//										(vars->screen_width - i - k)] = 16777215;
-//				}
-//			}
-//			else if (j == 0 || j == 150)
-//			{
-//				for (int k = 0; k < 5; ++k)
-//				{
-//					vars->scr_buf->addr[(vars->screen_height - j - k) * (vars->scr_buf->line_size / 4) + (vars->screen_width - i - k)] = 16777215;
-//				}
-//			}
-//			else
-//				vars->scr_buf->addr[(vars->screen_height - j) * (vars->scr_buf->line_size / 4) + (vars->screen_width - i)] = 0;
-//		}
-//	}
-	center_x = vars->screen_width - 80;
-	radius = 75;
+	center_x = vars->screen_width - vars->screen_width / 6;
+	radius = vars->screen_width / 6 - 5;
 	i = center_x - radius;
 	while (i++ <= center_x + radius)
 	{
@@ -95,6 +140,7 @@ void	mini_map(t_vars *vars)
 			}
 		}
 	}
-	draw_direction(vars, center_x);
-	draw_player(vars, center_x);
+	// draw_direction(vars, center_x);
+	// draw_player(vars, center_x);
+	draw_map(vars, center_x);
 }
