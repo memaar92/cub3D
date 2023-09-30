@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/29 17:05:58 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/30 15:07:18 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	put_text_on_buf_scr(t_vars *vars)
 
 void	calc_line_height(t_vars *vars)
 {
-	// why exactly does this calculation work?
 	if(vars->ray->side == 0)
 		vars->ray->perpWallDist = (vars->ray->sideDistX - vars->ray->deltaDistX);
 	else
