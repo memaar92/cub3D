@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/29 16:34:25 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/30 17:06:04 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,28 +123,31 @@ typedef struct s_vars
 
 // UTILS
 int	init_screen_buffer(t_vars *vars);
+int	init_texture_dir(t_vars *vars, t_img *tex, int dir);
 int	init_textures(t_vars *vars);
 int	set_color(int t, int r, int g, int b);
 
 // RAYCASTER
-int		ft_render(t_vars *vars);
-void 	print_2D_map_on_window(t_vars *vars); // for testing
-int		cast_rays(t_vars *vars);
-void	run_dda(t_vars *vars);
-void	calc_line_height(t_vars *vars);
+int		get_pixel_color(int tex_x_pos, int tex_y_pos, t_vars *vars);
+void	calc_vline_start_end(t_vars *vars);
+int		calc_texture_pos_x(t_vars *vars);
 void	put_text_on_buf_scr(t_vars *vars);
-int	get_pixel_color(int tex_x_pos, int tex_y_pos, t_vars *vars);
+void	calc_line_height(t_vars *vars);
+void	run_dda(t_vars *vars);
+int		cast_rays(t_vars *vars);
+void 	print_2D_map_on_window(t_vars *vars); // for testing
 void	draw_floor_ceiling(t_vars *vars);
+int		ft_render(t_vars *vars);
 
 // SETUP VIEWING DIRECTION
-void	set_viewing_direction(t_vars *vars);
 void	set_camera_plane(t_vars *vars);
+void	set_viewing_direction(t_vars *vars);
 
 // INIT RAYCASTING
-void	init_raycast(t_vars *vars);
-void	calc_ray_dir(t_vars *vars);
-void	calc_ray_step_len(t_vars *vars);
 void	init_map_steps_ray_len(t_vars *vars);
+void	calc_ray_step_len(t_vars *vars);
+void	calc_ray_dir(t_vars *vars);
+void	init_raycast(t_vars *vars);
 
 // PARSER
 int		parse(t_vars **vars, char *filename);
