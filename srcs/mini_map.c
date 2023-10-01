@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:44:10 by valmpani          #+#    #+#             */
-/*   Updated: 2023/09/30 11:41:47 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/01 11:05:14 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	draw_square(t_vars *vars, int x, int y, int size, int color)
 		int current_y = start_y;
 		while (current_y < end_y)
 		{
-			vars->scr_buf->addr[y * (vars->scr_buf->line_size / 4) + x] = color;
-			// mlx_pixel_put(vars->mlx, vars->win, start_x, current_y, color);
+			vars->scr_buf->addr[current_y * (vars->scr_buf->line_size / 4) + start_x] = color;
 			current_y++;
 		}
 		start_x++;
@@ -83,33 +82,40 @@ void	draw_map(t_vars *vars, int center_x)
 	int posy;
 	int	square_size;
 	
-	posx = vars->screen_width - vars->screen_width / 2;
-	square_size = 10;
-	j = -4;
-	while (++j < 8)
+	posx = center_x;
+	square_size = 3;
+	j = -15;
+	while (++j < 15)
 	{
-		i = -4;
-		posy = posx = vars->screen_width - vars->screen_width / 2;
-		while (++i < 8)
+		i = -15;
+		posy = center_x;
+		while (++i < 15)
 		{
 			if (is_valid_pos(vars, i, j))
 			{
 				if (i == 0 && j == 0)
 				{
-					draw_player(vars, posx, 4);
-					draw_direction(vars, posx);
+					// draw_player(vars, posx, 4);
+					// draw_direction(vars, posx);
+					printf(RED"7"ESCAPE);
 				}
-				else if (vars->map[(int)vars->pl_pos_x + i][(int)vars->pl_pos_y + j])
+				else if (vars->map[(int)vars->pl_pos_x + i][(int)vars->pl_pos_y + j] == 1)
 				{
-					printf("hello\n");
+					printf("1");
 					draw_square(vars, posy, posx, square_size, 16777215);
+					printf("x:%d y:%d\n", posx, posy);
 				}
-				else
+				else if (!vars->map[(int)vars->pl_pos_x + i][(int)vars->pl_pos_y + j])
+				{
+					printf("0");
 					draw_square(vars, posy, posx, square_size, 0);
+				}
+				// printf("x:%f y:%f\n", vars->pl_pos_x + i, vars->pl_pos_y + j);
 			}
 			posy += square_size;
 		}
 		posx += square_size;
+		printf("\n");
 	}
 }
 
@@ -132,15 +138,15 @@ void	mini_map(t_vars *vars)
 			distance = (i - center_x) * (i - center_x) + (j - center_x) * (j - center_x);
 			if (distance < radius * radius)
 			{
-				// Check if the distance is less than 5 pixels from the center
-				if (distance <= (radius * radius - radius * 10))
-					vars->scr_buf->addr[(j) * (vars->scr_buf->line_size / 4) + (i)] = 0; // White
+				if (distance <= (radius * radius - radius * 5))
+					vars->scr_buf->addr[(j) * (vars->scr_buf->line_size / 4) + (i)] = 0;
 				else
-					vars->scr_buf->addr[(j) * (vars->scr_buf->line_size / 4) + (i)] = 16777215; // Black
+					vars->scr_buf->addr[(j) * (vars->scr_buf->line_size / 4) + (i)] = 11382186;
 			}
 		}
 	}
-	// draw_direction(vars, center_x);
-	// draw_player(vars, center_x);
-	draw_map(vars, center_x);
+	draw_map(vars, vars->screen_width - vars->screen_width / 4);
+	draw_player(vars, center_x, 4);
+	draw_direction(vars, center_x);
+	// draw_square(vars, 300, 300, 10, 16777215);
 }
