@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:09:45 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/28 19:14:38 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/29 16:57:05 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int argc, char **argv)
 {
 	t_vars	*vars;
 	// create a 2D int array (this will later be created from the parsed .cub map)
-
+	
 	if (argc != 2)
 		return(printf("ERROR\n"), 1);
 	// init mlx and creating the display/window

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:12:01 by valmpani          #+#    #+#             */
-/*   Updated: 2023/09/27 13:53:45 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/09/30 15:02:14 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

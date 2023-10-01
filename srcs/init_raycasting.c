@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:43:22 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/28 19:19:58 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/09/30 16:54:16 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,8 @@ void	init_map_steps_ray_len(t_vars *vars)
 
 void	calc_ray_step_len(t_vars *vars)
 {
-	vars->ray->deltaDistX = 1 / vars->ray->rayDirX; // make sure to not divide by zero?
-	if (vars->ray->deltaDistX < 0)
-		vars->ray->deltaDistX *= -1;
-	vars->ray->deltaDistY = 1 / vars->ray->rayDirY; // make sure to not divide by zero?
-	if (vars->ray->deltaDistY < 0)
-		vars->ray->deltaDistY *= -1;
+	vars->ray->deltaDistX = fabs(1 / vars->ray->rayDirX); // make sure to not divide by zero?
+	vars->ray->deltaDistY = fabs(1 / vars->ray->rayDirY); // make sure to not divide by zero?
 }
 
 void	calc_ray_dir(t_vars *vars)
@@ -60,13 +56,13 @@ void	init_raycast(t_vars *vars)
 	vars->ray->hit = 0; // init hit flag
 	vars->ray->mapX = (int)vars->pl_pos_x; // set the position within the array we are currently at; for every ray initialized with the player position
 	vars->ray->mapY = (int)vars->pl_pos_y; // set the position within the array we are currently at; for every ray initialized with the player position
-	
+
 	// calc ray direction
 	calc_ray_dir(vars);
-	
+
 	// size of increments from one x-side/y-side to the next x-side/y-side; simplified pythagoras and making the assumption that only the *ratio* between deltaDistX and deltaDistY matters for the DDA
 	calc_ray_step_len(vars);
-	
+
 	// calc matrix step (int) and length of ray from the initial position to the next side/line of the raster; required for DDA
 	init_map_steps_ray_len(vars);
 }
