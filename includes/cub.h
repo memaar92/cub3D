@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/30 17:06:04 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/01 16:27:26 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@
 # define C 1
 
 # define ROT 0.185398
-
-
+# define WHT 16777215
+# define GR 11382186
 
 typedef struct s_ray
 {
@@ -113,12 +113,23 @@ typedef struct s_vars
 	t_ray	*ray;
 }				t_vars;
 
+typedef struct s_circle
+{
+	int	center_x;
+	int	center_y;
+	int	radius;
+	int	distance;
+	int	pl_pixel_x;
+	int	pl_pixel_y;
+	int	side;
+	int new_distance;
+}	t_circle;
 
 // UTILS
-int	init_screen_buffer(t_vars *vars);
-int	init_texture_dir(t_vars *vars, t_img *tex, int dir);
-int	init_textures(t_vars *vars);
-int	set_color(int t, int r, int g, int b);
+int		init_screen_buffer(t_vars *vars);
+int		init_texture_dir(t_vars *vars, t_img *tex, int dir);
+int		init_textures(t_vars *vars);
+int		set_color(int t, int r, int g, int b);
 
 // RAYCASTER
 int		get_pixel_color(int tex_x_pos, int tex_y_pos, t_vars *vars);
@@ -128,7 +139,7 @@ void	put_text_on_buf_scr(t_vars *vars);
 void	calc_line_height(t_vars *vars);
 void	run_dda(t_vars *vars);
 int		cast_rays(t_vars *vars);
-void 	print_2D_map_on_window(t_vars *vars); // for testing
+void	print_2D_map_on_window(t_vars *vars); // for testing
 void	draw_floor_ceiling(t_vars *vars);
 int		ft_render(t_vars *vars);
 

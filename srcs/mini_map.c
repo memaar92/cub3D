@@ -6,25 +6,32 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:44:10 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/01 13:38:13 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/01 17:36:29 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
 
-void	draw_square(t_vars *vars, int x, int y, int size, int color)
+void draw_square(t_vars *vars, int x, int y, int size, int fill_color, int border_color)
 {
-	int	start_x = x;
-	int	start_y = y;
-	int	end_x = x + size;
-	int	end_y = y + size;
+	int start_x = x;
+	int start_y = y;
+	int end_x = x + size;
+	int end_y = y + size;
 
-	while (start_x < end_x)
+	while (start_x <= end_x)
 	{
 		int current_y = start_y;
-		while (current_y < end_y)
+		while (current_y <= end_y)
 		{
-			vars->scr_buf->addr[current_y * (vars->scr_buf->line_size / 4) + start_x] = color;
+			if (start_x == x || start_x == end_x || current_y == y || current_y == end_y)
+			{
+				vars->scr_buf->addr[current_y * (vars->scr_buf->line_size / 4) + start_x] = border_color;
+			}
+			else
+			{
+				vars->scr_buf->addr[current_y * (vars->scr_buf->line_size / 4) + start_x] = fill_color;
+			}
 			current_y++;
 		}
 		start_x++;
@@ -50,13 +57,13 @@ void	draw_player(t_vars *vars, int center_x, int radius)
 	}
 }
 
-void	draw_direction(t_vars *vars, int center_x)
+void	draw_direction(t_vars *vars, t_circle mp, int sq)
 {
 	int	i;
 
 	i = -1;
 	while (++i < 15)
-		vars->scr_buf->addr[(int)(vars->ray->viewY * i + 828) * (vars->scr_buf->line_size / 4) + (int)(vars->ray->viewX * i + 828)] = 12312433;
+		vars->scr_buf->addr[(int)(vars->ray->viewY * i + mp.pl_pixel_y + sq/2) * (vars->scr_buf->line_size / 4) + (int)(vars->ray->viewX * i + mp.pl_pixel_x + sq/2)] = 12312433;
 }
 
 int is_valid_pos(t_vars *vars, int i, int j)
@@ -74,78 +81,79 @@ int is_valid_pos(t_vars *vars, int i, int j)
 		return (1);
 }
 
-void	draw_map(t_vars *vars, int center_x)
+void	draw_map(t_vars *vars, t_circle mp)
 {
 	int	i;
 	int	j;
-	int posx;
-	int posy;
+	int	posx;
+	int	posy;
 	int	square_size;
-	
-	posx = center_x;
-	square_size = vars->screen_width / 210;
+
+	mp.side = sqrt(pow(mp.radius, 2) * 2);
+	square_size = ((mp.radius) * sqrt(2)) / 40;
+	posx = mp.center_y - mp.side / 2 + 5;
 	j = -20;
 	while (++j < 20)
 	{
 		i = -20;
-		posy = center_x;
+		posy = mp.center_x - mp.side / 2;
 		while (++i < 20)
 		{
 			if (is_valid_pos(vars, i, j))
 			{
 				if (i == 0 && j == 0)
 				{
-					// draw_player(vars, posx, 4);
-					// draw_direction(vars, posx);
-					draw_square(vars, posy, posx, square_size, 11382186);
-					printf("x %d y %d\n", posx, posy);					
-				
+					draw_square(vars, posy, posx, square_size, GR, GR);
+					mp.pl_pixel_x = posy;
+					mp.pl_pixel_y = posx;
 				}
-				else if (vars->map[(int)vars->pl_pos_x + i][(int)vars->pl_pos_y + j] == 1)
-				{
-					draw_square(vars, posy, posx, square_size, 16777215);
-				}
-				else if (!vars->map[(int)vars->pl_pos_x + i][(int)vars->pl_pos_y + j])
-				{
-					draw_square(vars, posy, posx, square_size, 0);
-				}
-				// printf("x:%f y:%f\n", vars->pl_pos_x + i, vars->pl_pos_y + j);
+				else if (vars->map[(int)vars->pl_pos_x + i]
+					[(int)vars->pl_pos_y + j] == 1)
+					draw_square(vars, posy, posx, square_size, WHT, GR);
+				else if (!vars->map[(int)vars->pl_pos_x + i]
+					[(int)vars->pl_pos_y + j])
+					draw_square(vars, posy, posx, square_size, 0, 0);
 			}
+			else
+				draw_square(vars, posy, posx, square_size, 0, 0);
 			posy += square_size;
 		}
 		posx += square_size;
-		printf("\n");
 	}
+	draw_direction(vars, mp, square_size);
 }
 
 void	mini_map(t_vars *vars)
 {
-	int	center_x;
-	int	radius;
-	int	i;
-	int	j;
-	int	distance;
+	t_circle	mp;
+	int			i;
+	int			j;
 
-	center_x = vars->screen_width - vars->screen_width / 6;
-	radius = vars->screen_width / 6 - 5;
-	i = center_x - radius;
-	while (i++ <= center_x + radius)
+	mp.center_x = vars->screen_width - vars->screen_width / 6;
+	mp.center_y = vars->screen_height - vars->screen_height / 6;
+	if (vars->screen_width < vars->screen_height)
+		mp.radius = vars->screen_width / 6 - 5;
+	else
+		mp.radius = vars->screen_height / 6 - 5;
+	i = mp.center_x - mp.radius;
+	while (i++ <= mp.center_x + mp.radius)
 	{
-		j = center_x - radius;
-		while (j++ <= center_x + radius)
+		j = mp.center_y - mp.radius;
+		while (j++ <= mp.center_y + mp.radius)
 		{
-			distance = (i - center_x) * (i - center_x) + (j - center_x) * (j - center_x);
-			if (distance < radius * radius)
+			mp.distance = pow(i - mp.center_x, 2) + pow(j - mp.center_y, 2);
+			if (mp.distance < mp.radius * mp.radius)
 			{
-				if (distance <= (radius * radius - radius * 5))
-					vars->scr_buf->addr[(j) * (vars->scr_buf->line_size / 4) + (i)] = 0;
+				if (mp.distance <= (pow(mp.radius, 2) - mp.radius * 5))
+				{
+					vars->scr_buf->addr[j * (vars->scr_buf->line_size / 4) + i] = 0;
+					mp.new_distance = (pow(mp.radius, 2) - mp.radius * 5);
+				}
 				else
-					vars->scr_buf->addr[(j) * (vars->scr_buf->line_size / 4) + (i)] = 11382186;
+					vars->scr_buf->addr[j * (vars->scr_buf->line_size / 4) + i] = 11382186;
 			}
 		}
 	}
-	draw_map(vars, vars->screen_width - vars->screen_width / 4);
-	// draw_player(vars, center_x, 4);
-	draw_direction(vars, center_x);
-	// draw_square(vars, 300, 300, 10, 16777215);
+	draw_map(vars, mp);
+	// draw_direction(vars, circle.center_x);
 }
