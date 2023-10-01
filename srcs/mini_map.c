@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:44:10 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/01 11:05:14 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/01 13:38:13 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	draw_direction(t_vars *vars, int center_x)
 
 	i = -1;
 	while (++i < 15)
-		vars->scr_buf->addr[(int)(vars->ray->viewY * i + center_x) * (vars->scr_buf->line_size / 4) + (int)(vars->ray->viewX * i) + center_x] = 12312433;
+		vars->scr_buf->addr[(int)(vars->ray->viewY * i + 828) * (vars->scr_buf->line_size / 4) + (int)(vars->ray->viewX * i + 828)] = 12312433;
 }
 
 int is_valid_pos(t_vars *vars, int i, int j)
@@ -83,13 +83,13 @@ void	draw_map(t_vars *vars, int center_x)
 	int	square_size;
 	
 	posx = center_x;
-	square_size = 3;
-	j = -15;
-	while (++j < 15)
+	square_size = vars->screen_width / 210;
+	j = -20;
+	while (++j < 20)
 	{
-		i = -15;
+		i = -20;
 		posy = center_x;
-		while (++i < 15)
+		while (++i < 20)
 		{
 			if (is_valid_pos(vars, i, j))
 			{
@@ -97,17 +97,16 @@ void	draw_map(t_vars *vars, int center_x)
 				{
 					// draw_player(vars, posx, 4);
 					// draw_direction(vars, posx);
-					printf(RED"7"ESCAPE);
+					draw_square(vars, posy, posx, square_size, 11382186);
+					printf("x %d y %d\n", posx, posy);					
+				
 				}
 				else if (vars->map[(int)vars->pl_pos_x + i][(int)vars->pl_pos_y + j] == 1)
 				{
-					printf("1");
 					draw_square(vars, posy, posx, square_size, 16777215);
-					printf("x:%d y:%d\n", posx, posy);
 				}
 				else if (!vars->map[(int)vars->pl_pos_x + i][(int)vars->pl_pos_y + j])
 				{
-					printf("0");
 					draw_square(vars, posy, posx, square_size, 0);
 				}
 				// printf("x:%f y:%f\n", vars->pl_pos_x + i, vars->pl_pos_y + j);
@@ -146,7 +145,7 @@ void	mini_map(t_vars *vars)
 		}
 	}
 	draw_map(vars, vars->screen_width - vars->screen_width / 4);
-	draw_player(vars, center_x, 4);
+	// draw_player(vars, center_x, 4);
 	draw_direction(vars, center_x);
 	// draw_square(vars, 300, 300, 10, 16777215);
 }

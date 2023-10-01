@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 12:23:03 by valmpani          #+#    #+#             */
-/*   Updated: 2023/09/27 13:48:14 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/01 13:12:16 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,7 @@ int	get_map_size(t_vars **vars, char *filename, int i)
 	if (line)
 		free(line);
 	(*vars)->array_rows = i - (*vars)->map_pos;
+	if ((*vars)->array_rows * (*vars)->array_cols > 41000)
+		return (close(fd), 1);
 	return (close(fd), 0);
 }

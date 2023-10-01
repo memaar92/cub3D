@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:09:45 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/29 16:57:05 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/01 13:15:36 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int	main(int argc, char **argv)
 	// init mlx and creating the display/window
 	vars = init_vars();
 	vars->ray = malloc(sizeof(t_ray));
-	vars->screen_width = 500;
-	vars->screen_height = 500;
+	vars->screen_width = 1000;
+	vars->screen_height = 1000;
 	if (parse(&vars, argv[1]))
 		return(printf("ERROR\n"), 1);
 	// print_parser(vars);
