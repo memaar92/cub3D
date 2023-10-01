@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/01 13:13:41 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/01 14:16:21 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	get_pixel_color(int tex_x_pos, int tex_y_pos, t_vars *vars)
 	int	color;
 	int	pos;
 
-	pos = tex_y_pos * (vars->test_tex->line_size / 4) + tex_x_pos;
+	pos = tex_y_pos * (vars->tex_no->line_size / 4) + tex_x_pos;
 	if (vars->ray->wall_color == 0)
 		color = (int)(vars->tex_we->addr[pos]);
 	else if (vars->ray->wall_color == 1)

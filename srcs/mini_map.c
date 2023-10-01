@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:44:10 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/01 13:38:13 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/01 14:09:56 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,7 @@ void	draw_map(t_vars *vars, int center_x)
 				{
 					// draw_player(vars, posx, 4);
 					// draw_direction(vars, posx);
-					draw_square(vars, posy, posx, square_size, 11382186);
-					printf("x %d y %d\n", posx, posy);					
+					draw_square(vars, posy, posx, square_size, 11382186);			
 				
 				}
 				else if (vars->map[(int)vars->pl_pos_x + i][(int)vars->pl_pos_y + j] == 1)
@@ -109,12 +108,10 @@ void	draw_map(t_vars *vars, int center_x)
 				{
 					draw_square(vars, posy, posx, square_size, 0);
 				}
-				// printf("x:%f y:%f\n", vars->pl_pos_x + i, vars->pl_pos_y + j);
 			}
 			posy += square_size;
 		}
 		posx += square_size;
-		printf("\n");
 	}
 }
 

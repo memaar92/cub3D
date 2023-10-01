@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 15:23:33 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/29 16:35:08 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/01 14:15:15 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,6 @@ int	init_texture_dir(t_vars *vars, t_img *tex, int dir)
 
 int	init_textures(t_vars *vars)
 {
-	vars->test_tex = malloc(sizeof(t_img));
-	if (!vars->test_tex)
-		return (1);
-	vars->test_tex->img = mlx_xpm_file_to_image(vars->mlx, "./textures/test_texture3.xpm", &vars->test_tex->tex_w, &vars->test_tex->tex_h);
-	if (!vars->test_tex->img)
-		return (1);
-	vars->test_tex->addr = (int *)mlx_get_data_addr(vars->test_tex->img, &vars->test_tex->bpp, &vars->test_tex->line_size, &vars->test_tex->endian);
-	if (!vars->test_tex->addr)
-		return (1);
-
 	vars->tex_no = malloc(sizeof(t_img));
 	if (!vars->tex_no)
 		return (1);
