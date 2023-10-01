@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:44:10 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/01 17:36:29 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/01 18:21:40 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	draw_map(t_vars *vars, t_circle mp)
 	j = -20;
 	while (++j < 20)
 	{
-		i = -20;
+		i = -22;
 		posy = mp.center_x - mp.side / 2;
 		while (++i < 20)
 		{
@@ -135,6 +135,8 @@ void	mini_map(t_vars *vars)
 		mp.radius = vars->screen_width / 6 - 5;
 	else
 		mp.radius = vars->screen_height / 6 - 5;
+	if (mp.radius % 10)
+		mp.radius = mp.radius - mp.radius % 10;
 	i = mp.center_x - mp.radius;
 	while (i++ <= mp.center_x + mp.radius)
 	{
