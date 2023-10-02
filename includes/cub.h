@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/02 11:06:19 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/01 14:19:30 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ typedef struct s_vars
 	void	*red_line;
 	void	*img_wall;
 	t_img	*scr_buf;
-	t_img	*test_tex;
 	t_img	*tex_no;
 	t_img	*tex_so;
 	t_img	*tex_we;
@@ -128,6 +127,10 @@ typedef struct s_circle
 	int	square_size;
 }	t_circle;
 
+
+// FREE MEM
+void	free_map(t_vars *vars, int **map);
+void	free_images(t_vars	*vars);
 
 // UTILS
 int		init_screen_buffer(t_vars *vars);
@@ -168,8 +171,7 @@ void	player_rotate(int keycode, t_vars *vars);
 int		move_view(int keycode, t_vars *vars);
 
 // MAIN
-void	free_vars(t_vars *vars);
-void	free_map(t_vars *vars, int **map);
+int		ft_close(t_vars *vars);
 
 // MINI_MAP
 void	mini_map(t_vars *vars);

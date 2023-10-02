@@ -30,7 +30,8 @@ SRCS := $(addprefix $(SRCS_DIR),raycaster.c \
 								utils.c \
 								key_hooks.c \
 								mini_map.c \
-								mini_map_utils.c)
+								mini_map_utils.c \
+								free_mem.c)
 
 LIBFT_DIR = ./libft
 
