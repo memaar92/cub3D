@@ -84,10 +84,10 @@ void	draw_map(t_vars *vars, t_circle mp)
 	mp.square_size = ((mp.radius) * sqrt(2)) / 40;
 	square_size = ((mp.radius) * sqrt(2)) / 40;
 	mp.posx = mp.center_y - mp.side / 2 + 5;
-	j = -22;
+	j = -18;
 	while (++j < 20)
 	{
-		i = -26;
+		i = -20;
 		mp.posy = mp.center_x - mp.side / 2;
 		while (++i < 20)
 		{
@@ -105,7 +105,7 @@ void	mini_map(t_vars *vars)
 
 	mp.center_x = vars->screen_width / 2;
 	mp.center_y = vars->screen_height;
-	mp.radius = vars->screen_width / 3;
+	mp.radius = vars->screen_height / 2.5;
 	draw_half_circle(vars, mp, 0, 0);
 	mp.center_x = vars->screen_width - vars->screen_width / 6;
 	mp.center_y = vars->screen_height - vars->screen_height / 6;

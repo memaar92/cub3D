@@ -14,14 +14,8 @@
 
 void	new_pos(t_vars *vars, double x, double y)
 {
-	int	next_x;
-	int	next_y;
-
-	// next_x = (int)(vars->pl_pos_x + 1.05 * x);
-	// next_y = (int)(vars->pl_pos_y + 1.05 * y);
 	if (!vars->map[(int)(vars->pl_pos_x + x)][(int)(vars->pl_pos_y + y)])
 	{
-		// && !vars->map[next_x][next_y]
 		vars->pl_pos_x += x;
 		vars->pl_pos_y += y;
 	}

@@ -54,8 +54,8 @@ int	main(int argc, char **argv)
 		return(printf("ERROR\n"), 1);
 	vars = init_vars();
 	vars->ray = malloc(sizeof(t_ray));
-	vars->screen_width = 1000;
-	vars->screen_height = 1000;
+	vars->screen_width = 1280;
+	vars->screen_height = 720;
 	if (parse(&vars, argv[1]))
 		return(printf("ERROR\n"), 1);
 	vars->mlx = mlx_init();
