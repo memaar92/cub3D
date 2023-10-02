@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/01 16:27:26 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/02 11:06:19 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define ROT 0.185398
 # define WHT 16777215
 # define GR 11382186
+# define DR 12312433
 
 typedef struct s_ray
 {
@@ -122,8 +123,11 @@ typedef struct s_circle
 	int	pl_pixel_x;
 	int	pl_pixel_y;
 	int	side;
-	int new_distance;
+	int	posx;
+	int	posy;
+	int	square_size;
 }	t_circle;
+
 
 // UTILS
 int		init_screen_buffer(t_vars *vars);
@@ -203,5 +207,11 @@ void	set_map(t_vars **vars, int **map, int i, char *line);
 char	*reach_map(t_vars **vars, int fd, int *i);
 void	set_map_cols(t_vars **vars, char *line, int *i);
 int		get_map_size(t_vars **vars, char *filename, int i);
+
+// MINI_MAP_UTILS
+int		is_valid_pos(t_vars *vars, int i, int j);
+int		adjust_colors(int color, double factor);
+void	draw_circle(t_vars *vars, t_circle mp, int i, int j);
+void	draw_half_circle(t_vars *vars, t_circle mp, int i, int j);
 
 #endif
