@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/03 18:08:39 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:30:09 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define F 0
 # define C 1
 
-# define ROT 0.185398
+# define ROT 0.057386
 # define WHT 16777215
 # define GR 11382186
 # define DR 12312433
@@ -169,6 +169,10 @@ void	draw_direction(t_vars *vars, t_circle mp);
 void	draw_block(t_vars *vars, t_circle *mp, int i, int j);
 void	draw_map(t_vars *vars, t_circle mp);
 void	mini_map(t_vars *vars);
+
+// MOUSE_MOVE
+int		mouse_move(int x, int y, t_vars *vars);
+int		mouse_click(int button, int x, int y, t_vars *vars);
 
 // PARSER_UTILS1
 void	set_char(char **buf, char c);
