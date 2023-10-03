@@ -6,54 +6,11 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/03 15:28:51 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/03 16:53:51 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
-
-int	get_pixel_color(int tex_x_pos, int tex_y_pos, t_vars *vars)
-{
-	int	color;
-	int	pos;
-
-	pos = tex_y_pos * (vars->tex_no->line_size / 4) + tex_x_pos;
-	if (vars->ray->wall_color == 0)
-		color = (int)(vars->tex_we->addr[pos]);
-	else if (vars->ray->wall_color == 1)
-		color = (int)(vars->tex_no->addr[pos]);
-	else if (vars->ray->wall_color == 2)
-		color = (int)(vars->tex_ea->addr[pos]);
-	else
-		color = (int)(vars->tex_so->addr[pos]);
-	return (color);
-}
-
-void	calc_vline_start_end(t_vars *vars)
-{
-	vars->ray->draw_start = (vars->screen_height / 2) - (vars->ray->line_height / 2);
-	if (vars->ray->draw_start < 0)
-		vars->ray->draw_start = 0;
-	vars->ray->draw_end = (vars->screen_height / 2) + (vars->ray->line_height / 2);
-	if (vars->ray->draw_end >= vars->screen_height)
-		vars->ray->draw_end = vars->screen_height - 1;
-}
-
-int	calc_texture_pos_x(t_vars *vars)
-{
-	double	wall_hit;
-	int		tex_x_pos;
-
-	if (vars->ray->side == 0)
-		wall_hit = vars->pl_pos_y + vars->ray->perpWallDist * vars->ray->rayDirY;
-	else
-		wall_hit = vars->pl_pos_x + vars->ray->perpWallDist * vars->ray->rayDirX;
-	wall_hit -= floor(wall_hit);
-	tex_x_pos = (int)(wall_hit * (double)vars->tex_w);
-	if ((vars->ray->side == 0 && vars->ray->rayDirX < 0) || (vars->ray->side == 1 && vars->ray->rayDirY > 0))
-		tex_x_pos = 128 - tex_x_pos - 1;
-	return (tex_x_pos);
-}
 
 void	put_text_on_buf_scr(t_vars *vars)
 {
@@ -66,7 +23,8 @@ void	put_text_on_buf_scr(t_vars *vars)
 	calc_vline_start_end(vars);
 	tex_x_pos = calc_texture_pos_x(vars);
 	tex_y_steps = 1.0 * vars->tex_h / vars->ray->line_height;
-	temp = (vars->ray->draw_start - vars->screen_height / 2 + vars->ray->line_height / 2) * tex_y_steps; // basically always 0.0?
+	temp = (vars->ray->draw_start - vars->screen_height / 2
+			+ vars->ray->line_height / 2) * tex_y_steps;
 	vars->screen_y = vars->ray->draw_start;
 	while (vars->screen_y < vars->ray->draw_end)
 	{
@@ -74,48 +32,26 @@ void	put_text_on_buf_scr(t_vars *vars)
 		temp += tex_y_steps;
 		color = get_pixel_color(tex_x_pos, tex_y_pos, vars);
 		if (vars->ray->side == 1)
-			color = (color >> 1) & 8355711; // adding kind of a shadow
-		vars->scr_buf->addr[vars->screen_y * (vars->scr_buf->line_size / 4) + vars->screen_x] = color;
+			color = (color >> 1) & 8355711;
+		vars->scr_buf->addr[vars->screen_y * (vars->scr_buf->line_size / 4)
+			+ vars->screen_x] = color;
 		vars->screen_y++;
 	}
-}
-
-void	calc_line_height(t_vars *vars)
-{
-	if (vars->ray->side == 0)
-		vars->ray->perpWallDist = (vars->ray->sideDistX - vars->ray->deltaDistX);
-	else
-		vars->ray->perpWallDist = (vars->ray->sideDistY - vars->ray->deltaDistY);
-	vars->ray->line_height = (int)((1 * vars->screen_height) / vars->ray->perpWallDist); // there is probably a better formula taking into account distance from player to camera plane (cf permadi tutorial)
 }
 
 void	run_dda(t_vars *vars)
 {
 	while (vars->ray->hit == 0)
 	{
-		if (vars->ray->sideDistX < vars->ray->sideDistY || (vars->ray->sideDistX == vars->ray->sideDistY && vars->ray->deltaDistX < vars->ray->deltaDistY))
+		if (vars->ray->sidedist_x < vars->ray->sidedist_y
+			|| (vars->ray->sidedist_x == vars->ray->sidedist_y
+				&& vars->ray->deltadist_x < vars->ray->deltadist_y))
 		{
-			vars->ray->sideDistX += vars->ray->deltaDistX;
-			vars->ray->mapX += vars->ray->stepX;
-			if (vars->ray->rayDirX > 0)
-				vars->ray->wall_color = 0;
-			else
-				vars->ray->wall_color = 2;
-			vars->ray->side = 0; // to check which side has been hit (EW)x
+			dda_calc_sidedist_x(vars);
 		}
 		else
-		{
-			vars->ray->sideDistY += vars->ray->deltaDistY;
-			vars->ray->mapY += vars->ray->stepY;
-			if (vars->ray->rayDirY < 0)
-				vars->ray->wall_color = 1;
-			else
-				vars->ray->wall_color = 3;
-			vars->ray->side = 1; // to check which side has been hit (NS)
-		}
-		// for testing raycaster; draws single raycast towards hit point
-		// mlx_pixel_put(vars->mlx, vars->win, vars->ray->mapX, vars->ray->mapY, 16777215);
-		if (vars->map[vars->ray->mapX][vars->ray->mapY] == 1)
+			dda_calc_sidedist_y(vars);
+		if (vars->map[vars->ray->map_x][vars->ray->map_y] == 1)
 			vars->ray->hit = 1;
 	}
 }
@@ -125,37 +61,14 @@ int	cast_rays(t_vars *vars)
 	while (vars->screen_x < vars->screen_width)
 	{
 		init_raycast(vars);
-
-		// apply DDA (Digital Differential Analyzer; alternatively: Bresenham) for "moving" along the ray and checking for intersections/hits
 		run_dda(vars);
-
-		// calculate the perpendicular distance of the ray (from the camera plane not the player) to the wall
 		calc_line_height(vars);
-
-		// drawing the related vertical line to the screen buffer
 		put_text_on_buf_scr(vars);
-
 		vars->screen_x++;
 	}
 	mini_map(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->scr_buf->img, 0, 0);
 	return (0);
-}
-
-void	print_2D_map_on_window(t_vars *vars) // just for testing; remove later
-{
-	int i = 0;
-	while (i < vars->array_cols)
-	{
-		int	j = 0;
-		while (j < vars->array_rows + 1)
-		{
-			if (vars->map[i][j] == 1)
-				mlx_pixel_put(vars->mlx, vars->win, i, j, 65280);
-			j++;
-		}
-		i++;
-	}
 }
 
 void	draw_floor_ceiling(t_vars *vars)
@@ -165,40 +78,32 @@ void	draw_floor_ceiling(t_vars *vars)
 	int	floor_color;
 	int	ceiling_color;
 
-	i = 0;
-	j = 0;
-	floor_color = set_color(0, vars->floor_ceiling[0][0], vars->floor_ceiling[0][1], vars->floor_ceiling[0][2]);
-	ceiling_color = set_color(0, vars->floor_ceiling[1][0], vars->floor_ceiling[1][1], vars->floor_ceiling[1][2]);
-	while (i < vars->screen_width)
+	i = -1;
+	floor_color = set_color(0, vars->floor_ceiling[0][0],
+			vars->floor_ceiling[0][1], vars->floor_ceiling[0][2]);
+	ceiling_color = set_color(0, vars->floor_ceiling[1][0],
+			vars->floor_ceiling[1][1], vars->floor_ceiling[1][2]);
+	while (++i < vars->screen_width)
 	{
-		j = 0;
-		while (j < vars->screen_height)
+		j = -1;
+		while (++j < vars->screen_height)
 		{
 			if (j <= vars->screen_height / 2)
-				vars->scr_buf->addr[j * (vars->scr_buf->line_size / 4) + i] = ceiling_color;
+				vars->scr_buf->addr[j * (vars->scr_buf->line_size / 4) + i]
+					= ceiling_color;
 			else
-				vars->scr_buf->addr[j * (vars->scr_buf->line_size / 4) + i] = floor_color;
-			j++;
+				vars->scr_buf->addr[j * (vars->scr_buf->line_size / 4) + i]
+					= floor_color;
 		}
-		i++;
 	}
 }
 
 int	ft_render(t_vars *vars)
 {
 	draw_floor_ceiling(vars);
-	
-	//start rendering from the very left side of the screen
 	vars->screen_x = 0;
-	
-	//setup viewpoint
 	set_viewing_direction(vars);
 	set_camera_plane(vars);
-	
-	// print_2D_map_on_window(vars); // for testing the raycasting
-	
-	// raycasting
 	cast_rays(vars);
-	// draw frame
 	return (0);
 }

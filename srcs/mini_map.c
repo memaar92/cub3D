@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:44:10 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/01 14:09:56 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/03 16:44:49 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void	draw_direction(t_vars *vars, t_circle mp)
 
 	i = -1;
 	while (++i < 10)
-		vars->scr_buf->addr[(int)(vars->ray->viewY
+		vars->scr_buf->addr[(int)(vars->ray->view_y
 				* i + mp.pl_pixel_y + mp.square_size / 2)
 			* (vars->scr_buf->line_size / 4)
-			+ (int)(vars->ray->viewX * i
+			+ (int)(vars->ray->view_x * i
 				+ mp.pl_pixel_x + mp.square_size / 2)] = DR;
 }
 
