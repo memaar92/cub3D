@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/03 16:53:51 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:16:57 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ int	cast_rays(t_vars *vars)
 		put_text_on_buf_scr(vars);
 		vars->screen_x++;
 	}
-	mini_map(vars);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->scr_buf->img, 0, 0);
 	return (0);
 }
 
@@ -102,8 +100,8 @@ int	ft_render(t_vars *vars)
 {
 	draw_floor_ceiling(vars);
 	vars->screen_x = 0;
-	set_viewing_direction(vars);
-	set_camera_plane(vars);
 	cast_rays(vars);
+	mini_map(vars);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->scr_buf->img, 0, 0);
 	return (0);
 }
