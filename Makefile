@@ -12,7 +12,7 @@ NAME = cub
 # **************************************************************************** #
 
 
-CFLAGS = -Wall -Wextra -g -fsanitize=address
+CFLAGS = -Wall -Wextra -g -fsanitize=address -O3
 
 MLXFLAGS = -L/usr/X11/lib -lX11 -lXext -lm -O3
 
