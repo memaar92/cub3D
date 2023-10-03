@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 15:23:33 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/01 14:15:15 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:32:40 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	init_texture_dir(t_vars *vars, t_img *tex, int dir)
 	if (!tex->img)
 		return (1);
 	tex->addr = (int *)mlx_get_data_addr(tex->img, &tex->bpp, &tex->line_size, &tex->endian);
-	if (tex->addr)
+	if (!tex->addr)
 		return (1);
 	return (0);
 }
@@ -51,13 +51,16 @@ int	init_textures(t_vars *vars)
 	vars->tex_ea = malloc(sizeof(t_img));
 	if (!vars->tex_ea)
 		return (1);
-
 	vars->tex_h = 128;
 	vars->tex_w = 128;
-	init_texture_dir(vars, vars->tex_no, 0);
-	init_texture_dir(vars, vars->tex_so, 1);
-	init_texture_dir(vars, vars->tex_we, 2);
-	init_texture_dir(vars, vars->tex_ea, 3);
+	if (init_texture_dir(vars, vars->tex_no, 0))
+		return (1);
+	if (init_texture_dir(vars, vars->tex_so, 1))
+		return (1);
+	if (init_texture_dir(vars, vars->tex_we, 2))
+		return (1);
+	if (init_texture_dir(vars, vars->tex_ea, 3))
+		return (1);
 	return (0);
 }
 

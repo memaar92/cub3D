@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:11:34 by valmpani          #+#    #+#             */
-/*   Updated: 2023/09/27 13:38:24 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:28:45 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,51 +87,3 @@ int	check_rgb_values(t_vars **vars, char **buf)
 		return (printf("Please provide the correct RGB values\n"), 1);
 	return (0);
 }
-
-// void	print_parser(t_vars *vars)
-// {
-// 	printf(GREEN"\n----FL00R CEILING RGB-----\n");
-// 	for (int i = 0; i < 2; i++)
-// 	{
-
-// 		for (int j = 0; j < 3; j++)
-// 		{
-// 			printf("%d ", vars->floor_ceiling[i][j]);
-// 		}
-// 		printf("\n");
-// 	}
-// 	printf("--------------------------\n"ESCAPE);
-// 	printf(MAGENTA"\n----TEXTURES FILENAMES----\n");
-// 	printf("SO %s\n", vars->textures[SO]);
-// 	printf("NO %s\n", vars->textures[NO]);
-// 	printf("WE %s\n", vars->textures[WE]);
-// 	printf("EA %s\n", vars->textures[EA]);
-// 	printf("--------------------------\n"ESCAPE);
-// 	print_map(&vars, vars->map);
-// }
-
-// void	print_map(t_vars **vars, int **map)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	j = -1;
-// 	while (++j < (*vars)->array_rows + 2)
-// 	{
-// 	i = -1;
-// 	while (++i < (*vars)->array_cols + 1)
-// 	{
-// 		if (map[i][j] == 9)
-// 			printf(GREEN"•"ESCAPE);
-// 		else if (map[i][j] == 0)
-// 			printf(WHITE"■"ESCAPE);
-// 		else if (map[i][j] == 1)
-// 			printf(BLACK"%d"ESCAPE, map[i][j]);
-// 		else if (map[i][j] == 7)
-// 			printf(RED"%d"ESCAPE, map[i][j]);
-// 		else if (map[i][j] == 2)
-// 			printf(MAGENTA"%d"ESCAPE, map[i][j]);
-// 	}
-// 	printf("\n");
-// 	}
-// }

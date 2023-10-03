@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/01 14:16:21 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:28:51 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,29 +120,23 @@ void	run_dda(t_vars *vars)
 	}
 }
 
-void	mini_map(t_vars *vars);
-
 int	cast_rays(t_vars *vars)
 {
-	// while (vars->screen_x < vars->array_cols) // probably terminating condition to be redefined
-	// {
-		// go through each column x
-		while (vars->screen_x < vars->screen_width)
-		{
-			init_raycast(vars);
+	while (vars->screen_x < vars->screen_width)
+	{
+		init_raycast(vars);
 
-			// apply DDA (Digital Differential Analyzer; alternatively: Bresenham) for "moving" along the ray and checking for intersections/hits
-			run_dda(vars);
+		// apply DDA (Digital Differential Analyzer; alternatively: Bresenham) for "moving" along the ray and checking for intersections/hits
+		run_dda(vars);
 
-			// calculate the perpendicular distance of the ray (from the camera plane not the player) to the wall
-			calc_line_height(vars);
+		// calculate the perpendicular distance of the ray (from the camera plane not the player) to the wall
+		calc_line_height(vars);
 
-			// drawing the related vertical line to the screen buffer
-			put_text_on_buf_scr(vars);
+		// drawing the related vertical line to the screen buffer
+		put_text_on_buf_scr(vars);
 
-			vars->screen_x++;
-		}
-	// }
+		vars->screen_x++;
+	}
 	mini_map(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->scr_buf->img, 0, 0);
 	return (0);

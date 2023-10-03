@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/01 14:19:30 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:33:15 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <fcntl.h>
 # include <math.h>
 
-# define KEY_ESCAPE 53
+# define KEY_ESCAPE 65307
 # define KEY_UP 126
 # define KEY_DOWN 125
 # define KEY_LEFT 65361
@@ -89,28 +89,26 @@ typedef struct s_vars
 	void	*mlx;
 	void	*win;
 	int		map_pos;
-	int		**map;
 	double	pl_pos_x;
 	double	pl_pos_y;
 	int		pov_dir;
 	int		array_cols;
 	int		array_rows;
-	char	**textures;
 	int		floor_ceiling[2][3];
-	void	*red_line;
-	void	*img_wall;
+	int		**map;
+	char	**textures;
 	t_img	*scr_buf;
 	t_img	*tex_no;
 	t_img	*tex_so;
 	t_img	*tex_we;
 	t_img	*tex_ea;
+	t_ray	*ray;
 	int		tex_h;
 	int		tex_w;
 	int		screen_x;
 	int		screen_y;
 	int		screen_width;
 	int		screen_height;
-	t_ray	*ray;
 }				t_vars;
 
 typedef struct s_circle
@@ -131,6 +129,7 @@ typedef struct s_circle
 // FREE MEM
 void	free_map(t_vars *vars, int **map);
 void	free_images(t_vars	*vars);
+void	free_all_mem(t_vars *vars);
 
 // UTILS
 int		init_screen_buffer(t_vars *vars);

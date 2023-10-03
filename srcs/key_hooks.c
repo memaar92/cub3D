@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hooks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:10:41 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/01 13:20:41 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:31:03 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	player_rotate(int keycode, t_vars *vars)
 
 int	move_view(int keycode, t_vars *vars)
 {
+	if (keycode == KEY_ESCAPE)
+		ft_close(vars);
 	if (keycode == KEY_W || keycode == KEY_S
 		|| keycode == KEY_A || keycode == KEY_D)
 		ft_pl_move(keycode, vars);

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:12:01 by valmpani          #+#    #+#             */
-/*   Updated: 2023/09/30 15:02:14 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:49:53 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,9 @@ int	parse(t_vars **vars, char *filename)
 
 	first_line = parse_textures(vars, filename);
 	if (!first_line)
-		return (printf(MAP_ERR"\n"), 1);
+		return (1);
 	if (textures_not_filled(vars))
-		return (printf(MAP_ERR"\n"), free(first_line), 1);
+		return (free(first_line), 1);
 	i = -1;
 	fd = open(filename, O_RDONLY);
 	free(first_line);

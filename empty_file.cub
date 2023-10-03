@@ -1,0 +1,13 @@
+F 128, 128, 128
+C 0 0 0
+
+SO ./textures/so_tex.xpm
+WE ./textures/we_tex.xpm
+NO ./textures/no_tex.xpm
+EA ./textures/ea_tex.xpm
+
+
+111
+111
+111
+111
