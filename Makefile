@@ -14,7 +14,7 @@ NAME = cub
 
 CFLAGS = -Wall -Wextra -g -fsanitize=address
 
-MLXFLAGS = -L/usr/X11/lib -lX11 -lXext -lm
+MLXFLAGS = -L/usr/X11/lib -lX11 -lXext -lm -O3
 
 SRCS_DIR = ./srcs/
 
