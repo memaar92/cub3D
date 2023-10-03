@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:10:41 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/03 16:54:38 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:18:19 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ int	ft_pl_move(int keycode, t_vars *vars)
 	else if (keycode == KEY_D)
 		new_pos(vars, vars->ray->plane_x, vars->ray->plane_y);
 	mlx_clear_window(vars->mlx, vars->win);
-	draw_floor_ceiling(vars);
-	vars->screen_x = 0;
-	cast_rays(vars);
+	ft_render(vars);
 	return (0);
 }
 
@@ -62,9 +60,7 @@ void	player_rotate(int keycode, t_vars *vars)
 		vars->ray->plane_y = sin(ROT) * temp + cos(ROT) * vars->ray->plane_y;
 	}
 	mlx_clear_window(vars->mlx, vars->win);
-	draw_floor_ceiling(vars);
-	vars->screen_x = 0;
-	cast_rays(vars);
+	ft_render(vars);
 }
 
 int	move_view(int keycode, t_vars *vars)

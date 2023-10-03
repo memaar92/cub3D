@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:09:45 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/03 15:45:39 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:14:19 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	main(int argc, char **argv)
 		return (free_all_mem(vars), 1);
 	if (init_tex_and_scr_buf(vars))
 		return (free_all_mem(vars), 1);
+	set_viewing_direction(vars);
+	set_camera_plane(vars);
 	mlx_hook(vars->win, 12, 1L << 15, ft_render, vars);
 	mlx_hook(vars->win, 17, 0L, ft_close, vars);
 	mlx_hook(vars->win, 02, 1L << 0, move_view, vars);
