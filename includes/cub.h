@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/03 15:33:15 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:44:52 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,10 @@ void	set_camera_plane(t_vars *vars);
 void	set_viewing_direction(t_vars *vars);
 
 // INIT
+int		allocate_mem(t_vars *vars);
 void	set_floor_ceil(t_vars **vars);
+int		init_tex_and_scr_buf(t_vars *vars);
+int		init_mlx(t_vars *vars);
 t_vars	*init_vars(void);
 
 // INIT RAYCASTING
@@ -180,8 +183,7 @@ void	set_char(char **buf, char c);
 int		is_not_empty_line(char *buf);
 int		is_first_line(char *buf);
 int		check_rgb_values(t_vars **vars, char **buf);
-void	print_parser(t_vars *vars);
-void	print_map(t_vars **vars, int **map);
+int		right_file_extension(char *name);
 
 // PARSER_UTILS2
 int		floodfill(t_vars **vars, int **map, double x, double y);

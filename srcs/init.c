@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 14:38:46 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/03 14:11:45 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:45:57 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,27 @@ void	set_floor_ceil(t_vars **vars)
 		while (++j < 3)
 			(*vars)->floor_ceiling[i][j] = -1;
 	}
+}
+
+int	init_tex_and_scr_buf(t_vars *vars)
+{
+	if (init_screen_buffer(vars))
+		return (1);
+	if (init_textures(vars))
+		return (1);
+	return (0);
+}
+
+int	init_mlx(t_vars *vars)
+{
+	vars->mlx = mlx_init();
+	if (!vars->mlx)
+		return (1);
+	vars->win = mlx_new_window(vars->mlx, vars->screen_width,
+			vars->screen_height, "cub3D");
+	if (!vars->win)
+		return (1);
+	return (0);
 }
 
 t_vars	*init_vars(void)

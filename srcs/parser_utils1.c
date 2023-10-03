@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:11:34 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/03 14:28:45 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:37:32 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,21 @@ int	check_rgb_values(t_vars **vars, char **buf)
 	if (i != 4)
 		return (printf("Please provide the correct RGB values\n"), 1);
 	return (0);
+}
+
+int	right_file_extension(char *name)
+{
+	char	**split;
+	int		i;
+
+	split = ft_split(name, '.');
+	i = 0;
+	while (split[i])
+		i++;
+	if (i != 2)
+		return (free_mem(split), 1);
+	if (ft_strncmp(split[1], "cub", ft_strlen(split[1])) != 0
+		|| ft_strlen(split[1]) != 3)
+		return (free_mem(split), 1);
+	return (free_mem(split), 0);
 }
