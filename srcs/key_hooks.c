@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:10:41 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/03 17:18:19 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:32:26 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 
 void	new_pos(t_vars *vars, double x, double y)
 {
-	if (!vars->map[(int)(vars->pl_pos_x + x)][(int)(vars->pl_pos_y + y)])
+	int	next_x;
+	int	next_y;
+
+	next_x = vars->pl_pos_x + x * 1.05;
+	next_y = vars->pl_pos_y + y * 1.05;
+	if (!vars->map[(int)(vars->pl_pos_x + x)][(int)(vars->pl_pos_y + y)] &&
+		!vars->map[next_x][next_y])
 	{
 		vars->pl_pos_x += x;
 		vars->pl_pos_y += y;
