@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/03 16:14:30 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/03 16:53:37 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,23 @@
 typedef struct s_ray
 {
 	int		side;
-	double	playerX;
-	double	playerY;
-	double	viewX;
-	double	viewY;
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	double	sideDistX;
-	double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	planeX;
-	double	planeY;
-	double	perpWallDist;
+	double	view_x;
+	double	view_y;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	sidedist_x;
+	double	sidedist_y;
+	double	deltadist_x;
+	double	deltadist_y;
+	double	plane_x;
+	double	plane_y;
+	double	perpwalldist;
 	int		hit;
-	int		stepX;
-	int		stepY;
-	int		mapX;
-	int		mapY;
+	int		step_x;
+	int		step_y;
+	int		map_x;
+	int		map_y;
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
@@ -125,38 +123,20 @@ typedef struct s_circle
 	int	square_size;
 }	t_circle;
 
-
-// FREE MEM
-void	free_map(t_vars *vars, int **map);
-void	free_images(t_vars	*vars);
-void	free_all_mem(t_vars *vars);
-
-// UTILS
-int		init_screen_buffer(t_vars *vars);
-int		init_texture_dir(t_vars *vars, t_img *tex, int dir);
-int		init_textures(t_vars *vars);
-int		set_color(int t, int r, int g, int b);
-
-// RAYCASTER
-void	put_text_on_buf_scr(t_vars *vars);
-void	run_dda(t_vars *vars);
-int		cast_rays(t_vars *vars);
-void	draw_floor_ceiling(t_vars *vars);
-int		ft_render(t_vars *vars);
-
-// RAYCASTER_UTILS
-int		get_pixel_color(int tex_x_pos, int tex_y_pos, t_vars *vars);
-void	calc_line_height(t_vars *vars);
-void	calc_vline_start_end(t_vars *vars);
-int		calc_texture_pos_x(t_vars *vars);
-
 // DDA_UTILS
 void	dda_calc_sidedist_x(t_vars *vars);
 void	dda_calc_sidedist_y(t_vars *vars);
 
-// SETUP VIEWING DIRECTION
-void	set_camera_plane(t_vars *vars);
-void	set_viewing_direction(t_vars *vars);
+// FREE MEM
+void	free_images(t_vars	*vars);
+void	free_map(t_vars *vars, int **map);
+void	free_all_mem(t_vars *vars);
+
+// INIT RAYCASTING
+void	init_map_steps_ray_len(t_vars *vars);
+void	calc_ray_step_len(t_vars *vars);
+void	calc_ray_dir(t_vars *vars);
+void	init_raycast(t_vars *vars);
 
 // INIT
 int		allocate_mem(t_vars *vars);
@@ -164,12 +144,6 @@ void	set_floor_ceil(t_vars **vars);
 int		init_tex_and_scr_buf(t_vars *vars);
 int		init_mlx(t_vars *vars);
 t_vars	*init_vars(void);
-
-// INIT RAYCASTING
-void	init_map_steps_ray_len(t_vars *vars);
-void	calc_ray_step_len(t_vars *vars);
-void	calc_ray_dir(t_vars *vars);
-void	init_raycast(t_vars *vars);
 
 // KEY_HOOKS
 void	new_pos(t_vars *vars, double x, double y);
@@ -180,7 +154,17 @@ int		move_view(int keycode, t_vars *vars);
 // MAIN
 int		ft_close(t_vars *vars);
 
+// MINI_MAP_UTILS
+int		is_valid_pos(t_vars *vars, int i, int j);
+int		adjust_colors(int color, double factor);
+void	draw_circle(t_vars *vars, t_circle mp, int i, int j);
+void	draw_half_circle(t_vars *vars, t_circle mp, int i, int j);
+
 // MINI_MAP
+void	draw_square(t_vars *vars, t_circle mp, int color, int border);
+void	draw_direction(t_vars *vars, t_circle mp);
+void	draw_block(t_vars *vars, t_circle *mp, int i, int j);
+void	draw_map(t_vars *vars, t_circle mp);
 void	mini_map(t_vars *vars);
 
 // PARSER_UTILS1
@@ -216,10 +200,27 @@ char	*reach_map(t_vars **vars, int fd, int *i);
 void	set_map_cols(t_vars **vars, char *line, int *i);
 int		get_map_size(t_vars **vars, char *filename, int i);
 
-// MINI_MAP_UTILS
-int		is_valid_pos(t_vars *vars, int i, int j);
-int		adjust_colors(int color, double factor);
-void	draw_circle(t_vars *vars, t_circle mp, int i, int j);
-void	draw_half_circle(t_vars *vars, t_circle mp, int i, int j);
+// RAYCASTER_UTILS
+int		get_pixel_color(int tex_x_pos, int tex_y_pos, t_vars *vars);
+void	calc_line_height(t_vars *vars);
+void	calc_vline_start_end(t_vars *vars);
+int		calc_texture_pos_x(t_vars *vars);
+
+// RAYCASTER
+void	put_text_on_buf_scr(t_vars *vars);
+void	run_dda(t_vars *vars);
+int		cast_rays(t_vars *vars);
+void	draw_floor_ceiling(t_vars *vars);
+int		ft_render(t_vars *vars);
+
+// SETUP VIEWING DIRECTION
+void	set_camera_plane(t_vars *vars);
+void	set_viewing_direction(t_vars *vars);
+
+// UTILS
+int		init_screen_buffer(t_vars *vars);
+int		init_texture_dir(t_vars *vars, t_img *tex, int dir);
+int		init_textures(t_vars *vars);
+int		set_color(int t, int r, int g, int b);
 
 #endif

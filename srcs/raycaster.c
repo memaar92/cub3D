@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/03 16:09:49 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/03 16:53:51 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,15 @@ void	run_dda(t_vars *vars)
 {
 	while (vars->ray->hit == 0)
 	{
-		if (vars->ray->sideDistX < vars->ray->sideDistY
-			|| (vars->ray->sideDistX == vars->ray->sideDistY
-				&& vars->ray->deltaDistX < vars->ray->deltaDistY))
+		if (vars->ray->sidedist_x < vars->ray->sidedist_y
+			|| (vars->ray->sidedist_x == vars->ray->sidedist_y
+				&& vars->ray->deltadist_x < vars->ray->deltadist_y))
 		{
 			dda_calc_sidedist_x(vars);
 		}
 		else
 			dda_calc_sidedist_y(vars);
-		if (vars->map[vars->ray->mapX][vars->ray->mapY] == 1)
+		if (vars->map[vars->ray->map_x][vars->ray->map_y] == 1)
 			vars->ray->hit = 1;
 	}
 }
