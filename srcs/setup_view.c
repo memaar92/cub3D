@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:28:30 by mamesser          #+#    #+#             */
-/*   Updated: 2023/09/29 17:07:20 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/03 16:15:28 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	set_camera_plane(t_vars *vars)
 {
 	if (vars->pov_dir == EA || vars->pov_dir == WE)
 	{
-		vars->ray->planeX = 0.0; // --> this determines how wide the FOV is (together with viewX or viewY respectively)
-		vars->ray->planeY = 0.66;  // because viewX != 0 and viewY == 0; otherwise would not be perpendicular
+		vars->ray->planeX = 0.0;
+		vars->ray->planeY = 0.66;
 		if (vars->pov_dir == WE)
 			vars->ray->planeY = -0.66;
 	}

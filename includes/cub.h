@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/03 15:44:52 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/03 16:14:30 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,16 +138,21 @@ int		init_textures(t_vars *vars);
 int		set_color(int t, int r, int g, int b);
 
 // RAYCASTER
-int		get_pixel_color(int tex_x_pos, int tex_y_pos, t_vars *vars);
-void	calc_vline_start_end(t_vars *vars);
-int		calc_texture_pos_x(t_vars *vars);
 void	put_text_on_buf_scr(t_vars *vars);
-void	calc_line_height(t_vars *vars);
 void	run_dda(t_vars *vars);
 int		cast_rays(t_vars *vars);
-void	print_2D_map_on_window(t_vars *vars); // for testing
 void	draw_floor_ceiling(t_vars *vars);
 int		ft_render(t_vars *vars);
+
+// RAYCASTER_UTILS
+int		get_pixel_color(int tex_x_pos, int tex_y_pos, t_vars *vars);
+void	calc_line_height(t_vars *vars);
+void	calc_vline_start_end(t_vars *vars);
+int		calc_texture_pos_x(t_vars *vars);
+
+// DDA_UTILS
+void	dda_calc_sidedist_x(t_vars *vars);
+void	dda_calc_sidedist_y(t_vars *vars);
 
 // SETUP VIEWING DIRECTION
 void	set_camera_plane(t_vars *vars);

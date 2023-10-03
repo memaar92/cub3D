@@ -27,6 +27,8 @@ SRCS := $(addprefix $(SRCS_DIR),raycaster.c \
 								main.c \
 								setup_view.c \
 								init_raycasting.c \
+								raycaster_utils.c \
+								dda_utils.c \
 								utils.c \
 								key_hooks.c \
 								mini_map.c \

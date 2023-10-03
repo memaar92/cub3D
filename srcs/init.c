@@ -6,13 +6,13 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 14:38:46 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/03 15:45:57 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:52:56 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
 
-int		allocate_mem(t_vars *vars)
+int	allocate_mem(t_vars *vars)
 {
 	vars->textures = ft_calloc(5, sizeof(char *));
 	if (!vars->textures)
