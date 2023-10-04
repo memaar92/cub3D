@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hooks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:10:41 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/03 18:06:44 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/04 09:32:15 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	ft_pl_move(int keycode, t_vars *vars)
 		new_pos(vars, -vars->ray->plane_x, -vars->ray->plane_y);
 	else if (keycode == KEY_D)
 		new_pos(vars, vars->ray->plane_x, vars->ray->plane_y);
-	mlx_clear_window(vars->mlx, vars->win);
 	ft_render(vars);
 	return (0);
 }
@@ -65,7 +64,6 @@ void	player_rotate(int keycode, t_vars *vars)
 		vars->ray->plane_x = cos(ROT) * temp + (-sin(ROT)) * vars->ray->plane_y;
 		vars->ray->plane_y = sin(ROT) * temp + cos(ROT) * vars->ray->plane_y;
 	}
-	mlx_clear_window(vars->mlx, vars->win);
 	ft_render(vars);
 }
 

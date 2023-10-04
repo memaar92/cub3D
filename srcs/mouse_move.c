@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:28:49 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/03 18:32:40 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/04 09:31:41 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	mouse_move(int x, int y, t_vars *vars)
 {
 	(void)y;
 	vars->counter++;
-	if (vars->counter / 10 == 1)
+	if (vars->counter / 7 == 1)
 	{
 		if (vars->mouse_flag)
 		{
