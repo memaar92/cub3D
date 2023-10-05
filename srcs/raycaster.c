@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/05 12:25:54 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/05 13:14:09 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	put_text_on_buf_scr(t_vars *vars)
 		temp += tex_y_steps;
 		color = get_pixel_color(tex_x_pos, tex_y_pos, vars);
 		// if (vars->ray->side == 1)
-		// 	color = (color >> 1) & 8355711;
+		if (vars->ray->its > 20)
+			color = (color >> 1) & 8355711;
 		vars->scr_buf->addr[vars->screen_y * (vars->scr_buf->line_size / 4)
 			+ vars->screen_x] = color;
 		vars->screen_y++;
@@ -41,6 +42,7 @@ void	put_text_on_buf_scr(t_vars *vars)
 
 void	run_dda(t_vars *vars)
 {
+	vars->ray->its = 0;
 	while (vars->ray->hit == 0)
 	{
 		if (vars->ray->sidedist_x < vars->ray->sidedist_y
@@ -53,6 +55,7 @@ void	run_dda(t_vars *vars)
 			dda_calc_sidedist_y(vars);
 		if (vars->map[vars->ray->map_x][vars->ray->map_y] == 1)
 			vars->ray->hit = 1;
+		vars->ray->its++;
 	}
 }
 
@@ -104,8 +107,8 @@ int	ft_render(t_vars *vars)
 	// draw_floor(vars);
 	vars->screen_x = 0;
 	cast_rays(vars);
-	draw_torch(vars);
 	mini_map(vars);
+	draw_torch(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->scr_buf->img, 0, 0);
 	return (0);
 }

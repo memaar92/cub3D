@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/04 13:32:10 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/05 13:13:41 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_ray
 	int		draw_start;
 	int		draw_end;
 	int		wall_color;
+	int		its;
 }				t_ray;
 
 typedef struct s_floor
