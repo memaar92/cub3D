@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/05 16:42:24 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:48:52 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,25 +74,10 @@ typedef struct s_ray
 }				t_ray;
 
 typedef struct s_floor
-{
-	double	ray_dir_x0;
-	double	ray_dir_y0;
-	double	ray_dir_x1;
-	double	ray_dir_y1;
-	int		dist_scr_ctre;
-	double	cam_height;
-	double	cam_to_floor;
-	double	floor_step_x;
-	double	floor_step_y;
-	int		scre_x;
-	int		scre_y;
-	int		cell_x;
-	int		cell_y;
-	double	floor_x;
-	double	floor_y;
+{	
+	int		y;
 	int		tex_x;
-	int		tex_y;
-	
+	int		tex_y;	
 	double	wall_x;
 	double	wall_y;
 	double	dist_wall;
@@ -166,21 +151,25 @@ typedef struct s_circle
 	double	offset;
 }	t_circle;
 
-int	get_floor_color(int tex_x_pos, int tex_y_pos, t_vars *vars);
-int	get_ceiling_color(int tex_x_pos, int tex_y_pos, t_vars *vars);
-
 // DDA_UTILS
 void	dda_calc_sidedist_x(t_vars *vars);
 void	dda_calc_sidedist_y(t_vars *vars);
 
 // FLOOR_CEILING
-void	calc_floor_params(t_vars *vars);
-void	draw_floor(t_vars *vars);
+int		get_floor_color(int tex_x_pos, int tex_y_pos, t_vars *vars);
+int		get_ceiling_color(int tex_x_pos, int tex_y_pos, t_vars *vars);
+void	calc_floor_pos(t_vars *vars);
+void	init_floor_vars(t_vars *vars);
+void	put_floor_ceil(t_vars *vars);
 
 // FREE MEM
 void	free_images(t_vars	*vars);
 void	free_map(t_vars *vars, int **map);
 void	free_all_mem(t_vars *vars);
+
+// HAND ITEM
+void	add_hand_item(t_vars *vars);
+int		get_hand_item_color(int tex_x_pos, int tex_y_pos, t_vars *vars);
 
 // INIT RAYCASTING
 void	init_map_steps_ray_len(t_vars *vars);
@@ -274,7 +263,9 @@ void	set_viewing_direction(t_vars *vars);
 // UTILS
 int		init_screen_buffer(t_vars *vars);
 int		init_texture_dir(t_vars *vars, t_img *tex, int dir);
-int		init_textures(t_vars *vars);
+int		init_wall_textures(t_vars *vars);
+int		init_floor_ceil_textures(t_vars *v);
+int		init_hand_item_textures(t_vars *v);
 int		set_color(int t, int r, int g, int b);
 
 #endif

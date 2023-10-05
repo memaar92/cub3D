@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 14:38:46 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/05 16:51:47 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:28:56 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,53 +51,11 @@ int	init_tex_and_scr_buf(t_vars *vars)
 {
 	if (init_screen_buffer(vars))
 		return (1);
-	if (init_textures(vars))
+	if (init_wall_textures(vars))
 		return (1);
-	vars->torch = malloc(sizeof(t_img));
-	if (!vars->torch)
+	if (init_floor_ceil_textures(vars))
 		return (1);
-	vars->torch->img = mlx_xpm_file_to_image(vars->mlx, "./textures/torch.xpm",
-			&vars->torch->tex_w, &vars->torch->tex_h);
-	if (!vars->torch->img)
-		return (1);
-	vars->torch->addr = (int *)mlx_get_data_addr(vars->torch->img, &vars->torch->bpp,
-			&vars->torch->line_size, &vars->torch->endian);
-	if (!vars->torch->addr)
-		return (1);
-	vars->tex_floor = malloc(sizeof(t_img));
-	if (!vars->tex_floor)
-		return (1);
-	vars->tex_floor->img = mlx_xpm_file_to_image(vars->mlx, "./textures/floor.xpm",
-			&vars->tex_floor->tex_w, &vars->tex_floor->tex_h);
-	if (!vars->tex_floor->img)
-		return (1);
-	vars->tex_floor->addr = (int *)mlx_get_data_addr(vars->tex_floor->img, &vars->tex_floor->bpp,
-			&vars->tex_floor->line_size, &vars->tex_floor->endian);
-	if (!vars->tex_floor->addr)
-		return (1);
-		
-	vars->tex_ceil = malloc(sizeof(t_img));
-	if (!vars->tex_ceil)
-		return (1);
-	vars->tex_ceil->img = mlx_xpm_file_to_image(vars->mlx, "./textures/tex_ceil.xpm",
-			&vars->tex_ceil->tex_w, &vars->tex_ceil->tex_h);
-	if (!vars->tex_ceil->img)
-		return (1);
-	vars->tex_ceil->addr = (int *)mlx_get_data_addr(vars->tex_ceil->img, &vars->tex_ceil->bpp,
-			&vars->tex_ceil->line_size, &vars->tex_ceil->endian);
-	if (!vars->tex_ceil->addr)
-		return (1);
-
-	vars->cam_low = malloc(sizeof(t_img));
-	if (!vars->cam_low)
-		return (1);
-	vars->cam_low->img = mlx_xpm_file_to_image(vars->mlx, "./textures/camera_low2.xpm",
-			&vars->cam_low->tex_w, &vars->cam_low->tex_h);
-	if (!vars->cam_low->img)
-		return (1);
-	vars->cam_low->addr = (int *)mlx_get_data_addr(vars->cam_low->img, &vars->cam_low->bpp,
-			&vars->cam_low->line_size, &vars->cam_low->endian);
-	if (!vars->cam_low->addr)
+	if (init_hand_item_textures(vars))
 		return (1);
 	return (0);
 }
