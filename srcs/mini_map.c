@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:44:10 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/04 13:18:58 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/05 13:26:00 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	mini_map(t_vars *vars)
 	mp.center_x = vars->screen_width / 2;
 	mp.center_y = vars->screen_height;
 	mp.radius = vars->screen_height / 1.75;
-	draw_half_circle(vars, mp, 0, 0);
+	// draw_half_circle(vars, mp, 0, 0);
 	mp.center_x = vars->screen_width - vars->screen_width / 6;
 	mp.center_y = vars->screen_height - vars->screen_height / 6;
 	if (vars->screen_width < vars->screen_height)

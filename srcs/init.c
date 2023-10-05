@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 14:38:46 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/05 12:28:36 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/05 14:39:30 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,29 @@ int	init_tex_and_scr_buf(t_vars *vars)
 			&vars->torch->line_size, &vars->torch->endian);
 	if (!vars->torch->addr)
 		return (1);
+	vars->tex_floor = malloc(sizeof(t_img));
+	if (!vars->tex_floor)
+		return (1);
+	vars->tex_floor->img = mlx_xpm_file_to_image(vars->mlx, "./textures/floor.xpm",
+			&vars->tex_floor->tex_w, &vars->tex_floor->tex_h);
+	if (!vars->tex_floor->img)
+		return (1);
+	vars->tex_floor->addr = (int *)mlx_get_data_addr(vars->tex_floor->img, &vars->tex_floor->bpp,
+			&vars->tex_floor->line_size, &vars->tex_floor->endian);
+	if (!vars->tex_floor->addr)
+		return (1);
+		
+	// vars->tex_ceil = malloc(sizeof(t_img));
+	// if (!vars->tex_ceil)
+	// 	return (1);
+	// vars->vars->tex_ceil->img = mlx_xpm_file_to_image(vars->mlx, "./textures/floor.xpm",
+	// 		&vars->tex_floor->tex_w, &vars->tex_floor->tex_h);
+	// if (!vars->tex_floor->img)
+	// 	return (1);
+	// vars->tex_floor->addr = (int *)mlx_get_data_addr(vars->tex_floor->img, &vars->tex_floor->bpp,
+	// 		&vars->tex_floor->line_size, &vars->tex_floor->endian);
+	// if (!vars->tex_floor->addr)
+	// 	return (1);
 	return (0);
 }
 
