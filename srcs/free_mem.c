@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 14:14:24 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/03 14:16:44 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:23:14 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	free_all_mem(t_vars *vars)
 		free_map(vars, vars->map);
 	if (vars->ray)
 		free(vars->ray);
+	if (vars->floor)
+		free(vars->floor);
 	if (vars->textures)
 		free_mem(vars->textures);
 	free_images(vars);

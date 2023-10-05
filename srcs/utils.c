@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 15:23:33 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/03 16:17:46 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/04 15:09:54 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ int	init_textures(t_vars *vars)
 	vars->tex_ea = malloc(sizeof(t_img));
 	if (!vars->tex_ea)
 		return (1);
-	vars->tex_h = 128;
-	vars->tex_w = 128;
+	vars->tex_h = 256;
+	vars->tex_w = 256;
 	if (init_texture_dir(vars, vars->tex_no, 0))
 		return (1);
 	if (init_texture_dir(vars, vars->tex_so, 1))

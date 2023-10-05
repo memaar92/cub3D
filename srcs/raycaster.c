@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/03 17:16:57 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/05 12:25:54 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	put_text_on_buf_scr(t_vars *vars)
 		tex_y_pos = (int)temp & (vars->tex_h - 1);
 		temp += tex_y_steps;
 		color = get_pixel_color(tex_x_pos, tex_y_pos, vars);
-		if (vars->ray->side == 1)
-			color = (color >> 1) & 8355711;
+		// if (vars->ray->side == 1)
+		// 	color = (color >> 1) & 8355711;
 		vars->scr_buf->addr[vars->screen_y * (vars->scr_buf->line_size / 4)
 			+ vars->screen_x] = color;
 		vars->screen_y++;
@@ -96,11 +96,15 @@ void	draw_floor_ceiling(t_vars *vars)
 	}
 }
 
+void	draw_torch(t_vars *vars);
+
 int	ft_render(t_vars *vars)
 {
 	draw_floor_ceiling(vars);
+	// draw_floor(vars);
 	vars->screen_x = 0;
 	cast_rays(vars);
+	draw_torch(vars);
 	mini_map(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->scr_buf->img, 0, 0);
 	return (0);

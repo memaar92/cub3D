@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/03 18:30:09 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/04 13:32:10 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,28 @@ typedef struct s_ray
 	int		wall_color;
 }				t_ray;
 
+typedef struct s_floor
+{
+	double	ray_dir_x0;
+	double	ray_dir_y0;
+	double	ray_dir_x1;
+	double	ray_dir_y1;
+	int		dist_scr_ctre;
+	double	cam_height;
+	double	cam_to_floor;
+	double	floor_step_x;
+	double	floor_step_y;
+	int		scre_x;
+	int		scre_y;
+	int		cell_x;
+	int		cell_y;
+	double	floor_x;
+	double	floor_y;
+	int		tex_x;
+	int		tex_y;
+	
+}				t_floor;
+
 typedef struct s_img
 {
 	int		line_size;
@@ -103,7 +125,9 @@ typedef struct s_vars
 	t_img	*tex_so;
 	t_img	*tex_we;
 	t_img	*tex_ea;
+	t_img	*torch;
 	t_ray	*ray;
+	t_floor	*floor;
 	int		tex_h;
 	int		tex_w;
 	int		screen_x;
@@ -114,21 +138,26 @@ typedef struct s_vars
 
 typedef struct s_circle
 {
-	int	center_x;
-	int	center_y;
-	int	radius;
-	int	distance;
-	int	pl_pixel_x;
-	int	pl_pixel_y;
-	int	side;
-	int	posx;
-	int	posy;
-	int	square_size;
+	int		center_x;
+	int		center_y;
+	int		radius;
+	int		distance;
+	int		pl_pixel_x;
+	int		pl_pixel_y;
+	int		side;
+	int		posx;
+	int		posy;
+	int		square_size;
+	double	offset;
 }	t_circle;
 
 // DDA_UTILS
 void	dda_calc_sidedist_x(t_vars *vars);
 void	dda_calc_sidedist_y(t_vars *vars);
+
+// FLOOR_CEILING
+void	calc_floor_params(t_vars *vars);
+void	draw_floor(t_vars *vars);
 
 // FREE MEM
 void	free_images(t_vars	*vars);

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:07:48 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/03 16:52:39 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/04 15:14:28 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	calc_texture_pos_x(t_vars *vars)
 	if ((vars->ray->side == 0 && vars->ray->ray_dir_x < 0)
 		|| (vars->ray->side == 1 && vars->ray->ray_dir_y > 0))
 	{
-		tex_x_pos = 128 - tex_x_pos - 1;
+		tex_x_pos = vars->tex_w - tex_x_pos - 1;
 	}
 	return (tex_x_pos);
 }
