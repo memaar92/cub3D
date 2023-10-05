@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:07:48 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/04 15:14:28 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/05 14:12:01 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,21 @@ void	calc_vline_start_end(t_vars *vars)
 
 int	calc_texture_pos_x(t_vars *vars)
 {
-	double	wall_hit;
+	// double	wall_hit;
 	int		tex_x_pos;
 
 	if (vars->ray->side == 0)
 	{
-		wall_hit = vars->pl_pos_y + vars->ray->perpwalldist
+		vars->ray->wall_hit = vars->pl_pos_y + vars->ray->perpwalldist
 			* vars->ray->ray_dir_y;
 	}
 	else
 	{
-		wall_hit = vars->pl_pos_x + vars->ray->perpwalldist
+		vars->ray->wall_hit = vars->pl_pos_x + vars->ray->perpwalldist
 			* vars->ray->ray_dir_x;
 	}
-	wall_hit -= floor(wall_hit);
-	tex_x_pos = (int)(wall_hit * (double)vars->tex_w);
+	vars->ray->wall_hit -= floor(vars->ray->wall_hit);
+	tex_x_pos = (int)(vars->ray->wall_hit * (double)vars->tex_w);
 	if ((vars->ray->side == 0 && vars->ray->ray_dir_x < 0)
 		|| (vars->ray->side == 1 && vars->ray->ray_dir_y > 0))
 	{

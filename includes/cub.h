@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/05 13:32:07 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/05 14:43:00 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef struct s_ray
 	int		draw_start;
 	int		draw_end;
 	int		wall_color;
+	double	wall_hit;
+	int		its;
 }				t_ray;
 
 typedef struct s_floor
@@ -90,6 +92,15 @@ typedef struct s_floor
 	double	floor_y;
 	int		tex_x;
 	int		tex_y;
+	
+	double	wall_x;
+	double	wall_y;
+	double	dist_wall;
+	double	dist_pl;
+	double	current_dist;
+	double	weight;
+	double	cur_floor_x;
+	double	cur_floor_y;
 	
 }				t_floor;
 
@@ -125,6 +136,8 @@ typedef struct s_vars
 	t_img	*tex_so;
 	t_img	*tex_we;
 	t_img	*tex_ea;
+	t_img	*tex_floor;
+	// t_img	*tex_ceil;
 	t_img	*torch;
 	t_ray	*ray;
 	t_floor	*floor;
@@ -150,6 +163,9 @@ typedef struct s_circle
 	int		square_size;
 	double	offset;
 }	t_circle;
+
+int	get_floor_color(int tex_x_pos, int tex_y_pos, t_vars *vars);
+int	get_ceiling_color(int tex_x_pos, int tex_y_pos, t_vars *vars);
 
 // DDA_UTILS
 void	dda_calc_sidedist_x(t_vars *vars);
