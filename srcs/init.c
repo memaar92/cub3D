@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 14:38:46 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/03 18:22:57 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/04 13:34:21 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,18 @@ int	allocate_mem(t_vars *vars)
 	vars->textures = ft_calloc(5, sizeof(char *));
 	if (!vars->textures)
 		return (free(vars), 1);
+	vars->floor = ft_calloc(sizeof(t_floor), 1);
+	if (!vars->floor)
+	{
+		free_mem(vars->textures);
+		return (free(vars), 1);
+	}
 	vars->ray = ft_calloc(sizeof(t_ray), 1);
 	if (!vars->ray)
 	{
-		free(vars);
-		return (free_mem(vars->textures), 1);
+		free_mem(vars->textures);
+		free(vars->floor);
+		return (free(vars), 1);
 	}
 	return (0);
 }
@@ -45,6 +52,17 @@ int	init_tex_and_scr_buf(t_vars *vars)
 	if (init_screen_buffer(vars))
 		return (1);
 	if (init_textures(vars))
+		return (1);
+	vars->torch = malloc(sizeof(t_img));
+	if (!vars->torch)
+		return (1);
+	vars->torch->img = mlx_xpm_file_to_image(vars->mlx, "./textures/torch.xpm",
+			&vars->torch->tex_w, &vars->torch->tex_h);
+	if (!vars->torch->img)
+		return (1);
+	vars->torch->addr = (int *)mlx_get_data_addr(vars->torch->img, &vars->torch->bpp,
+			&vars->torch->line_size, &vars->torch->endian);
+	if (!vars->torch->addr)
 		return (1);
 	return (0);
 }
