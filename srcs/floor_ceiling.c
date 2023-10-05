@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:13:37 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/05 14:39:38 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/05 14:50:10 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,16 @@ int	get_floor_color(int tex_x_pos, int tex_y_pos, t_vars *vars)
 	return (color);
 }
 
-// int	get_ceiling_color(int tex_x_pos, int tex_y_pos, t_vars *vars)
-// {
-// 	int	color;
-// 	int	pos;
+int	get_ceiling_color(int tex_x_pos, int tex_y_pos, t_vars *vars)
+{
+	int	color;
+	int	pos;
 
-// 	// tex_y_pos = tex_y_pos & (128 - 1);
-// 	pos = tex_y_pos * (vars->tex_no->line_size / 4) + tex_x_pos;
-// 	color = (int)(vars->tex_ceil->addr[pos]);
-// 	return (color);
-// }
+	// tex_y_pos = tex_y_pos & (128 - 1);
+	pos = tex_y_pos * (vars->tex_ceil->line_size / 4) + tex_x_pos;
+	color = (int)(vars->tex_ceil->addr[pos]);
+	return (color);
+}
 
 void	draw_floor(t_vars *vars)
 {

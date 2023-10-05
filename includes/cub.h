@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/05 14:40:11 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:42:24 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,9 @@ typedef struct s_vars
 	t_img	*tex_we;
 	t_img	*tex_ea;
 	t_img	*tex_floor;
-	// t_img	*tex_ceil;
+	t_img	*tex_ceil;
 	t_img	*torch;
+	t_img	*cam_low;
 	t_ray	*ray;
 	t_floor	*floor;
 	int		tex_h;
@@ -147,6 +148,7 @@ typedef struct s_vars
 	int		screen_y;
 	int		screen_width;
 	int		screen_height;
+	int		frame;
 }				t_vars;
 
 typedef struct s_circle

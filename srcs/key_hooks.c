@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:10:41 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/04 09:32:15 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:46:48 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	player_rotate(int keycode, t_vars *vars)
 
 int	move_view(int keycode, t_vars *vars)
 {
+	vars->frame = 1;
 	if (keycode == KEY_ESCAPE)
 		ft_close(vars);
 	if (keycode == KEY_W || keycode == KEY_S
