@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 10:35:09 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/04 14:36:50 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/05 13:38:10 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,29 +67,20 @@ void	draw_circle(t_vars *vars, t_circle mp, int i, int j)
 	}
 }
 
-void	draw_half_circle(t_vars *vars, t_circle mp, int i, int j)
+void	draw_zoom_circle(t_vars *vars, t_circle mp, int i, int j)
 {
-	int		color;
-
-	mp.offset = vars->screen_height / 2.5;
-	i = mp.center_x - mp.radius;
-	while (i++ <= mp.center_x + mp.radius)
+	i = 0;
+	while (i++ <= vars->screen_width)
 	{
-		j = mp.center_y - mp.radius + mp.offset;
-		while (j++ <= mp.center_y)
+		j = 0;
+		while (j++ <= vars->screen_height)
 		{
-			mp.distance = pow(i - mp.center_x, 2)
-				+ pow(j - (mp.center_y + mp.offset), 2);
-			if (mp.distance < mp.radius * mp.radius)
+			mp.distance = pow(i - mp.center_x, 2) + pow(j - mp.center_y, 2);
+			if (mp.distance > mp.radius * mp.radius
+				|| i == vars->screen_width / 2 || j == vars->screen_height / 2)
 			{
-				if (mp.distance <= (pow(mp.radius, 2) - mp.radius * 5))
-				{
-					color = vars->scr_buf->addr[j
-						*(vars->scr_buf->line_size / 4) + i];
-					vars->scr_buf->addr[j
-						*(vars->scr_buf->line_size / 4) + i]
-						= adjust_colors(color, 1.5);
-				}
+				vars->scr_buf->addr[j
+					*(vars->scr_buf->line_size / 4) + i] = 0;
 			}
 		}
 	}

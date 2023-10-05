@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/05 12:25:54 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/05 13:31:34 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,21 @@ void	draw_torch(t_vars *vars);
 
 int	ft_render(t_vars *vars)
 {
+	t_circle	mp;
+
 	draw_floor_ceiling(vars);
-	// draw_floor(vars);
 	vars->screen_x = 0;
 	cast_rays(vars);
-	draw_torch(vars);
-	mini_map(vars);
+	mp.center_x = vars->screen_width / 2;
+	mp.center_y = vars->screen_height / 2;
+	mp.radius = vars->screen_height / 2.3;
+	if (!vars->zoom)
+	{
+		draw_torch(vars);
+		mini_map(vars);
+	}
+	else
+		draw_zoom_circle(vars, mp, 0, 0);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->scr_buf->img, 0, 0);
 	return (0);
 }

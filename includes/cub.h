@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/04 13:32:10 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/05 13:32:07 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ typedef struct s_img
 typedef struct s_vars
 {
 	int		counter;
-	int		turning_point;
+	int		zoom;
 	int		mouse_flag;
 	void	*mlx;
 	void	*win;
@@ -178,7 +178,7 @@ int		init_mlx(t_vars *vars);
 t_vars	*init_vars(void);
 
 // KEY_HOOKS
-void	new_pos(t_vars *vars, double x, double y);
+int		new_pos(t_vars *vars, double x, double y);
 int		ft_pl_move(int keycode, t_vars *vars);
 void	player_rotate(int keycode, t_vars *vars);
 int		move_view(int keycode, t_vars *vars);
@@ -190,7 +190,7 @@ int		ft_close(t_vars *vars);
 int		is_valid_pos(t_vars *vars, int i, int j);
 int		adjust_colors(int color, double factor);
 void	draw_circle(t_vars *vars, t_circle mp, int i, int j);
-void	draw_half_circle(t_vars *vars, t_circle mp, int i, int j);
+void	draw_zoom_circle(t_vars *vars, t_circle mp, int i, int j);
 
 // MINI_MAP
 void	draw_square(t_vars *vars, t_circle mp, int color, int border);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   key_hooks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:10:41 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/04 09:32:15 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/05 13:08:39 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
 
-void	new_pos(t_vars *vars, double x, double y)
+int	new_pos(t_vars *vars, double x, double y)
 {
 	int	next_x;
 	int	next_y;
@@ -24,7 +24,10 @@ void	new_pos(t_vars *vars, double x, double y)
 	{
 		vars->pl_pos_x += x;
 		vars->pl_pos_y += y;
+		return (0);
 	}
+	else
+		return (1);
 }
 
 int	ft_pl_move(int keycode, t_vars *vars)
