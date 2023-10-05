@@ -12,7 +12,7 @@ NAME = cub
 # **************************************************************************** #
 
 
-CFLAGS = -Wall -Wextra -g -fsanitize=address
+CFLAGS = -Wall -Wextra -g #-fsanitize=address
 
 MLXFLAGS = -L/usr/X11/lib -lX11 -lXext -lm
 
@@ -33,7 +33,8 @@ SRCS := $(addprefix $(SRCS_DIR),raycaster.c \
 								key_hooks.c \
 								mini_map.c \
 								mini_map_utils.c \
-								free_mem.c)
+								free_mem.c \
+								mouse_move.c)
 
 LIBFT_DIR = ./libft
 
