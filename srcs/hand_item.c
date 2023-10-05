@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:22:31 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/05 12:08:37 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/05 12:27:35 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	draw_torch(t_vars *vars)
 	int	color;
 	int	i = -1;
 	int	j = 0;
-	double	scale = ((vars->screen_width / 512) + (vars->screen_height / 512)) / 1.95;
+	double	scale = (((double)vars->screen_width / (double)512) + ((double)vars->screen_height / (double)512)) / 1.95;
+	// printf("scale: %f\n", scale);
 	int	tex_x = 0;
 	int	tex_y = 512 - 1;
 	double	steps = 1 / (double)scale;

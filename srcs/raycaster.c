@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/05 11:55:27 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/05 12:25:54 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ int	ft_render(t_vars *vars)
 	// draw_floor(vars);
 	vars->screen_x = 0;
 	cast_rays(vars);
-	mini_map(vars);
 	draw_torch(vars);
+	mini_map(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->scr_buf->img, 0, 0);
 	return (0);
 }
