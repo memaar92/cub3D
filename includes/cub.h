@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/06 09:07:58 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/06 16:50:29 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define KEY_S 115
 # define KEY_A 97
 # define KEY_D 100
+# define KEY_9 57
 
 # define MAP_ERR "Error: Please provide a valid map."
 # define NO 0
@@ -44,6 +45,8 @@
 # define WHT 16777215
 # define GR 11382186
 # define DR 12312433
+
+# define ZOOM_FACTOR 15
 
 typedef struct s_ray
 {
@@ -74,7 +77,7 @@ typedef struct s_ray
 }				t_ray;
 
 typedef struct s_floor
-{	
+{
 	int		y;
 	int		tex_x;
 	int		tex_y;	
@@ -86,8 +89,20 @@ typedef struct s_floor
 	double	weight;
 	double	cur_floor_x;
 	double	cur_floor_y;
-	
 }				t_floor;
+
+typedef struct s_item
+{
+	int		color;
+	int		x;
+	int		y;
+	int		tex_x;
+	int		tex_y;
+	double	steps;
+	double	temp_y;
+	double	temp_x;
+	double	scale;
+}				t_item;
 
 typedef struct s_img
 {
@@ -123,17 +138,21 @@ typedef struct s_vars
 	t_img	*tex_ea;
 	t_img	*tex_floor;
 	t_img	*tex_ceil;
-	t_img	*torch;
+	t_img	*weapon;
 	t_img	*cam_low;
 	t_ray	*ray;
 	t_floor	*floor;
+	t_item	*item;
 	int		tex_h;
 	int		tex_w;
+	int		hand_tex_w;
+	int		hand_tex_h;
 	int		screen_x;
 	int		screen_y;
 	int		screen_width;
 	int		screen_height;
 	int		frame;
+	int		hand_item;
 }				t_vars;
 
 typedef struct s_circle
@@ -163,19 +182,28 @@ void	init_floor_vars(t_vars *vars);
 void	put_floor_ceil(t_vars *vars);
 
 // FREE MEM
+void	free_wall_tex(t_vars *vars);
 void	free_images(t_vars	*vars);
 void	free_map(t_vars *vars, int **map);
 void	free_all_mem(t_vars *vars);
 
 // HAND ITEM
-void	add_hand_item(t_vars *vars);
 int		get_hand_item_color(int tex_x_pos, int tex_y_pos, t_vars *vars);
+void	init_hand_item_vars(t_vars *vars);
+void	put_item_to_screen(t_vars *vars);
+void	add_hand_item(t_vars *vars);
 
 // INIT RAYCASTING
 void	init_map_steps_ray_len(t_vars *vars);
 void	calc_ray_step_len(t_vars *vars);
 void	calc_ray_dir(t_vars *vars);
 void	init_raycast(t_vars *vars);
+
+// INIT TEX
+int		init_texture_dir(t_vars *vars, t_img *tex, int dir);
+int		init_wall_textures(t_vars *vars);
+int		init_floor_ceil_textures(t_vars *v);
+int		init_hand_item_textures(t_vars *v);
 
 // INIT
 int		allocate_mem(t_vars *vars);
@@ -262,10 +290,6 @@ void	set_viewing_direction(t_vars *vars);
 
 // UTILS
 int		init_screen_buffer(t_vars *vars);
-int		init_texture_dir(t_vars *vars, t_img *tex, int dir);
-int		init_wall_textures(t_vars *vars);
-int		init_floor_ceil_textures(t_vars *v);
-int		init_hand_item_textures(t_vars *v);
 int		set_color(int t, int r, int g, int b);
 
 #endif

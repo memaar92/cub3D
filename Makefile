@@ -36,7 +36,8 @@ SRCS := $(addprefix $(SRCS_DIR),raycaster.c \
 								free_mem.c \
 								mouse_move.c \
 								floor_ceiling.c \
-								hand_item.c)
+								hand_item.c \
+								init_tex.c)
 
 LIBFT_DIR = ./libft
 

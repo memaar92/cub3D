@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/06 09:11:19 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/06 16:49:19 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ void	draw_floor_ceiling(t_vars *vars)
 
 int	ft_render(t_vars *vars)
 {
-	t_circle mp;
+	t_circle	mp;
+	
 	// draw_floor_ceiling(vars); // this was used for using the values from the input file; for textures the function is part of "cast rays"
 	vars->screen_x = 0;
 	cast_rays(vars);

@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_move.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:28:49 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/05 13:35:05 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/06 16:47:31 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
-
-# define ZOOM_FACTOR 15
 
 int	mouse_move(int x, int y, t_vars *vars)
 {

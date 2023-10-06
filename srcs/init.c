@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 14:38:46 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/05 17:28:56 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/06 16:25:42 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,16 @@ int	allocate_mem(t_vars *vars)
 		return (free(vars), 1);
 	vars->floor = ft_calloc(sizeof(t_floor), 1);
 	if (!vars->floor)
-	{
-		free_mem(vars->textures);
-		return (free(vars), 1);
-	}
+		return (free_mem(vars->textures), free(vars), 1);
 	vars->ray = ft_calloc(sizeof(t_ray), 1);
 	if (!vars->ray)
+		return (free_mem(vars->textures), free(vars->floor), free(vars), 1);
+	vars->item = ft_calloc(sizeof(t_item), 1);
+	if (!vars->item)
 	{
 		free_mem(vars->textures);
 		free(vars->floor);
+		free(vars->ray);
 		return (free(vars), 1);
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   floor_ceiling.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:13:37 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/06 09:21:21 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/06 16:06:29 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	put_floor_ceil(t_vars *vars)
 	color = 0;
 	init_floor_vars(vars);
 	calc_floor_pos(vars);
-	while (vars->floor->y < vars->screen_height) // probably can be removed
+	while (vars->floor->y < vars->screen_height)
 	{
 		vars->floor->current_dist = vars->screen_height
 			/ (2.0 * vars->floor->y - vars->screen_height);
@@ -87,9 +87,9 @@ void	put_floor_ceil(t_vars *vars)
 		color = get_floor_color(vars->floor->tex_x, vars->floor->tex_y, vars);
 		vars->scr_buf->addr[vars->floor->y * (vars->scr_buf->line_size / 4)
 			+ vars->screen_x] = color;
-		color  = get_ceiling_color(vars->floor->tex_x,
-			vars->floor->tex_y, vars); // testing ceiling
-		// color  = 78718; // testing ceiling
+		// color  = get_ceiling_color(vars->floor->tex_x,
+		// 	vars->floor->tex_y, vars); // testing ceiling
+		color  = 78718; // testing ceiling
 		vars->scr_buf->addr[(vars->screen_height - vars->floor->y)
 			* (vars->scr_buf->line_size / 4) + vars->screen_x] = color;
 		vars->floor->y++;
