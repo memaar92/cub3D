@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 10:35:09 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/06 17:03:25 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/06 18:28:12 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_valid_pos(t_vars *vars, int i, int j)
 		return (1);
 }
 
-int	adjust_colors(int color, double factor)
+int	adjust_colors(int color, double factor) // still needed?
 {
 	int	red;
 	int	green;
