@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 10:35:09 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/05 14:43:34 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/06 17:03:25 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ void	draw_circle(t_vars *vars, t_circle mp, int i, int j)
 void	draw_zoom_circle(t_vars *vars, t_circle mp, int i, int j)
 {
 	i = 0;
+	mp.center_x = vars->screen_width / 2;
+	mp.center_y = vars->screen_height / 2;
+	mp.radius = vars->screen_height / 2.3;
 	while (i++ <= vars->screen_width)
 	{
 		j = 0;

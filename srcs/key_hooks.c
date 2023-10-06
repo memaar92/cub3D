@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hooks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:10:41 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/06 09:08:04 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/06 17:35:56 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,23 @@ int	move_view(int keycode, t_vars *vars)
 {
 	if (keycode == KEY_ESCAPE)
 		ft_close(vars);
+	if (keycode == KEY_9)
+	{
+		if (vars->hand_item == 0)
+			vars->hand_item = 1;
+		else
+			vars->hand_item = 0;
+		ft_render(vars);
+	}
 	if (keycode == KEY_W || keycode == KEY_S
 		|| keycode == KEY_A || keycode == KEY_D)
+	{
+		vars->rot_flag = 0;
 		ft_pl_move(keycode, vars);
+	}
 	if (keycode == 65361 || keycode == 65363)
 	{
+		vars->rot_flag = 1;
 		player_rotate(keycode, vars);
 	}
 	return (0);

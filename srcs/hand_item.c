@@ -6,60 +6,79 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:22:31 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/05 17:52:29 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/06 17:35:05 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
 
-int	get_hand_item_color(int tex_x_pos, int tex_y_pos, t_vars *vars)
+int	get_hand_item_color(int x, int y, t_vars *vars)
 {
-	int	color;
-	int	pos;
-	double x;
-	double y;
+	int		color;
+	int		pos;
 
-	x = (double)tex_x_pos;
-	y = ((double)tex_y_pos);
-	pos = y * (vars->cam_low->line_size / 4) + x;
-	color = (int)(vars->cam_low->addr[pos]);
-	// else
-	// {
-	// 	pos = y * (vars->cam_low->line_size / 4) + x;
-	// 	color = (int)(vars->cam_low->addr[pos]);
-	// 	vars->frame = 0;
-	// }
+	if (vars->hand_item == 0)
+	{
+		pos = y * (vars->weapon->line_size / 4) + x;
+		color = (int)(vars->weapon->addr[pos]);
+	}
+	else
+	{
+		pos = y * (vars->cam_low->line_size / 4) + x;
+		color = (int)(vars->cam_low->addr[pos]);
+	}
 	return (color);
 }
 
-
-void	add_hand_item(t_vars *vars) // still need to remove hard-coded texture values
+void	init_hand_item_vars(t_vars *vars)
 {
-	int	color;
-	int	i = -1;
-	int	j = 0;
-	// double	scale = (((double)vars->screen_width / (double)512) + ((double)vars->screen_height / (double)512)) / 1.95; // scale used for gun
-	double	scale = (((double)vars->screen_width / (double)512) + ((double)vars->screen_height / (double)512)) / 4; // scale used for camera
-	int	tex_x = 0;
-	int	tex_y = 512 - 1;
-	double	steps = 1 / (double)scale;
-	double	temp_y = (double)tex_y;
-	double	temp_x = 0.0;
-	
-	while (++i < (int)(512 * scale))
+	vars->item->x = -1;
+	vars->item->y = 0;
+	if (vars->frame % 3 == 0 && vars->rot_flag == 0)
+		vars->item->scale = (((double)vars->screen_width / (double)vars->hand_tex_w) + ((double)vars->screen_height / (double)vars->hand_tex_h)) / 1.955; // scale used for gun
+	else if (vars->frame % 2 == 0 && vars->rot_flag == 0)
+		vars->item->scale = (((double)vars->screen_width / (double)vars->hand_tex_w) + ((double)vars->screen_height / (double)vars->hand_tex_h)) / 1.95; // scale used for gun
+	else
+		vars->item->scale = (((double)vars->screen_width / (double)vars->hand_tex_w) + ((double)vars->screen_height / (double)vars->hand_tex_h)) / 1.945; // scale used for gun
+	// vars->item->scale = (((double)vars->screen_width / (double)512) + ((double)vars->screen_height / (double)512)) / 4; // scale used for camera
+	vars->item->tex_x = 0;
+	vars->item->tex_y = vars->hand_tex_h - 1;
+	vars->item->steps = 1 / (double)vars->item->scale;
+	vars->item->temp_y = (double)vars->item->tex_y;
+	vars->item->temp_x = 0.0;
+}
+
+void	put_item_to_screen(t_vars *vars)
+{
+	int	y;
+	int	x_scaling;
+
+	y = vars->screen_height - (int)(vars->hand_tex_h
+			* vars->item->scale) + vars->item->y;
+	x_scaling = ((int)(vars->hand_tex_w * vars->item->scale / 1.8));
+	vars->scr_buf->addr[y * (vars->scr_buf->line_size / 4)
+		+ (vars->screen_width / 2 - x_scaling + vars->item->x)]
+		= vars->item->color;
+}
+
+void	add_hand_item(t_vars *vars)
+{
+	init_hand_item_vars(vars);
+	while (++vars->item->x < (int)(vars->hand_tex_w * vars->item->scale))
 	{
-		tex_x = (int)(temp_x);
-		temp_x += steps;
-		j = (int)(512 * scale);
-		tex_y = 512 - 1;
-		temp_y = (double)tex_y;
-		while (--j >= 0)
+		vars->item->tex_x = (int)(vars->item->temp_x);
+		vars->item->temp_x += vars->item->steps;
+		vars->item->y = (int)(vars->hand_tex_h * vars->item->scale);
+		vars->item->tex_y = vars->hand_tex_h - 1;
+		vars->item->temp_y = (double)vars->item->tex_y;
+		while (--vars->item->y >= 0)
 		{
-			tex_y = (int)(temp_y);
-			temp_y -= steps;
-			color = get_hand_item_color(tex_x, tex_y, vars);
-			if (color != 0)
-				vars->scr_buf->addr[(vars->screen_height - (int)(512 * scale) + j) *(vars->scr_buf->line_size / 4) + (vars->screen_width / 2 - ((int)(512 * scale / 1.8)) + i)] = color;	
+			vars->item->tex_y = (int)(vars->item->temp_y);
+			vars->item->temp_y -= vars->item->steps;
+			vars->item->color = get_hand_item_color(vars->item->tex_x,
+					vars->item->tex_y, vars);
+			if (vars->item->color != 0)
+				put_item_to_screen(vars);
 		}
 	}
 }

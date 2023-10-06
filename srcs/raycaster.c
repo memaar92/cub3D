@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/06 09:11:19 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/06 17:26:13 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,12 @@ void	draw_floor_ceiling(t_vars *vars)
 
 int	ft_render(t_vars *vars)
 {
-	t_circle mp;
+	t_circle	mp;
+	
+	mp.offset = 0.0;
 	// draw_floor_ceiling(vars); // this was used for using the values from the input file; for textures the function is part of "cast rays"
 	vars->screen_x = 0;
 	cast_rays(vars);
-	mp.center_x = vars->screen_width / 2;
-	mp.center_y = vars->screen_height / 2;
-	mp.radius = vars->screen_height / 2.3;
 	if (!vars->zoom)
 	{
 		add_hand_item(vars);
@@ -116,5 +115,6 @@ int	ft_render(t_vars *vars)
 	else
 		draw_zoom_circle(vars, mp, 0, 0);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->scr_buf->img, 0, 0);
+	vars->frame++;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:07:48 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/05 14:12:01 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/06 16:49:49 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	calc_vline_start_end(t_vars *vars)
 
 int	calc_texture_pos_x(t_vars *vars)
 {
-	// double	wall_hit;
 	int		tex_x_pos;
 
 	if (vars->ray->side == 0)
