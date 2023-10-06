@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/06 17:04:25 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/06 17:26:13 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,6 @@ int	ft_render(t_vars *vars)
 	else
 		draw_zoom_circle(vars, mp, 0, 0);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->scr_buf->img, 0, 0);
+	vars->frame++;
 	return (0);
 }

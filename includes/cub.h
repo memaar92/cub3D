@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/06 16:50:29 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/06 17:34:50 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ typedef struct s_vars
 	int		screen_width;
 	int		screen_height;
 	int		frame;
+	int		rot_flag;
 	int		hand_item;
 }				t_vars;
 
