@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/06 19:18:04 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/06 19:54:56 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ int	cast_rays(t_vars *vars)
 		run_dda(vars);
 		calc_line_height(vars);
 		put_text_on_buf_scr(vars);
-		put_floor_ceil(vars);
+		if (vars->bonus)
+			put_floor_ceil(vars);
 		vars->screen_x++;
 	}
 	return (0);
@@ -102,9 +103,10 @@ void	draw_floor_ceiling(t_vars *vars)
 int	ft_render(t_vars *vars)
 {
 	t_circle	mp;
-	
+
 	mp.offset = 0.0;
-	// draw_floor_ceiling(vars); // this was used for using the values from the input file; for textures the function is part of "cast rays"
+	if (!vars->bonus)
+		draw_floor_ceiling(vars);
 	vars->screen_x = 0;
 	cast_rays(vars);
 	if (!vars->zoom)

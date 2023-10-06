@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:09:45 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/03 18:29:25 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/06 20:03:13 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,27 @@ int	ft_close(t_vars *vars)
 	exit(0);
 }
 
+void	run_hooks(t_vars *vars)
+{
+	mlx_mouse_hook(vars->win, &mouse_click, vars);
+	mlx_hook(vars->win, 6, 1L << 6, mouse_move, vars);
+	mlx_hook(vars->win, 12, 1L << 15, ft_render, vars);
+	mlx_hook(vars->win, 17, 0L, ft_close, vars);
+	mlx_hook(vars->win, 02, 1L << 0, move_view, vars);
+	mlx_loop(vars->mlx);
+}
+
 int	main(int argc, char **argv)
 {
 	t_vars	*vars;
 
-	if (argc != 2)
+	if (argc < 2)
 		return (printf("ERROR: Please provide a map.\n"), 1);
+	if (argc > 3)
+		return (printf(ARG_ERR"Specify third arg for bonus.\n"), 1);
 	if (right_file_extension(argv[1]))
 		return (printf("ERROR: Please provide map with .cub extension.\n"), 1);
-	vars = init_vars();
+	vars = init_vars(argc);
 	if (!vars)
 		return (printf("ERROR\n"), 1);
 	if (parse(&vars, argv[1]))
@@ -37,10 +49,5 @@ int	main(int argc, char **argv)
 		return (free_all_mem(vars), 1);
 	set_viewing_direction(vars);
 	set_camera_plane(vars);
-	mlx_mouse_hook(vars->win, &mouse_click, vars);
-	mlx_hook(vars->win, 6, 1L << 6, mouse_move, vars);
-	mlx_hook(vars->win, 12, 1L << 15, ft_render, vars);
-	mlx_hook(vars->win, 17, 0L, ft_close, vars);
-	mlx_hook(vars->win, 02, 1L << 0, move_view, vars);
-	mlx_loop(vars->mlx);
+	run_hooks(vars);
 }

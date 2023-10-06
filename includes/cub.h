@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/06 17:34:50 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/06 20:04:39 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define KEY_9 57
 
 # define MAP_ERR "Error: Please provide a valid map."
+# define ARG_ERR "ERROR: Please provide the right arguments."
 # define NO 0
 # define SO 1
 # define WE 2
@@ -45,6 +46,7 @@
 # define WHT 16777215
 # define GR 11382186
 # define DR 12312433
+# define CEIL 78718
 
 # define ZOOM_FACTOR 15
 
@@ -155,6 +157,7 @@ typedef struct s_vars
 	int		frame;
 	int		rot_flag;
 	int		hand_item;
+	int		bonus;
 }				t_vars;
 
 typedef struct s_circle
@@ -212,7 +215,7 @@ int		allocate_mem(t_vars *vars);
 void	set_floor_ceil(t_vars **vars);
 int		init_tex_and_scr_buf(t_vars *vars);
 int		init_mlx(t_vars *vars);
-t_vars	*init_vars(void);
+t_vars	*init_vars(int argc);
 
 // KEY_HOOKS
 int		new_pos(t_vars *vars, double x, double y);
@@ -222,10 +225,10 @@ int		move_view(int keycode, t_vars *vars);
 
 // MAIN
 int		ft_close(t_vars *vars);
+void	run_hooks(t_vars *vars);
 
 // MINI_MAP_UTILS
 int		is_valid_pos(t_vars *vars, int i, int j);
-int		adjust_colors(int color, double factor);
 void	draw_circle(t_vars *vars, t_circle mp, int i, int j);
 void	draw_zoom_circle(t_vars *vars, t_circle mp, int i, int j);
 

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:22:31 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/06 17:35:05 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/06 19:43:38 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,14 @@ void	init_hand_item_vars(t_vars *vars)
 	vars->item->x = -1;
 	vars->item->y = 0;
 	if (vars->frame % 3 == 0 && vars->rot_flag == 0)
-		vars->item->scale = (((double)vars->screen_width / (double)vars->hand_tex_w) + ((double)vars->screen_height / (double)vars->hand_tex_h)) / 1.955; // scale used for gun
+		vars->item->scale = ((vars->screen_width / (double)vars->hand_tex_w)
+				+ (vars->screen_height / (double)vars->hand_tex_h)) / 1.955;
 	else if (vars->frame % 2 == 0 && vars->rot_flag == 0)
-		vars->item->scale = (((double)vars->screen_width / (double)vars->hand_tex_w) + ((double)vars->screen_height / (double)vars->hand_tex_h)) / 1.95; // scale used for gun
+		vars->item->scale = ((vars->screen_width / (double)vars->hand_tex_w)
+				+ (vars->screen_height / (double)vars->hand_tex_h)) / 1.95;
 	else
-		vars->item->scale = (((double)vars->screen_width / (double)vars->hand_tex_w) + ((double)vars->screen_height / (double)vars->hand_tex_h)) / 1.945; // scale used for gun
-	// vars->item->scale = (((double)vars->screen_width / (double)512) + ((double)vars->screen_height / (double)512)) / 4; // scale used for camera
+		vars->item->scale = ((vars->screen_width / (double)vars->hand_tex_w)
+				+ (vars->screen_height / (double)vars->hand_tex_h)) / 1.945;
 	vars->item->tex_x = 0;
 	vars->item->tex_y = vars->hand_tex_h - 1;
 	vars->item->steps = 1 / (double)vars->item->scale;

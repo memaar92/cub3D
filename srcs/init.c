@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 14:38:46 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/06 16:59:18 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/06 19:53:23 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	init_mlx(t_vars *vars)
 	return (0);
 }
 
-t_vars	*init_vars(void)
+t_vars	*init_vars(int argc)
 {
 	t_vars	*vars;
 
@@ -83,6 +83,8 @@ t_vars	*init_vars(void)
 	if (allocate_mem(vars))
 		return (NULL);
 	ft_bzero(vars, 0);
+	if (argc == 3)
+		vars->bonus = 1;
 	vars->textures[SO] = NULL;
 	vars->textures[NO] = NULL;
 	vars->textures[WE] = NULL;

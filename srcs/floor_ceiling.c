@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:13:37 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/06 16:06:29 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/06 20:06:23 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,8 @@ void	put_floor_ceil(t_vars *vars)
 		color = get_floor_color(vars->floor->tex_x, vars->floor->tex_y, vars);
 		vars->scr_buf->addr[vars->floor->y * (vars->scr_buf->line_size / 4)
 			+ vars->screen_x] = color;
-		// color  = get_ceiling_color(vars->floor->tex_x,
-		// 	vars->floor->tex_y, vars); // testing ceiling
-		color  = 78718; // testing ceiling
 		vars->scr_buf->addr[(vars->screen_height - vars->floor->y)
-			* (vars->scr_buf->line_size / 4) + vars->screen_x] = color;
+			* (vars->scr_buf->line_size / 4) + vars->screen_x] = CEIL;
 		vars->floor->y++;
 	}
 }
