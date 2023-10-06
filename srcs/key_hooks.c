@@ -24,22 +24,14 @@ int	new_pos(t_vars *vars, double x, double y)
 	{
 		vars->pl_pos_x += x / 4;
 		vars->pl_pos_y += y / 4;
-		return (0);
 	}
 	else if (!vars->map[(int)(vars->pl_pos_x + x)][(int)(vars->pl_pos_y)] &&
 		!vars->map[next_x][(int)vars->pl_pos_y])
-	{
 		vars->pl_pos_x += x / 4;
-		return (0);
-	}
 	else if (!vars->map[(int)(vars->pl_pos_x)][(int)(vars->pl_pos_y + y)] &&
 		!vars->map[(int)vars->pl_pos_x][next_y])
-	{
 		vars->pl_pos_y += y / 4;
-		return (0);
-	}
-	else
-		return (1);
+	return (0);
 }
 
 int	ft_pl_move(int keycode, t_vars *vars)
