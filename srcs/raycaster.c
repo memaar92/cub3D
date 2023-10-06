@@ -110,8 +110,8 @@ int	ft_render(t_vars *vars)
 	mp.radius = vars->screen_height / 2.3;
 	if (!vars->zoom)
 	{
-		mini_map(vars);
 		add_hand_item(vars);
+		mini_map(vars);
 	}
 	else
 		draw_zoom_circle(vars, mp, 0, 0);
