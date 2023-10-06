@@ -6,7 +6,7 @@
 /*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/05 14:45:37 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/06 09:11:19 by valmpani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	put_text_on_buf_scr(t_vars *vars)
 		tex_y_pos = (int)temp & (vars->tex_h - 1);
 		temp += tex_y_steps;
 		color = get_pixel_color(tex_x_pos, tex_y_pos, vars);
-		// if (vars->ray->side == 1)
 		if (vars->ray->its > 20)
 			color = (color >> 1) & 8355711;
 		vars->scr_buf->addr[vars->screen_y * (vars->scr_buf->line_size / 4)
@@ -57,54 +56,6 @@ void	run_dda(t_vars *vars)
 			vars->ray->hit = 1;
 		vars->ray->its++;
 	}
-}
-
-void	put_floor_ceil(t_vars *vars)
-{
-	int y;
-	int	color;
-	
-	y = 0;
-	if (vars->ray->side == 0 && vars->ray->ray_dir_x > 0)
-	{
-		vars->floor->wall_x = vars->ray->map_x;
-		vars->floor->wall_y = vars->ray->map_y + vars->ray->wall_hit;
-	}
-	else if (vars->ray->side == 0 && vars->ray->ray_dir_x < 0)
-	{
-		vars->floor->wall_x = vars->ray->map_x + 1.0;
-		vars->floor->wall_y = vars->ray->map_y + vars->ray->wall_hit;
-	}
-	else if (vars->ray->side == 1 && vars->ray->ray_dir_y > 0)
-	{
-		vars->floor->wall_x = vars->ray->map_x + vars->ray->wall_hit;
-		vars->floor->wall_y = vars->ray->map_y;
-	}
-	else
-	{
-		vars->floor->wall_x = vars->ray->map_x + vars->ray->wall_hit;
-		vars->floor->wall_y = vars->ray->map_y + 1.0;
-	}
-	vars->floor->dist_wall = vars->ray->perpwalldist;
-	vars->floor->dist_pl = 0.0;
-	if (vars->ray->draw_end < 0)
-		vars->ray->draw_end = vars->screen_height;
-	y = vars->ray->draw_end + 1;
-	while (y < vars->screen_height)
-	{
-		vars->floor->current_dist = vars->screen_height / (2.0 * y - vars->screen_height);
-		vars->floor->weight = (vars->floor->current_dist - vars->floor->dist_pl) / (vars->floor->dist_wall - vars->floor->dist_pl);
-		vars->floor->cur_floor_x = vars->floor->weight * vars->floor->wall_x + (1.0 - vars->floor->weight) * vars->pl_pos_x;
-		vars->floor->cur_floor_y = vars->floor->weight * vars->floor->wall_y + (1.0 - vars->floor->weight) * vars->pl_pos_y;
-		vars->floor->tex_x = (int)(vars->floor->cur_floor_x * 256) % 256;
-		vars->floor->tex_y = (int)(vars->floor->cur_floor_y * 256) % 256;
-		color = get_floor_color(vars->floor->tex_x, vars->floor->tex_y, vars);
-		vars->scr_buf->addr[y * (vars->scr_buf->line_size / 4) + vars->screen_x] = color;
-		// color = get_ceiling_color(vars->floor->tex_x, vars->floor->tex_y, vars);
-		
-		y++;
-	}
-	
 }
 
 int	cast_rays(t_vars *vars)
@@ -148,13 +99,10 @@ void	draw_floor_ceiling(t_vars *vars)
 	}
 }
 
-void	draw_torch(t_vars *vars);
-
 int	ft_render(t_vars *vars)
 {
-	t_circle	mp;
-
-	draw_floor_ceiling(vars);
+	t_circle mp;
+	// draw_floor_ceiling(vars); // this was used for using the values from the input file; for textures the function is part of "cast rays"
 	vars->screen_x = 0;
 	cast_rays(vars);
 	mp.center_x = vars->screen_width / 2;
@@ -163,7 +111,7 @@ int	ft_render(t_vars *vars)
 	if (!vars->zoom)
 	{
 		mini_map(vars);
-		draw_torch(vars);
+		add_hand_item(vars);
 	}
 	else
 		draw_zoom_circle(vars, mp, 0, 0);
