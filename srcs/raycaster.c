@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/06 16:49:19 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/06 17:04:25 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,10 @@ int	ft_render(t_vars *vars)
 {
 	t_circle	mp;
 	
+	mp.offset = 0.0;
 	// draw_floor_ceiling(vars); // this was used for using the values from the input file; for textures the function is part of "cast rays"
 	vars->screen_x = 0;
 	cast_rays(vars);
-	mp.center_x = vars->screen_width / 2;
-	mp.center_y = vars->screen_height / 2;
-	mp.radius = vars->screen_height / 2.3;
 	if (!vars->zoom)
 	{
 		mini_map(vars);
