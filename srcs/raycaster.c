@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:54:59 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/06 17:26:13 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/06 19:18:04 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ int	ft_render(t_vars *vars)
 	cast_rays(vars);
 	if (!vars->zoom)
 	{
-		mini_map(vars);
 		add_hand_item(vars);
+		mini_map(vars);
 	}
 	else
 		draw_zoom_circle(vars, mp, 0, 0);

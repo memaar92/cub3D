@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:28:49 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/06 18:21:22 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/06 18:29:05 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	find_zoom_pos(t_vars *vars)
 	ft_render(vars);
 }
 
-void	zoom(t_vars *vars)
+void	zoom(t_vars *vars) // while not calling find_zoom directly?
 {
 	find_zoom_pos(vars);
 }
