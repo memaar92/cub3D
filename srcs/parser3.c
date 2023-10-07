@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 12:23:03 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/01 13:12:16 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/07 10:09:20 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*reach_map(t_vars **vars, int fd, int *i)
 	line = get_next_line(fd);
 	if (!line)
 		return (close(fd), NULL);
-	while (++(*i) <= (*vars)->map_pos)
+	while (++(*i) < (*vars)->map_pos)
 	{
 		free(line);
 		line = get_next_line(fd);

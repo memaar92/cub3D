@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 16:15:35 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/07 09:24:22 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/07 11:07:53 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,6 @@ int	init_texture_dir(t_vars *vars, t_img *tex, int dir)
 
 int	init_wall_textures(t_vars *vars)
 {
-	vars->tex_no = malloc(sizeof(t_img));
-	if (!vars->tex_no)
-		return (1);
-	vars->tex_so = malloc(sizeof(t_img));
-	if (!vars->tex_so)
-		return (1);
-	vars->tex_we = malloc(sizeof(t_img));
-	if (!vars->tex_we)
-		return (1);
-	vars->tex_ea = malloc(sizeof(t_img));
-	if (!vars->tex_ea)
-		return (1);
 	vars->tex_h = 256;
 	vars->tex_w = 256;
 	if (init_texture_dir(vars, vars->tex_no, 0))
@@ -54,9 +42,6 @@ int	init_wall_textures(t_vars *vars)
 
 int	init_floor_ceil_textures(t_vars *v)
 {
-	v->tex_floor = malloc(sizeof(t_img));
-	if (!v->tex_floor)
-		return (1);
 	v->tex_floor->img = mlx_xpm_file_to_image(v->mlx, "./textures/floor.xpm",
 			&v->tex_floor->tex_w, &v->tex_floor->tex_h);
 	if (!v->tex_floor->img)
@@ -65,9 +50,6 @@ int	init_floor_ceil_textures(t_vars *v)
 			&v->tex_floor->bpp, &v->tex_floor->line_size,
 			&v->tex_floor->endian);
 	if (!v->tex_floor->addr)
-		return (1);
-	v->tex_ceil = malloc(sizeof(t_img));
-	if (!v->tex_ceil)
 		return (1);
 	v->tex_ceil->img = mlx_xpm_file_to_image(v->mlx, "./textures/tex_ceil.xpm",
 			&v->tex_ceil->tex_w, &v->tex_ceil->tex_h);
@@ -82,9 +64,6 @@ int	init_floor_ceil_textures(t_vars *v)
 
 int	init_hand_item_textures(t_vars *v)
 {
-	v->weapon = malloc(sizeof(t_img));
-	if (!v->weapon)
-		return (1);
 	v->weapon->img = mlx_xpm_file_to_image(v->mlx, "./textures/gun.xpm",
 			&v->weapon->tex_w, &v->weapon->tex_h);
 	if (!v->weapon->img)
@@ -92,9 +71,6 @@ int	init_hand_item_textures(t_vars *v)
 	v->weapon->addr = (int *)mlx_get_data_addr(v->weapon->img, &v->weapon->bpp,
 			&v->weapon->line_size, &v->weapon->endian);
 	if (!v->weapon->addr)
-		return (1);
-	v->cam_low = malloc(sizeof(t_img));
-	if (!v->cam_low)
 		return (1);
 	v->cam_low->img = mlx_xpm_file_to_image(v->mlx,
 			"./textures/cam.xpm", &v->cam_low->tex_w, &v->cam_low->tex_h);

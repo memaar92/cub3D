@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:43:08 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/03 14:48:13 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/07 09:35:25 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	check_textures(t_vars **vars, char **elements)
 				"EA", ft_strlen(elements[0])) == 0
 			&& ft_strlen(elements[0]) == 2))
 		if (find_paths(vars, elements))
-			return (printf("Please provide valid texture path\n"), 1);
+			return (1);
 	return (0);
 }
 

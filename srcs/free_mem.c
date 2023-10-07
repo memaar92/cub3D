@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 14:14:24 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/06 16:55:50 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/07 10:53:46 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	free_wall_tex(t_vars *vars)
 {
-	if (vars->tex_no && vars->tex_no)
+	if (vars->tex_no && vars->tex_no->img)
 		mlx_destroy_image(vars->mlx, vars->tex_no->img);
-	if (vars->tex_so && vars->tex_so)
+	if (vars->tex_so && vars->tex_so->img)
 		mlx_destroy_image(vars->mlx, vars->tex_so->img);
-	if (vars->tex_we && vars->tex_we)
+	if (vars->tex_we && vars->tex_we->img)
 		mlx_destroy_image(vars->mlx, vars->tex_we->img);
-	if (vars->tex_ea && vars->tex_ea)
+	if (vars->tex_ea && vars->tex_ea->img)
 		mlx_destroy_image(vars->mlx, vars->tex_ea->img);
 	if (vars->tex_no)
 		free(vars->tex_no);
@@ -37,13 +37,13 @@ void	free_images(t_vars	*vars)
 	free_wall_tex(vars);
 	if (vars->scr_buf && vars->scr_buf->img)
 		mlx_destroy_image(vars->mlx, vars->scr_buf->img);
-	if (vars->tex_floor && vars->tex_floor)
+	if (vars->tex_floor && vars->tex_floor->img)
 		mlx_destroy_image(vars->mlx, vars->tex_floor->img);
-	if (vars->tex_ceil && vars->tex_ceil)
+	if (vars->tex_ceil && vars->tex_ceil->img)
 		mlx_destroy_image(vars->mlx, vars->tex_ceil->img);
-	if (vars->weapon && vars->weapon)
+	if (vars->weapon && vars->weapon->img)
 		mlx_destroy_image(vars->mlx, vars->weapon->img);
-	if (vars->cam_low && vars->cam_low)
+	if (vars->cam_low && vars->cam_low->img)
 		mlx_destroy_image(vars->mlx, vars->cam_low->img);
 	if (vars->scr_buf)
 		free(vars->scr_buf);

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 14:38:46 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/06 19:53:23 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/07 11:06:35 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	set_floor_ceil(t_vars **vars)
 
 int	init_tex_and_scr_buf(t_vars *vars)
 {
+	if (alloc_tex_mem(vars))
+		return (1);
 	if (init_screen_buffer(vars))
 		return (1);
 	if (init_wall_textures(vars))
@@ -80,9 +82,9 @@ t_vars	*init_vars(int argc)
 	vars = ft_calloc(sizeof(t_vars), 1);
 	if (!vars)
 		return (NULL);
+	ft_bzero(vars, sizeof(t_vars));
 	if (allocate_mem(vars))
 		return (NULL);
-	ft_bzero(vars, 0);
 	if (argc == 3)
 		vars->bonus = 1;
 	vars->textures[SO] = NULL;

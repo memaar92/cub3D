@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 15:23:33 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/06 16:15:32 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/07 10:38:30 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	init_screen_buffer(t_vars *vars)
 {
-	vars->scr_buf = malloc(sizeof(t_img));
-	if (!vars->scr_buf)
-		return (1);
 	vars->scr_buf->img = mlx_new_image(vars->mlx, vars->screen_width,
 			vars->screen_height);
 	if (!vars->scr_buf->img)

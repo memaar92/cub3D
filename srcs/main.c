@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:09:45 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/06 20:03:13 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/07 11:05:47 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,20 @@ int	main(int argc, char **argv)
 	t_vars	*vars;
 
 	if (argc < 2)
-		return (printf("ERROR: Please provide a map.\n"), 1);
+		return (printf("Error: Please provide a map.\n"), 1);
 	if (argc > 3)
 		return (printf(ARG_ERR"Specify third arg for bonus.\n"), 1);
 	if (right_file_extension(argv[1]))
-		return (printf("ERROR: Please provide map with .cub extension.\n"), 1);
+		return (printf("Error: Please provide map with .cub extension.\n"), 1);
 	vars = init_vars(argc);
 	if (!vars)
-		return (printf("ERROR\n"), 1);
+		return (printf("Error\n"), 1);
 	if (parse(&vars, argv[1]))
 		return (free_all_mem(vars), 1);
 	if (init_mlx(vars))
 		return (free_all_mem(vars), 1);
 	if (init_tex_and_scr_buf(vars))
-		return (free_all_mem(vars), 1);
+		return (printf("Error\n"), free_all_mem(vars), 1);
 	set_viewing_direction(vars);
 	set_camera_plane(vars);
 	run_hooks(vars);

@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 10:01:04 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/03 14:53:43 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/07 09:45:07 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,23 @@ int	flood_the_map(t_vars **vars, int fd)
 int	textures_not_filled(t_vars **vars)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while ((*vars)->textures[i])
 		i++;
 	if (i != 4)
-		return (printf("Please provide valid texture path\n"), 1);
+		return (printf("Error: Please provide valid texture paths.\n"), 1);
+	i = -1;
+	while (++i < 2)
+	{
+		j = -1;
+		while (++j < 3)
+		{
+			if ((*vars)->floor_ceiling[i][j] == -1)
+				return (printf("Error: Please provide RGB values.\n"), 1);
+		}
+	}
 	return (0);
 }
 

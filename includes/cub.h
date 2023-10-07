@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:13:00 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/07 09:24:03 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/07 11:08:37 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,11 @@ typedef struct s_circle
 	int		square_size;
 	double	offset;
 }	t_circle;
+
+// ALLOC TEX
+int		alloc_tex_walls(t_vars *vars);
+void	set_to_zero(t_vars *vars);
+int		alloc_tex_mem(t_vars *vars);
 
 // DDA_UTILS
 void	dda_calc_sidedist_x(t_vars *vars);
