@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 16:15:35 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/06 16:15:47 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/07 09:24:22 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	init_hand_item_textures(t_vars *v)
 	if (!v->cam_low)
 		return (1);
 	v->cam_low->img = mlx_xpm_file_to_image(v->mlx,
-			"./textures/cam_low2.xpm", &v->cam_low->tex_w, &v->cam_low->tex_h);
+			"./textures/cam.xpm", &v->cam_low->tex_w, &v->cam_low->tex_h);
 	if (!v->cam_low->img)
 		return (1);
 	v->cam_low->addr = (int *)mlx_get_data_addr(v->cam_low->img,

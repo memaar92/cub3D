@@ -1,11 +1,11 @@
 
-F 67, 29, 22
+F 223, 224, 219
 C 0 0 0
 
-SO ./textures/so_tex.xpm
-WE ./textures/we_tex.xpm
-NO ./textures/no_tex.xpm
-EA ./textures/ea_tex.xpm
+SO ./textures/wall_alt.xpm
+WE ./textures/wall_alt.xpm
+NO ./textures/wall_alt.xpm
+EA ./textures/wall_alt.xpm
 
 
 
