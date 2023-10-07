@@ -16,6 +16,14 @@ The goal is to create a small, simple, and visually appealing maze game. The pro
 
 
 
+https://github.com/memaar92/cub3D/assets/65039082/67e60a95-348a-4003-bd82-c3cfe89acfda
+
+
+
+
+
+
+
 ### How to compile and run the game
 Clone the repository:
 ```
