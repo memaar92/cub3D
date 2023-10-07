@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:22:31 by mamesser          #+#    #+#             */
-/*   Updated: 2023/10/06 19:43:38 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/07 11:40:52 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	get_hand_item_color(int x, int y, t_vars *vars)
 	int		color;
 	int		pos;
 
+	color = 0;
 	if (vars->hand_item == 0)
 	{
 		pos = y * (vars->weapon->line_size / 4) + x;
