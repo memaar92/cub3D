@@ -2,7 +2,7 @@
 F 223, 224, 219
 C 0 0 0
 
-SO ./out
+SO ./textures/so_tex.xpm
 WE ./textures/we_tex.xpm
 NO ./textures/no_tex.xpm
 EA ./textures/ea_tex.xpm

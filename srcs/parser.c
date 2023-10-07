@@ -6,7 +6,7 @@
 /*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:12:01 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/07 10:07:40 by mamesser         ###   ########.fr       */
+/*   Updated: 2023/10/07 11:18:26 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ char	*parse_textures(t_vars **vars, char *filename)
 		free(buf);
 		buf = get_next_line(fd);
 	}
+	if (!buf)
+		printf("Error: Please provide a map.\n");
 	return (buf);
 }
 
