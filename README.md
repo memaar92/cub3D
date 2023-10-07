@@ -7,6 +7,7 @@ The goal is to create a small, simple, and visually appealing maze game. The pro
 - Raycasting: Utilizes raycasting techniques to create a 3D perspective effect from a 2D map
 - Textured Walls and Floors: Implements textured walls and floors to enhance the visual appeal of the game
 - Basic Game Mechanics: Movement, collision detection, and simple game interactions (sliding alongside walls, use different items)
+- Minimap: Track your location on the map
 - Sprite Rendering: Includes basic sprite object animations to make the first person perspective and movements more realistic
 - Map Parsing: Reads map data from a .cub file to generate the game environment
 - Error Management: Handles various error scenarios gracefully
