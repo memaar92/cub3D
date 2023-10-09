@@ -6,7 +6,7 @@
 #    By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/19 14:16:52 by mamesser          #+#    #+#              #
-#    Updated: 2023/10/09 14:07:19 by mamesser         ###   ########.fr        #
+#    Updated: 2023/10/09 15:16:47 by mamesser         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ HEADERS = cub.h
 all: $(NAME)
 
 $(NAME): $(OBJS) $(MLXLIB) $(LIBFT)
-	cc $(CFLAGS) $(MLXFLAGS) $(MLXLIB) $(LIBFT) $(OBJS) -o $@
+	cc $(CFLAGS) $(OBJS) $(MLXLIB) $(LIBFT) $(MLXFLAGS) -o $@
 
 $(LIBFT):
 	$(MAKE) bonus -C $(LIBFT_DIR)
@@ -69,7 +69,7 @@ $(SRCS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS)
 	cc $(CFLAGS) -I. -c $< -o $@
 
 install on linux:
-	@sudo apt update && sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
+	@sudo apt update && sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev libbsd-dev
 
 bonus: all
 
