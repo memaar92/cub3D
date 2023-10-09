@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valmpani <valmpanis@student.42wolfsburg    +#+  +:+       +#+        */
+/*   By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:44:10 by valmpani          #+#    #+#             */
-/*   Updated: 2023/10/05 14:44:33 by valmpani         ###   ########.fr       */
+/*   Updated: 2023/10/09 14:11:05 by mamesser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,9 @@ void	draw_map(t_vars *vars, t_circle mp)
 {
 	int	i;
 	int	j;
-	int	square_size;
 
 	mp.side = sqrt(pow(mp.radius, 2) * 2);
 	mp.square_size = ((mp.radius) * sqrt(2)) / 40;
-	square_size = ((mp.radius) * sqrt(2)) / 40;
 	mp.posx = mp.center_y - mp.side / 2 + 5;
 	j = -18;
 	while (++j < 20)
