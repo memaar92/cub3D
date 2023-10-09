@@ -6,7 +6,7 @@
 #    By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/19 14:16:52 by mamesser          #+#    #+#              #
-#    Updated: 2023/10/09 15:16:47 by mamesser         ###   ########.fr        #
+#    Updated: 2023/10/09 15:27:33 by mamesser         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,7 @@ bonus: all
 
 clean:
 	$(MAKE) clean -C $(LIBFT_DIR)
+	$(MAKE) clean -C $(MLXLIB_DIR)
 	rm -f $(OBJS)
 
 fclean: clean
