@@ -6,7 +6,7 @@
 #    By: mamesser <mamesser@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/19 14:16:52 by mamesser          #+#    #+#              #
-#    Updated: 2023/10/07 11:34:56 by mamesser         ###   ########.fr        #
+#    Updated: 2023/10/09 14:07:19 by mamesser         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,9 @@ $(MLXLIB):
 
 $(SRCS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS)
 	cc $(CFLAGS) -I. -c $< -o $@
+
+install on linux:
+	@sudo apt update && sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
 
 bonus: all
 
