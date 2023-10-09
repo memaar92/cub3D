@@ -10,7 +10,7 @@ The goal is to create a small, simple, and visually appealing maze game. The pro
 - Minimap: Track your location on the map
 - Sprite Rendering: Includes basic sprite object animations to make the first person perspective and movements more realistic
 - Map Parsing: Reads map data from a .cub file to generate the game environment
-- Error Management: Handles various error scenarios gracefully
+- Error Management: Handles various error scenarios gracefully 
 
 
 ### Preview
