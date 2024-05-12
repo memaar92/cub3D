@@ -3,7 +3,7 @@
 Inspired by Wolfenstein 3D, cub3D is a 42 school project that provides an opportunity to explore the fundamentals of raycasting, textures rendering, and basic game mechanics. 
 The goal is to create a small, simple, and visually appealing maze game. The project is written in C and utilizes 42's [MinilibX graphics library](https://github.com/42Paris/minilibx-linux).
 
-### Elements
+## Elements
 - Raycasting: Utilizes raycasting techniques to create a 3D perspective effect from a 2D map
 - Textured Walls and Floors: Implements textured walls and floors to enhance the visual appeal of the game
 - Basic Game Mechanics: Movement, collision detection, and simple game interactions (sliding alongside walls, use different items)
@@ -13,7 +13,7 @@ The goal is to create a small, simple, and visually appealing maze game. The pro
 - Error Management: Handles various error scenarios gracefully 
 
 
-### Preview
+## Preview
 
 
 
@@ -23,7 +23,7 @@ https://github.com/memaar92/cub3D/assets/65039082/196af48f-75c7-442b-a6cb-3af14f
 
 
 
-### How to compile and run the game
+## How to compile and run the game
 Clone the repository:
 ```
 git clone https://github.com/memaar92/cub3D.git
@@ -45,7 +45,7 @@ And then run the game by typing:
 ./cub3D ./maps/testmap.cub bonus
 ```
 
-### Keyboard/mouse control
+## Keyboard/mouse control
 
 | Key | Action |
 | --- | --- |
@@ -60,4 +60,7 @@ And then run the game by typing:
 | Move mouse | Rotate camera left/right|
 | Right mouse click | Zoom in/out |
 | Esc | Close the game |
+
+## License
+This project uses the [MIT License](https://github.com/memaar92/cub3D/blob/main/LICENSE)
 
